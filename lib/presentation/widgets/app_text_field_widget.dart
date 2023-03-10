@@ -87,7 +87,7 @@ class _AppTextFieldWidgetState extends State<AppTextFieldWidget> {
                               });
                             },
                             child: AppImageWidget(
-                              path: Assets..icCircleClose,
+                              asset: Assets.images.icCircleClose,
                               color: AppColors.grey,
                               width: AppDimens.space_16,
                               height: AppDimens.space_16,

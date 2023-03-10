@@ -3,10 +3,11 @@ const viString = {
   'noConnectionError': 'Lỗi kết nối',
 
   /// Main
-  'main.navigation.home': 'Trang chủ',
-  'main.navigation.finance': 'Tài chính',
-  'main.navigation.workflow': 'Công việc',
-  'main.navigation.account': 'Tài khoản',
+  'main.navigation.home': 'Home',
+  'main.navigation.category': 'Category',
+  'main.navigation.cart': 'Cart',
+  'main.navigation.malls': 'Malls',
+  'main.navigation.account': 'Account',
 
   //common
   "brandName": "magento-flutter-app",

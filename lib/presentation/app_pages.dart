@@ -7,7 +7,7 @@ import 'journey/splash/splash_screen.dart';
 
 List<GetPage> myPages = [
   GetPage(name: AppRoutes.splash, page: () => const SplashScreen(), binding: SplashBinding()),
-  GetPage(name: AppRoutes.main, page: () => const MainScreen(), bindings: [
+  GetPage(name: AppRoutes.main, page: () =>   MainScreen(), bindings: [
     MainBinding(),
     HomeBinding(),
   ]),

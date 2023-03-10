@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:magento_app/common/common_export.dart';
+import 'package:magento_app/gen/assets.gen.dart';
 import 'package:magento_app/presentation/theme/export.dart';
 
 import 'app_image_widget.dart';
@@ -46,7 +47,8 @@ class AppButton extends StatelessWidget {
               // ),
               enableFeedback: true,
               foregroundColor: MaterialStateColor.resolveWith(
-                (states) => isNullEmpty(onPressed) ? titleColor! : AppColors.white,
+                (states) =>
+                    isNullEmpty(onPressed) ? titleColor! : AppColors.white,
               ),
               overlayColor: MaterialStateColor.resolveWith(
                 (states) => AppColors.white.withOpacity(0.1),
@@ -78,14 +80,15 @@ class AppButton extends StatelessWidget {
                 ? const SizedBox.shrink()
                 : Text(title),
           ),
-
         ),
-        loaded == LoadedType.start ? SizedBox(
-          height: 60.h,
-          child: AppImageWidget(
-            path: ImageConstants.loading,
-          ),
-        ) : const SizedBox.shrink()
+        loaded == LoadedType.start
+            ? SizedBox(
+                height: 60.h,
+                child: AppImageWidget(
+                  asset: Assets.images.loading,
+                ),
+              )
+            : const SizedBox.shrink()
       ],
     );
   }

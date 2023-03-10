@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:magento_app/common/common_export.dart';
+import 'package:magento_app/gen/assets.gen.dart';
 
 import 'app_image_widget.dart';
 
@@ -22,7 +23,7 @@ class AppEmptyWidget extends StatelessWidget {
         children: [
           AppImageWidget(
             width: Get.width / 3,
-            path: ImageConstants.empty,
+            asset: Assets.images.empty,
           ),
           SizedBox(
             height: AppDimens.space_8,

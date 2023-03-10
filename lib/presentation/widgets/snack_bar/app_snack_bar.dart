@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:magento_app/common/common_export.dart';
+import 'package:magento_app/gen/assets.gen.dart';
 import 'package:magento_app/presentation/theme/export.dart';
 import 'package:magento_app/presentation/widgets/export.dart';
 
@@ -37,14 +38,14 @@ class AppSnackBarWidget extends StatelessWidget {
     required this.message,
   }) : super(key: key);
 
-  String get iconPath {
+  SvgGenImage get icon {
     switch (type) {
       case SnackBarType.done:
-        return ImageConstants.icDone;
+        return Assets.images.icDone;
       case SnackBarType.error:
-        return ImageConstants.icCircleClose;
+        return Assets.images.icCircleClose;
       default:
-        return ImageConstants.icWarning;
+        return Assets.images.icWarning;
     }
   }
 
@@ -75,23 +76,22 @@ class AppSnackBarWidget extends StatelessWidget {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: AppDimens.space_16),
       decoration: BoxDecoration(
-        borderRadius:
-            const BorderRadius.all(Radius.circular(AppDimens.radius_12)),
-        color: backgroundColor,
-        boxShadow: [
-          BoxShadow(
-            color: backgroundColor!,
-            blurRadius: 6,
-            offset: Offset(0,3),
-          )
-        ]
-      ),
+          borderRadius:
+              const BorderRadius.all(Radius.circular(AppDimens.radius_12)),
+          color: backgroundColor,
+          boxShadow: [
+            BoxShadow(
+              color: backgroundColor!,
+              blurRadius: 6,
+              offset: Offset(0, 3),
+            )
+          ]),
       padding: EdgeInsets.all(AppDimens.space_12),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           AppImageWidget(
-            path: iconPath,
+            asset: icon,
             width: AppDimens.space_20,
             height: AppDimens.space_20,
             color: textColor,

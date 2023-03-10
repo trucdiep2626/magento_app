@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:magento_app/common/common_export.dart';
+import 'package:magento_app/gen/assets.gen.dart';
 
 import 'app_image_widget.dart';
 
@@ -13,7 +13,7 @@ class AppLoadingWidget extends StatelessWidget {
     return SizedBox(
       width: width,
       child: AppImageWidget(
-        path: ImageConstants.loading,
+        asset: Assets.images.loading,
       ),
     );
   }

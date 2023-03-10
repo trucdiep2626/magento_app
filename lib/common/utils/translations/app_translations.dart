@@ -24,7 +24,8 @@ class TransactionConstants {
   static const unknownError = 'unknownError';
   static const noConnectionError = 'noConnectionError';
   static const mainNavigationHome = 'main.navigation.home';
-  static const mainNavigationFinance = 'main.navigation.finance';
-  static const mainNavigationWorkflow = 'main.navigation.workflow';
+  static const mainNavigationCategory = 'main.navigation.category';
+  static const mainNavigationMalls = 'main.navigation.malls';
+  static const mainNavigationCart = 'main.navigation.cart';
   static const mainNavigationAccount = 'main.navigation.account';
 }

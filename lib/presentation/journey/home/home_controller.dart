@@ -12,7 +12,7 @@ class HomeController extends GetxController with MixinController {
   @override
   Future<void> onReady() async {
     super.onReady();
-    Covid19SummaryGlobalModel globalSummary = await weatherUc.getCovid19SummaryGlobal();
-    logger('totalRecovered: ${globalSummary.totalRecovered}');
+    // Covid19SummaryGlobalModel globalSummary = await weatherUc.getCovid19SummaryGlobal();
+    // logger('totalRecovered: ${globalSummary.totalRecovered}');
   }
 }

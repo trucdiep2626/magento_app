@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:magento_app/common/common_export.dart';
+import 'package:magento_app/gen/assets.gen.dart';
 import 'package:magento_app/presentation/theme/export.dart';
 import 'package:magento_app/presentation/widgets/export.dart';
 
@@ -17,7 +18,7 @@ class SplashScreen extends GetView<SplashController> {
         children: [
           Center(
             child: AppImageWidget(
-              path: ImageConstants.pimiLogo,
+              asset: Assets.images.icWallet,
             ),
           ),
           Align(

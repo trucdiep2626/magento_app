@@ -6,8 +6,8 @@ class WeatherUseCase {
 
   WeatherUseCase({required this.weatherRepo});
   
-  Future<Covid19SummaryGlobalModel> getCovid19SummaryGlobal() async {
-
-  }
+  // Future<Covid19SummaryGlobalModel> getCovid19SummaryGlobal() async {
+  //
+  // }
 
 }
