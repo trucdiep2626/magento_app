@@ -40,7 +40,7 @@ class AppButton extends StatelessWidget {
             },
             style: ButtonStyle(
               textStyle: MaterialStateProperty.resolveWith(
-                (states) => ThemeText.button,
+                (states) => ThemeText.bodyMedium,
               ),
               // padding: MaterialStateProperty.resolveWith(
               //   (states) => widget.padding,

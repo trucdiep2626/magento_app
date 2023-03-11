@@ -28,4 +28,13 @@ class TransactionConstants {
   static const mainNavigationMalls = 'main.navigation.malls';
   static const mainNavigationCart = 'main.navigation.cart';
   static const mainNavigationAccount = 'main.navigation.account';
+
+
+  static const homeLookingfor ='home.lookingfor';
+  static const shirt ='shirt';
+  static const pants = 'pants';
+  static const coats ='coats';
+  static const bags ='bags';
+  static const shoes ='shoes';
+  static const accessories ='accessories';
 }

@@ -9,6 +9,15 @@ const viString = {
   'main.navigation.malls': 'Malls',
   'main.navigation.account': 'Account',
 
+  //home
+  'home.lookingfor':"I'm looking for",
+  'shirt':'Shirts',
+  'pants':'Pants',
+  'coats':'Coats',
+  'bags':'Bags',
+  'shoes':'Shoes',
+  'accessories':'Accessories',
+
   //common
   "brandName": "magento-flutter-app",
   "ok": "OK!",

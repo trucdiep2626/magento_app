@@ -57,7 +57,7 @@ class MainScreen extends GetView<MainController> {
               ),
               Text(
                 title!,
-                style: ThemeText.caption.copyWith(
+                style: ThemeText.bodyMedium.copyWith(
                   color: isSelected ? AppColors.primary : AppColors.grey,
                 ),
               )
@@ -106,7 +106,7 @@ class MainScreen extends GetView<MainController> {
   @override
   Widget build(BuildContext context) {
     final List<Widget> pages = [
-      const HomePage(),
+        HomePage(),
       Center(
         child: Text(StringConstants.finance.tr),
       ),

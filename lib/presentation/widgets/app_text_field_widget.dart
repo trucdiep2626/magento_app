@@ -53,7 +53,7 @@ class _AppTextFieldWidgetState extends State<AppTextFieldWidget> {
                   readOnly: widget.readOnly,
                   controller: widget.controller,
                   focusNode: widget.focusNode,
-                  style: ThemeText.bodyText2,
+                  style: ThemeText.bodyRegular,
                   keyboardType: widget.keyboardType,
                   inputFormatters: widget.inputFormatters,
                   onChanged: (value) {
