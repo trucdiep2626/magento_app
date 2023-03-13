@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:magento_app/common/common_export.dart';
 import 'package:magento_app/gen/assets.gen.dart';
+import 'package:magento_app/presentation/journey/home/components/hot_item_widget.dart';
 import 'package:magento_app/presentation/journey/home/components/product_type_item.dart';
 import 'package:magento_app/presentation/theme/export.dart';
 import 'package:magento_app/presentation/widgets/app_bar_widget.dart';
@@ -40,6 +41,7 @@ class HomePage extends GetView<HomeController> {
   Widget build(BuildContext context) {
     controller.context = context;
     return Scaffold(
+      backgroundColor: AppColors.grey50,
       appBar: AppBarWidget(
         showMenu: true,
         title: TransactionConstants.mainNavigationHome.tr,
@@ -49,20 +51,30 @@ class HomePage extends GetView<HomeController> {
   }
 
   Widget _buildBody() {
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-          _buildBannerWidget(),
-          const SizedBox(height: 40),
-          Text(
-            TransactionConstants.homeLookingfor.tr,
-            style: ThemeText.bodySemibold.s20,
-          ),
-          const SizedBox(height: 20),
-          _buildTypeOfProductList()
-        ],
-      ),
-    );
+    return Obx(() => controller.rxLoadedList.value == LoadedType.start
+        ? const CircularProgressIndicator()
+        : SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                _buildBannerWidget(),
+                const SizedBox(height: 40),
+                Text(
+                  TransactionConstants.homeLookingfor.tr,
+                  style: ThemeText.bodySemibold.s20,
+                ),
+                const SizedBox(height: 20),
+                _buildTypeOfProductList(),
+                const SizedBox(height: 40),
+                Text(
+                  TransactionConstants.hotItems.tr,
+                  style: ThemeText.bodySemibold.s20,
+                ),
+                const SizedBox(height: 20),
+                _buildHotItemsList(),
+              ],
+            ),
+          ));
   }
 
   Widget _buildBannerWidget() {
@@ -118,6 +130,19 @@ class HomePage extends GetView<HomeController> {
           title: productTypeTiles[5],
         ),
       ],
+    );
+  }
+
+  _buildHotItemsList() {
+    return SizedBox(
+      height: Get.width*0.87,
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        itemBuilder: (context, index) =>
+            HotItemWidget(productModel: controller.hotItems.value[index]),
+        itemCount: 10,
+        shrinkWrap: true,
+      ),
     );
   }
 }

@@ -1,18 +1,35 @@
 import 'package:get/get.dart';
 import 'package:magento_app/common/common_export.dart';
-import 'package:magento_app/domain/models/covid19_summary_response.dart';
-import 'package:magento_app/domain/usecases/weather_usecase.dart';
+import 'package:magento_app/domain/models/product_model.dart';
+import 'package:magento_app/domain/usecases/home_usecase.dart';
+import 'package:magento_app/domain/usecases/product_usecase.dart';
 import 'package:magento_app/presentation/controllers/mixin/export.dart';
 
 class HomeController extends GetxController with MixinController {
-  final WeatherUseCase weatherUc;
+  RxList<ProductModel> hotItems = <ProductModel>[].obs;
 
-  HomeController({required this.weatherUc});
+  Rx<LoadedType> rxLoadedList = LoadedType.start.obs;
+
+  final HomeUseCase homeUseCase;
+  final ProductUseCase productUseCase;
+
+  HomeController({required this.homeUseCase, required this.productUseCase});
+
+  Future<void> getHotItems() async {
+    rxLoadedList.value = LoadedType.start;
+    hotItems.clear();
+    final result = await productUseCase.getProductsWithAttribute();
+    //  if (result. == 200) {
+    hotItems.value = result.items ?? [];
+    // } else {
+    //   showTopSnackBarError(context!, 'Đã xảy ra lỗi. Vui lòng thử lại!');
+    // }
+    rxLoadedList.value = LoadedType.finish;
+  }
 
   @override
   Future<void> onReady() async {
     super.onReady();
-    // Covid19SummaryGlobalModel globalSummary = await weatherUc.getCovid19SummaryGlobal();
-    // logger('totalRecovered: ${globalSummary.totalRecovered}');
+    await getHotItems();
   }
 }

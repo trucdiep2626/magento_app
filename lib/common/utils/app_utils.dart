@@ -23,7 +23,8 @@ String formatCurrency(dynamic number) {
   } else {
     numberConvert = number;
   }
-  return NumberFormat("#,###", AppConfig.defaultLocate).format(numberConvert ?? 0);
+  return NumberFormat("#,###", AppConfig.defaultLocate)
+      .format(numberConvert ?? 0);
 }
 
 String formatPhoneNumber(String phoneNumber) {
@@ -32,7 +33,11 @@ String formatPhoneNumber(String phoneNumber) {
   filterText = filterText.replaceAll(' ', '');
   if (filterText.length < 2) return filterText;
   final firstChars = filterText.substring(0, 2);
-  if (firstChars == '09' || firstChars == '08' || firstChars == '07' || firstChars == '03' || firstChars == '05') {
+  if (firstChars == '09' ||
+      firstChars == '08' ||
+      firstChars == '07' ||
+      firstChars == '03' ||
+      firstChars == '05') {
     if (filterText.length > 3) {
       filterText = '${filterText.substring(0, 3)} ${filterText.substring(3)}';
     }
@@ -47,7 +52,8 @@ bool isNullEmpty(Object? o) => o == null || "" == o || o == "null";
 
 bool isNullEmptyOrFalse(Object? o) => o == null || false == o || "" == o;
 
-bool isNullEmptyFalseOrZero(Object? o) => o == null || false == o || 0 == o || "" == o || "0" == o;
+bool isNullEmptyFalseOrZero(Object? o) =>
+    o == null || false == o || 0 == o || "" == o || "0" == o;
 
 bool isNullEmptyList<T>(List<T>? t) => t == null || [] == t || t.isEmpty;
 
@@ -64,4 +70,38 @@ bool isNumeric(dynamic s) {
 Future<bool> checkPermission(Permission permission) async {
   final status = await permission.request();
   return status.isGranted;
+}
+
+const pageSize = 10;
+const searchKeyPageSize = 'searchCriteria[pageSize]';
+const searchKeyCurrentPage = 'searchCriteria[currentPage]';
+
+const searchKeyFieldName = 'searchCriteria[filterGroups][0][filters][0][field]';
+const searchKeyFieldValue =
+    'searchCriteria[filterGroups][0][filters][0][value]';
+
+String getSortFieldName(String sortOrder) {
+  switch (sortOrder) {
+    case '0':
+    case '1':
+      return 'name';
+    case '2':
+    case '3':
+      return 'price';
+    default:
+      return '';
+  }
+}
+
+String getSortDirection(String sortOrder) {
+  switch (sortOrder) {
+    case '0':
+    case '2':
+      return 'ASC';
+    case '1':
+    case '3':
+      return 'DESC';
+    default:
+      return '';
+  }
 }

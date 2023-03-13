@@ -10,13 +10,14 @@ const enString = {
   'main.navigation.account': 'Account',
 
   //home
-  'home.lookingfor':"I'm looking for",
-  'shirt':'Shirts',
-  'pants':'Pants',
-  'coats':'Coats',
-  'bags':'Bags',
-  'shoes':'Shoes',
-  'accessories':'Accessories',
+  'home.lookingfor': "I'm looking for",
+  'shirt': 'Shirts',
+  'pants': 'Pants',
+  'coats': 'Coats',
+  'bags': 'Bags',
+  'shoes': 'Shoes',
+  'accessories': 'Accessories',
+  'hotItems': "Hot Items",
 
   //common
   "brandName": "magento-flutter-app",

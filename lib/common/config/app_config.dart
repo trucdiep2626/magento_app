@@ -1,16 +1,16 @@
+import 'dart:core';
+
 class AppConfig {
   /// Fonts
   static String googleSansFonts = 'GoogleSF';
   static String dancingScript = 'DancingScript';
   static String pacifico = 'Pacifico';
 
-  static String defaultLocate = 'vi_VN';
+  static String defaultLocate = 'en_US';
+  static String baseCurrencyCode = "USD";
+  static String defaultDisplayCurrencyCode = "USD";
+  static String timezone = "America/Chicago";
+  static String weightUnit = "lbs";
 
-  static String firebaseUid = '';
-
-  static const String database = 'pimi_db';
-  static const String financeCollection = 'finance';
-  static const String workflowCollection = 'workflow';
-  static const String walletsCollection = 'wallets';
-  static const String transactionCollection = 'transactions';
+  static const int cmsHomeBlock = 14;
 }

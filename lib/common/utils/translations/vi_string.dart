@@ -10,13 +10,14 @@ const viString = {
   'main.navigation.account': 'Account',
 
   //home
-  'home.lookingfor':"I'm looking for",
-  'shirt':'Shirts',
-  'pants':'Pants',
-  'coats':'Coats',
-  'bags':'Bags',
-  'shoes':'Shoes',
-  'accessories':'Accessories',
+  'home.lookingfor': "I'm looking for",
+  'shirt': 'Shirts',
+  'pants': 'Pants',
+  'coats': 'Coats',
+  'bags': 'Bags',
+  'shoes': 'Shoes',
+  'accessories': 'Accessories',
+  'hotItems': "Hot Items",
 
   //common
   "brandName": "magento-flutter-app",
@@ -96,7 +97,7 @@ const viString = {
   "resetButton": "RESET MY PASSWORD",
   "passwordRecovery": "PASSWORD RECOVERY",
   "passwordRecoveryInstructions":
-  "Please enter your email address below to receive a password reset link",
+      "Please enter your email address below to receive a password reset link",
 
   //  signup
   "signup.title": "Sign Up",
@@ -110,7 +111,7 @@ const viString = {
   //cartListItem
   "removeItemDialogTitle": "You sure?",
   "removeItemDialogMessage":
-  "Just double-checking you wanted to remove the item",
+      "Just double-checking you wanted to remove the item",
 
   //"product"
   "addToCartButton": "Add to Cart",
@@ -126,7 +127,7 @@ const viString = {
   "checkout.summary": "Summary",
   "checkout.noPaymentMethod": "Payment methods not found",
   "checkout.noShippingMethod":
-  "Shipping methods not found for selected address",
+      "Shipping methods not found for selected address",
   "checkout.placeOrderButton": "Place Order",
   "checkout.orderSuccessMessage": "Order placed successfully",
   "checkout.youWillBeCharged": "You will be charged",
