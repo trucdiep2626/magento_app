@@ -54,6 +54,10 @@ const enString = {
   "shipping": "Shipping",
   "sort": "Sort",
   "filter": "Filter",
+  "men": "Men",
+  "women": "Women",
+  "gear": "Gear",
+  "sale": "Sale",
 
   //"sortOption"
   "aToZ": "Name: a to z",

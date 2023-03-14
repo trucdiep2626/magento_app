@@ -43,4 +43,9 @@ class TransactionConstants {
   static const hotItems = 'hotItems';
 
   static const addToCartButton = 'addToCartButton';
+
+  static const men = 'men';
+  static const women = 'women';
+  static const sale = 'sale';
+  static const gear = 'gear';
 }

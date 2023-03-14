@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:magento_app/common/common_export.dart';
 import 'package:magento_app/gen/assets.gen.dart';
+import 'package:magento_app/presentation/journey/home/components/banner_item.dart';
 import 'package:magento_app/presentation/journey/home/components/hot_item_widget.dart';
 import 'package:magento_app/presentation/journey/home/components/product_type_item.dart';
 import 'package:magento_app/presentation/theme/export.dart';
@@ -35,6 +36,20 @@ class HomePage extends GetView<HomeController> {
     Assets.images.icShoes,
     Assets.images.icBag,
     Assets.images.icNecklace,
+  ];
+
+  final bannerImages = [
+    '/m/h/mh01-black_main_1.jpg',
+    '/w/t/wt04-blue_main_1.jpg',
+    '/u/g/ug06-lb-0.jpg',
+    '/w/s/ws05-black_back_1.jpg',
+  ];
+
+  final bannerTitles = [
+    TransactionConstants.men.tr,
+    TransactionConstants.women.tr,
+    TransactionConstants.gear.tr,
+    TransactionConstants.sale.tr,
   ];
 
   @override
@@ -72,6 +87,8 @@ class HomePage extends GetView<HomeController> {
                 ),
                 const SizedBox(height: 20),
                 _buildHotItemsList(),
+                const SizedBox(height: 40),
+                _buildBannersList()
               ],
             ),
           ));
@@ -81,13 +98,10 @@ class HomePage extends GetView<HomeController> {
     return CarouselSlider(
       items: banners
           .map(
-            (item) => Container(
-              color: Colors.amber,
-              child: AppImageWidget(
-                asset: item,
-                fit: BoxFit.cover,
-                width: Get.width,
-              ),
+            (item) => AppImageWidget(
+              asset: item,
+              fit: BoxFit.cover,
+              width: Get.width,
             ),
           )
           .toList(),
@@ -135,7 +149,7 @@ class HomePage extends GetView<HomeController> {
 
   _buildHotItemsList() {
     return SizedBox(
-      height: Get.width*0.87,
+      height: Get.width,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         itemBuilder: (context, index) =>
@@ -143,6 +157,18 @@ class HomePage extends GetView<HomeController> {
         itemCount: 10,
         shrinkWrap: true,
       ),
+    );
+  }
+
+  _buildBannersList() {
+    return ListView.builder(
+      itemBuilder: (context, index) => BannerItem(
+        title: bannerTitles[index],
+        image: bannerImages[index],
+      ),
+      itemCount: 4,
+      physics: const NeverScrollableScrollPhysics(),
+      shrinkWrap: true,
     );
   }
 }

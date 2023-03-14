@@ -24,7 +24,7 @@ class HotItemWidget extends StatelessWidget {
         children: [
           AppImageWidget(
             url:
-                '${NetworkConfig.baseMediaUrl}${productModel.mediaGalleryEntries?.first.file ?? ''}',
+                '${NetworkConfig.baseProductMediaUrl}${productModel.mediaGalleryEntries?.first.file ?? ''}',
           ),
           const SizedBox(height: 16),
           Text(
