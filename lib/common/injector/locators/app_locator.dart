@@ -2,11 +2,14 @@ import 'package:get_it/get_it.dart';
 import 'package:magento_app/common/config/network/dio_config.dart';
 import 'package:magento_app/common/config/network/network_info.dart';
 import 'package:magento_app/data/local_repository.dart';
+import 'package:magento_app/data/remote/category_repository.dart';
 import 'package:magento_app/data/remote/home_repository.dart';
 import 'package:magento_app/data/remote/product_repository.dart';
+import 'package:magento_app/domain/usecases/category_usecase.dart';
 import 'package:magento_app/domain/usecases/home_usecase.dart';
 import 'package:magento_app/domain/usecases/product_usecase.dart';
 import 'package:magento_app/presentation/controllers/app_controller.dart';
+import 'package:magento_app/presentation/journey/category/category_controller.dart';
 import 'package:magento_app/presentation/journey/home/home_controller.dart';
 import 'package:magento_app/presentation/journey/main/main_controller.dart';
 import 'package:magento_app/presentation/journey/splash/splash_controller.dart';
@@ -24,17 +27,26 @@ void configLocator() {
       productUseCase: getIt<ProductUseCase>(),
     ),
   );
+  getIt.registerFactory<CategoryController>(
+    () => CategoryController(
+      categoryUseCase: getIt<CategoryUseCase>(),
+      productUseCase: getIt<ProductUseCase>(),
+    ),
+  );
 
   /// UseCases
   getIt.registerFactory<HomeUseCase>(
       () => HomeUseCase(homeRepo: getIt<HomeRepository>()));
   getIt.registerFactory<ProductUseCase>(
       () => ProductUseCase(productRepo: getIt<ProductRepository>()));
+  getIt.registerFactory<CategoryUseCase>(
+      () => CategoryUseCase(categoryRepo: getIt<CategoryRepository>()));
 
   /// Repositories
   getIt.registerFactory<HomeRepository>(() => HomeRepository(dio));
   getIt.registerFactory<ProductRepository>(() => ProductRepository(dio));
   getIt.registerFactory<LocalRepository>(() => LocalRepository());
+  getIt.registerFactory<CategoryRepository>(() => CategoryRepository(dio));
 
   /// Network
   getIt.registerFactory<NetworkInfo>(() => NetworkInfoImpl());

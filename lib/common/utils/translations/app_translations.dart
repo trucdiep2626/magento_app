@@ -48,4 +48,6 @@ class TransactionConstants {
   static const women = 'women';
   static const sale = 'sale';
   static const gear = 'gear';
+  static const viewAll = 'viewAll';
+  static const subCategories = 'subCategories';
 }

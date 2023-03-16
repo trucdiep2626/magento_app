@@ -1,5 +1,5 @@
 const viString = {
-  'unknownError': 'Lỗi không xác định',
+  'unknownError': 'Đã có lỗi xảy ra.',
   'noConnectionError': 'Lỗi kết nối',
 
   /// Main
@@ -58,6 +58,8 @@ const viString = {
   "women": "Women",
   "gear": "Gear",
   "sale": "Sale",
+  'viewAll':'View all',
+  'subCategories': 'Sub Categories',
 
   //"sortOption"
   "aToZ": "Name: a to z",

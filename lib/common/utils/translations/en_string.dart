@@ -1,5 +1,5 @@
 const enString = {
-  'unknownError': 'Unknown error',
+  'unknownError': 'Something went wrong',
   'noConnectionError': 'No connection error',
 
   /// Main
@@ -58,6 +58,8 @@ const enString = {
   "women": "Women",
   "gear": "Gear",
   "sale": "Sale",
+  'viewAll':'View all',
+  'subCategories': 'Sub Categories',
 
   //"sortOption"
   "aToZ": "Name: a to z",

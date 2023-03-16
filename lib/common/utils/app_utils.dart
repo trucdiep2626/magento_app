@@ -73,12 +73,16 @@ Future<bool> checkPermission(Permission permission) async {
 }
 
 const pageSize = 10;
-const searchKeyPageSize = 'searchCriteria[pageSize]';
-const searchKeyCurrentPage = 'searchCriteria[currentPage]';
+const searchKeyPageSize = 'searchCriteria[page_size]';
+const searchKeyCurrentPage = 'searchCriteria[current_page]';
 
-const searchKeyFieldName = 'searchCriteria[filterGroups][0][filters][0][field]';
+const searchKeyFieldName =
+    'searchCriteria[filter_groups][0][filters][0][field]';
 const searchKeyFieldValue =
-    'searchCriteria[filterGroups][0][filters][0][value]';
+    'searchCriteria[filter_groups][0][filters][0][value]';
+const searchKeyFields = 'fields';
+const searchKeyConditionType =
+    'searchCriteria[filter_groups][0][filters][0][condition_type]';
 
 String getSortFieldName(String sortOrder) {
   switch (sortOrder) {

@@ -4,6 +4,7 @@ import 'package:magento_app/domain/models/product_model.dart';
 import 'package:magento_app/domain/usecases/home_usecase.dart';
 import 'package:magento_app/domain/usecases/product_usecase.dart';
 import 'package:magento_app/presentation/controllers/mixin/export.dart';
+import 'package:magento_app/presentation/widgets/snack_bar/app_snack_bar.dart';
 
 class HomeController extends GetxController with MixinController {
   RxList<ProductModel> hotItems = <ProductModel>[].obs;
@@ -19,11 +20,11 @@ class HomeController extends GetxController with MixinController {
     rxLoadedList.value = LoadedType.start;
     hotItems.clear();
     final result = await productUseCase.getProductsWithAttribute();
-    //  if (result. == 200) {
-    hotItems.value = result.items ?? [];
-    // } else {
-    //   showTopSnackBarError(context!, 'Đã xảy ra lỗi. Vui lòng thử lại!');
-    // }
+    if (result != null) {
+      hotItems.value = result.items ?? [];
+    } else {
+      showTopSnackBarError(context, TransactionConstants.unknownError);
+    }
     rxLoadedList.value = LoadedType.finish;
   }
 

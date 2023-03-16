@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:magento_app/gen/assets.gen.dart';
+import 'package:magento_app/presentation/theme/export.dart';
 
 import 'app_image_widget.dart';
 
@@ -12,8 +13,10 @@ class AppLoadingWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: width,
-      child: AppImageWidget(
-        asset: Assets.images.loading,
+      child: Center(
+        child: CircularProgressIndicator(
+          color: AppColors.grey600,
+        ),
       ),
     );
   }

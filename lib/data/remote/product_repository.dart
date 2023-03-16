@@ -15,17 +15,60 @@ class ProductRepository {
 
   ProductRepository(this._dio);
 
-  Future<ProductsResponseModel> getProductsWithAttribute(
-      {int currentPage = 1}) async {
-    final result = await _dio.request(
-        '${NetworkConfig.baseUrl}${ApiEndpoints.getProducts}?${searchKeyCurrentPage}=$currentPage&$searchKeyPageSize=$pageSize',
-        options: Options(
-          method: 'GET',
-          headers: <String, dynamic>{r'Authorization': NetworkConfig.token},
-        ));
-    final ProductsResponseModel response =
-        ProductsResponseModel.fromJson(result.data);
-    return response;
+  Future<ProductsResponseModel?> getProductsWithAttribute(
+      {int pageSize = 10,
+      int currentPage = 1,
+      String? conditionType,
+      String? attributeCode,
+      String? attributeValue,
+      String? fields}) async {
+    String searchKey = getSearchKey(
+      pageSize: pageSize,
+      currentPage: currentPage,
+      conditionType: conditionType,
+      attributeCode: attributeCode,
+      attributeValue: attributeValue,
+      fields: fields,
+    );
+    try {
+      final result = await _dio.request(
+          '${NetworkConfig.baseUrl}${ApiEndpoints.getProducts}?$searchKey',
+          options: Options(
+            method: 'GET',
+            headers: <String, dynamic>{r'Authorization': NetworkConfig.token},
+          ));
+      final ProductsResponseModel response =
+          ProductsResponseModel.fromJson(result.data);
+      return response;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  String getSearchKey({
+    int pageSize = 10,
+    int currentPage = 1,
+    String? conditionType,
+    String? attributeCode,
+    String? attributeValue,
+    String? fields,
+  }) {
+    String searchKey =
+        '$searchKeyCurrentPage=$currentPage&$searchKeyPageSize=$pageSize';
+
+    if (attributeCode != null)
+      searchKey += '&${searchKeyFieldName}=$attributeCode';
+
+    if (attributeValue != null)
+      searchKey += '&${searchKeyFieldValue}=$attributeValue';
+
+    if (conditionType != null)
+      searchKey += '&${searchKeyConditionType}=$conditionType';
+
+    if (fields != null) searchKey += '&${searchKeyFields}=$fields';
+
+    debugPrint('-----------$searchKey');
+    return searchKey;
   }
 
   // getCategoryProducts: (id, offset = 0, sortOrder, pageSize = PAGE_SIZE) =>

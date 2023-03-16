@@ -67,7 +67,7 @@ class HomePage extends GetView<HomeController> {
 
   Widget _buildBody() {
     return Obx(() => controller.rxLoadedList.value == LoadedType.start
-        ? const CircularProgressIndicator()
+        ? AppLoadingWidget()
         : SingleChildScrollView(
             child: Column(
               mainAxisSize: MainAxisSize.min,
@@ -148,16 +148,20 @@ class HomePage extends GetView<HomeController> {
   }
 
   _buildHotItemsList() {
-    return SizedBox(
-      height: Get.width,
-      child: ListView.builder(
-        scrollDirection: Axis.horizontal,
-        itemBuilder: (context, index) =>
-            HotItemWidget(productModel: controller.hotItems.value[index]),
-        itemCount: 10,
-        shrinkWrap: true,
-      ),
-    );
+    return controller.hotItems.value.length == 0
+        ? SizedBox.shrink()
+        : SizedBox(
+            height: Get.width,
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemBuilder: (context, index) =>
+                  HotItemWidget(productModel: controller.hotItems.value[index]),
+              itemCount: controller.hotItems.value.length >= 10
+                  ? 10
+                  : controller.hotItems.value.length,
+              shrinkWrap: true,
+            ),
+          );
   }
 
   _buildBannersList() {

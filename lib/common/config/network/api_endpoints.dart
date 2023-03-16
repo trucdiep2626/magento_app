@@ -6,4 +6,5 @@ class ApiEndpoints {
   static String cmsHome = '/rest/default/V1/cmsBlock/${AppConfig.cmsHomeBlock}';
   static String getCategoriesList = '/rest/default/V1/categories/list';
   static String getProducts = '/rest/default/V1/products';
+  static String getCategoriesTree = '/rest/default/V1/categories';
 }

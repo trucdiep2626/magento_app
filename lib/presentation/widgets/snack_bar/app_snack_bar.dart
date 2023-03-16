@@ -28,6 +28,10 @@ void showTopSnackBar(BuildContext context,
       });
 }
 
+showTopSnackBarError(BuildContext context, String message) {
+  showTopSnackBar(context, message: message);
+}
+
 class AppSnackBarWidget extends StatelessWidget {
   final SnackBarType type;
   final String message;
