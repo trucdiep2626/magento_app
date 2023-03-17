@@ -25,6 +25,7 @@ void configLocator() {
     () => HomeController(
       homeUseCase: getIt<HomeUseCase>(),
       productUseCase: getIt<ProductUseCase>(),
+      categoryUseCase: getIt<CategoryUseCase>(),
     ),
   );
   getIt.registerFactory<CategoryController>(

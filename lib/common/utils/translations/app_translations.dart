@@ -50,4 +50,9 @@ class TransactionConstants {
   static const gear = 'gear';
   static const viewAll = 'viewAll';
   static const subCategories = 'subCategories';
+  static const mainMenu = 'mainMenu';
+
+  static const accountTitle = 'account.title';
+
+  static const loginTitle = 'login.title';
 }

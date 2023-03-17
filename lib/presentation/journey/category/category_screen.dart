@@ -142,14 +142,14 @@ class CategoryScreen extends GetView<CategoryController> {
       decoration: BoxDecoration(
         color: AppColors.white,
       ),
-      padding: EdgeInsets.all(16.sp),
+  //    padding: EdgeInsets.all(16.sp),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           AppImageWidget(
             border: Border.all(color: AppColors.grey200),
             borderRadius: BorderRadius.circular(10),
-            url: '${NetworkConfig.baseMediaUrl}$image',
+            url: '${NetworkConfig.baseProductMediaUrl}$image',
             //  fit: ,
           ),
           SizedBox(

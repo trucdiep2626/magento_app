@@ -93,11 +93,12 @@ class CategoryController extends GetxController with MixinController {
           final product = await getProductDetail(result[i].sku);
           if (product != null) {
             products.add(product);
+            debugPrint('----------------123---$products');
           }
         }
 
-        productsOfCategory.addAll(products);
-
+        productsOfCategory.value.addAll(products);
+        debugPrint('----------------453---$productsOfCategory');
         // for (var category in categories.value) {
         //   final image = await getCategoryImage(category.id);
         //   categoryImages.value.add(image ?? '/wysiwyg/sale/sale-mens.jpg');
@@ -127,7 +128,8 @@ class CategoryController extends GetxController with MixinController {
         attributeValue: productSku,
       );
       if (result != null) {
-        result.items?.first;
+     //   debugPrint('----------------123---$products');
+        return result.items?.first;
       } else {
         showTopSnackBarError(context, TransactionConstants.unknownError.tr);
         return null;

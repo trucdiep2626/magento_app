@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:magento_app/common/common_export.dart';
 import 'package:magento_app/gen/assets.gen.dart';
 import 'package:magento_app/presentation/journey/home/components/banner_item.dart';
+import 'package:magento_app/presentation/journey/home/components/draw_widget.dart';
 import 'package:magento_app/presentation/journey/home/components/hot_item_widget.dart';
 import 'package:magento_app/presentation/journey/home/components/product_type_item.dart';
 import 'package:magento_app/presentation/theme/export.dart';
@@ -56,11 +57,17 @@ class HomePage extends GetView<HomeController> {
   Widget build(BuildContext context) {
     controller.context = context;
     return Scaffold(
+      key: controller.scaffoldKey,
       backgroundColor: AppColors.grey50,
       appBar: AppBarWidget(
         showMenu: true,
+        onPressed: () =>
+            (controller.scaffoldKey.currentState?.isDrawerOpen ?? false)
+                ? controller.closeDrawer()
+                : controller.openDrawer(),
         title: TransactionConstants.mainNavigationHome.tr,
       ),
+      drawer: const DrawerWidget(),
       body: _buildBody(),
     );
   }

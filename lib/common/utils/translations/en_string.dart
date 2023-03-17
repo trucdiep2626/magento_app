@@ -60,6 +60,7 @@ const enString = {
   "sale": "Sale",
   'viewAll':'View all',
   'subCategories': 'Sub Categories',
+  "mainMenu": "Main Menu",
 
   //"sortOption"
   "aToZ": "Name: a to z",

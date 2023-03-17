@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:magento_app/common/common_export.dart';
 import 'package:magento_app/gen/assets.gen.dart';
 import 'package:magento_app/presentation/theme/export.dart';
+import 'package:magento_app/presentation/widgets/export.dart';
 
 import 'app_image_widget.dart';
 
@@ -84,9 +85,7 @@ class AppButton extends StatelessWidget {
         loaded == LoadedType.start
             ? SizedBox(
                 height: 60.h,
-                child: AppImageWidget(
-                  asset: Assets.images.loading,
-                ),
+                child: AppLoadingWidget(),
               )
             : const SizedBox.shrink()
       ],
