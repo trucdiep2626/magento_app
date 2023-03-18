@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:magento_app/common/common_export.dart';
@@ -6,7 +5,7 @@ import 'package:magento_app/gen/assets.gen.dart';
 import 'package:magento_app/presentation/theme/export.dart';
 import 'package:magento_app/presentation/widgets/export.dart';
 
-class AppBarWidget extends GetView implements PreferredSizeWidget{
+class AppBarWidget extends GetView implements PreferredSizeWidget {
   const AppBarWidget({
     Key? key,
 //    this.leading,
@@ -36,26 +35,27 @@ class AppBarWidget extends GetView implements PreferredSizeWidget{
   // final TextStyle? titleStyle;
   final Function()? onPressed;
   final List<Widget>? actions;
+
   //final double? titleSize;
 
   @override
   Widget build(BuildContext context) {
-    final hasLeading= showBackButton || showMenu;
+    final hasLeading = showBackButton || showMenu;
 
-    return    AppBar(
+    return AppBar(
       //   flexibleSpace: flexibleSpace ?? const SizedBox.shrink(),
-      automaticallyImplyLeading:hasLeading ,
+      automaticallyImplyLeading: hasLeading,
       leading: _getLeadingIcon(onPressed: onPressed),
-      leadingWidth: !hasLeading?0:40.sp,
+      leadingWidth: !hasLeading ? 0 : 40.sp,
       centerTitle: false,
       title: Text(
         title,
         overflow: TextOverflow.ellipsis,
-        style: ThemeText.bodySemibold,
+        style: ThemeText.bodySemibold.s20,
       ),
       actions: actions,
-      elevation:  0,
-      backgroundColor:AppColors.white,
+      elevation: 0,
+      backgroundColor: AppColors.white,
       // ),
     );
   }
@@ -64,24 +64,25 @@ class AppBarWidget extends GetView implements PreferredSizeWidget{
   // TODO: implement preferredSize
   Size get preferredSize => Size.fromHeight(60.h);
 
-
-
-Widget _getLeadingIcon({Function()? onPressed})
-{
-  if(showMenu){
-  return  AppTouchable(onPressed: onPressed, child: AppImageWidget(
-      asset: Assets.images.icMenu,
-    ),);
-  }
-  if(showBackButton)
-    {
-      return AppTouchable(onPressed: onPressed, child: AppImageWidget(
-        asset: Assets.images.icArrowLeft,
-      ),);
+  Widget _getLeadingIcon({Function()? onPressed}) {
+    if (showMenu) {
+      return AppTouchable(
+        onPressed: onPressed,
+        child: AppImageWidget(
+          asset: Assets.images.icMenu,
+        ),
+      );
+    }
+    if (showBackButton) {
+      return AppTouchable(
+        onPressed: onPressed,
+        child: AppImageWidget(
+          asset: Assets.images.icArrowLeft,
+          size: 18.sp,
+        ),
+      );
     }
 
-  return const SizedBox.shrink();
-
-}
-
+    return const SizedBox.shrink();
+  }
 }

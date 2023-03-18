@@ -5,8 +5,8 @@ import 'en_string.dart';
 import 'vi_string.dart';
 
 const Iterable<Locale> appSupportedLocales = [
+  Locale('en', 'US'),
   Locale('vi', 'VN'),
-  Locale('en', 'US')
 ];
 
 class AppTranslations extends Translations {
@@ -55,4 +55,14 @@ class TransactionConstants {
   static const accountTitle = 'account.title';
 
   static const loginTitle = 'login.title';
+
+  static const email = 'email';
+  static const password = 'password';
+
+  static const loginButton = 'loginButton';
+  static const signupButton = 'signupButton';
+  static const forgetPassword = 'forgetPassword';
+  static const loginToYourAccount = "loginToYourAccount";
+  static const loginError = 'loginError';
+  static const pressBackAgain = 'pressBackAgain';
 }

@@ -64,7 +64,7 @@ class AppButton extends StatelessWidget {
                     return AppColors.grey;
                   } else {
                     if (loaded == LoadedType.start) {
-                      return backgroundColor!.withOpacity(0.7);
+                      return backgroundColor!;
                     } else {
                       return backgroundColor!;
                     }
@@ -85,7 +85,11 @@ class AppButton extends StatelessWidget {
         loaded == LoadedType.start
             ? SizedBox(
                 height: 60.h,
-                child: AppLoadingWidget(),
+                child: AppImageWidget(
+                  asset: Assets.images.loadingButton,
+                  //   color: AppColors.white,
+                  size: 20.sp,
+                ),
               )
             : const SizedBox.shrink()
       ],

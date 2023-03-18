@@ -58,9 +58,10 @@ const enString = {
   "women": "Women",
   "gear": "Gear",
   "sale": "Sale",
-  'viewAll':'View all',
+  'viewAll': 'View all',
   'subCategories': 'Sub Categories',
   "mainMenu": "Main Menu",
+  "pressBackAgain": "Press back again to exit app",
 
   //"sortOption"
   "aToZ": "Name: a to z",
@@ -87,6 +88,9 @@ const enString = {
   "loginButton": "LOG IN",
   "signupButton": "SIGN UP",
   "forgetPassword": "Forget password?",
+  "loginToYourAccount": "Login To Your Account",
+  "loginError":
+      'The account sign-in was incorrect or your account is disabled temporarily. Please wait and try again later.',
 
   //orderListItem
   "created": "Created",

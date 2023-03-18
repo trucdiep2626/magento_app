@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:magento_app/common/common_export.dart';
 import 'package:magento_app/gen/assets.gen.dart';
 import 'package:magento_app/presentation/journey/home/home_controller.dart';
+import 'package:magento_app/presentation/journey/main/main_controller.dart';
 import 'package:magento_app/presentation/theme/export.dart';
 import 'package:magento_app/presentation/widgets/export.dart';
 
@@ -11,6 +12,7 @@ class DrawerWidget extends GetView<HomeController> {
 
   @override
   Widget build(BuildContext context) {
+    final mainController = Get.find<MainController>();
     return Obx(() => controller.rxLoadedList.value == LoadedType.start
         ? const SizedBox.shrink()
         : Drawer(
@@ -72,13 +74,19 @@ class DrawerWidget extends GetView<HomeController> {
                         TransactionConstants.accountTitle.tr,
                         style: ThemeText.bodySemibold,
                       ),
-                      trailing: AppTouchable(
-                        onPressed: () {},
-                        child: Text(
-                          TransactionConstants.loginTitle.tr,
-                          style: ThemeText.bodySemibold.blue600Color,
-                        ),
-                      ),
+                      trailing: Obx(() => AppTouchable(
+                            onPressed: mainController.isLogin.value
+                                ? () {}
+                                : () {
+                                    Get.toNamed(AppRoutes.login);
+                                  },
+                            child: Text(
+                              mainController.isLogin.value
+                                  ? ''
+                                  : TransactionConstants.loginTitle.tr,
+                              style: ThemeText.bodySemibold.blue600Color,
+                            ),
+                          )),
                     ),
                   ),
                 )

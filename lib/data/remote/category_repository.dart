@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:flutter/widgets.dart';
 import 'package:magento_app/common/config/network/api_endpoints.dart';
 import 'package:magento_app/common/config/network/network_config.dart';
 import 'package:magento_app/domain/models/category_tree_model.dart';
@@ -16,6 +15,7 @@ class CategoryRepository {
           '${NetworkConfig.baseUrl}${ApiEndpoints.getCategoriesTree}',
           options: Options(
             method: 'GET',
+            headers: <String, dynamic>{r'Authorization': NetworkConfig.token},
           ));
       final CategoryTreeModel response =
           CategoryTreeModel.fromJson(result.data);
@@ -34,11 +34,11 @@ class CategoryRepository {
           '${NetworkConfig.baseUrl}${ApiEndpoints.getCategoriesTree}/$categoryId/products',
           options: Options(
             method: 'GET',
+            headers: <String, dynamic>{r'Authorization': NetworkConfig.token},
           ));
 
       if (result.data is List) {
         for (var element in (result.data as List)) {
-          debugPrint('------------$element');
           final product = GetProductsOfCategoryResponseModel.fromJson(element);
           products.add(product);
         }

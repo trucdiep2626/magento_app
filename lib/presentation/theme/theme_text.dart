@@ -76,10 +76,10 @@ class ThemeText {
   );
 
   static final TextStyle errorText = TextStyle(
-    fontWeight: FontWeight.w500,
-    fontSize: 10.sp,
-    fontFamily: FontFamily.mr,
-  );
+      fontWeight: FontWeight.w500,
+      fontSize: 10.sp,
+      fontFamily: FontFamily.mr,
+      color: AppColors.errorColor);
 }
 
 extension CommonFontWeight on TextStyle {

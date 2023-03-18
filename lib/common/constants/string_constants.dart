@@ -2,6 +2,8 @@ class StringConstants {
   /// Argument Key
   static const String argumentPreviousRoute = 'argument.previousRoute';
   static const String argumentWalletModel = 'argument.walletModel';
+  static const String keyEmail = 'email';
+  static const String keyPassword = 'password';
 
   /// Text
   static const String login = 'login';
@@ -65,12 +67,18 @@ class StringConstants {
   static const String save = 'save';
 
   /// Finance
-  static const String financialWalletEmptyWalletMsg = 'financial.wallet.emptyWallet.msg';
+  static const String financialWalletEmptyWalletMsg =
+      'financial.wallet.emptyWallet.msg';
   static const String financialWalletAddWallet = 'financial.wallet.addWallet';
   static const String financialWalletWalletName = 'financial.wallet.walletName';
-  static const String financialWalletAddWalletMsgSuccess = 'financial.wallet.addWallet.msg.success';
-  static const String financialWalletAddWalletMsgFailed = 'financial.wallet.addWallet.msg.failed';
-  static const String financialWalletMsgDeductedMoneyFailed = 'financial.wallet.msg.deductedMoneyFailed';
-  static const String financialTransactionAddTransactionMsgFailed = 'financial.transaction.addTransaction.msg.failed';
-  static const String financialTransactionAddTransactionMsgSuccess = 'financial.transaction.addTransaction.msg.success';
+  static const String financialWalletAddWalletMsgSuccess =
+      'financial.wallet.addWallet.msg.success';
+  static const String financialWalletAddWalletMsgFailed =
+      'financial.wallet.addWallet.msg.failed';
+  static const String financialWalletMsgDeductedMoneyFailed =
+      'financial.wallet.msg.deductedMoneyFailed';
+  static const String financialTransactionAddTransactionMsgFailed =
+      'financial.transaction.addTransaction.msg.failed';
+  static const String financialTransactionAddTransactionMsgSuccess =
+      'financial.transaction.addTransaction.msg.success';
 }

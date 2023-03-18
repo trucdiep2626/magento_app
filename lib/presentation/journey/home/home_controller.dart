@@ -4,10 +4,12 @@ import 'package:get/get.dart';
 import 'package:magento_app/common/common_export.dart';
 import 'package:magento_app/domain/models/category_tree_model.dart';
 import 'package:magento_app/domain/models/product_model.dart';
+import 'package:magento_app/domain/usecases/account_usecase.dart';
 import 'package:magento_app/domain/usecases/category_usecase.dart';
 import 'package:magento_app/domain/usecases/home_usecase.dart';
 import 'package:magento_app/domain/usecases/product_usecase.dart';
 import 'package:magento_app/presentation/controllers/mixin/export.dart';
+import 'package:magento_app/presentation/journey/main/main_controller.dart';
 import 'package:magento_app/presentation/widgets/snack_bar/app_snack_bar.dart';
 
 class HomeController extends GetxController with MixinController {
@@ -18,11 +20,16 @@ class HomeController extends GetxController with MixinController {
   final HomeUseCase homeUseCase;
   final ProductUseCase productUseCase;
   final CategoryUseCase categoryUseCase;
+  final AccountUseCase accountUseCase;
 
-  HomeController(
-      {required this.homeUseCase,
-      required this.productUseCase,
-      required this.categoryUseCase});
+  final mainController = Get.find<MainController>();
+
+  HomeController({
+    required this.homeUseCase,
+    required this.productUseCase,
+    required this.categoryUseCase,
+    required this.accountUseCase,
+  });
 
   var scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -45,9 +52,8 @@ class HomeController extends GetxController with MixinController {
 
     final result = await categoryUseCase.getCategorysWithAttribute();
     if (result != null) {
-
       categories.addAll(result.childrenData ?? []);
-      debugPrint('==========${categories}');
+      debugPrint('==========$categories');
     } else {
       showTopSnackBarError(context, TransactionConstants.unknownError.tr);
     }
@@ -63,12 +69,53 @@ class HomeController extends GetxController with MixinController {
     }
   }
 
+  Future<void> loginWithUsername() async {
+    String? username =
+        await accountUseCase.getSecureData(StringConstants.keyEmail);
+    String? password =
+        await accountUseCase.getSecureData(StringConstants.keyPassword);
+
+    if (isNullEmpty(username) || isNullEmpty(password)) {
+      mainController.token.value = '';
+      mainController.rxCustomer.value = null;
+    } else {
+      final result =
+          await accountUseCase.login(username: username!, password: password!);
+
+      try {
+        if (result != null) {
+          debugPrint('đăng nhập thành công');
+          await accountUseCase.saveToken(result);
+          mainController.token.value = result;
+          final customerInfo = await accountUseCase.getCustomerInformation();
+
+          if (customerInfo != null) {
+            await accountUseCase.saveCustomerInformation(customerInfo);
+            mainController.rxCustomer.value = customerInfo;
+          } else {
+            showTopSnackBarError(context, TransactionConstants.unknownError.tr);
+          }
+        } else {
+          mainController.token.value = '';
+          mainController.rxCustomer.value = null;
+        }
+        mainController.updateLogin();
+      } catch (e) {
+        debugPrint(e.toString());
+        mainController.token.value = '';
+        mainController.rxCustomer.value = null;
+        showTopSnackBarError(context, TransactionConstants.unknownError.tr);
+      }
+    }
+  }
+
   @override
   Future<void> onReady() async {
     super.onReady();
     rxLoadedList.value = LoadedType.start;
     await getCategoriesTree();
     await getHotItems();
+    await loginWithUsername();
     rxLoadedList.value = LoadedType.finish;
   }
 }

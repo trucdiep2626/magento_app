@@ -16,7 +16,6 @@ Dio dio = Dio(BaseOptions(
   contentType: NetworkConfig.contentType,
   headers: {
     'Accept': 'application/json',
-    'Authorization': NetworkConfig.token,
   },
   baseUrl: NetworkConfig.baseUrl,
 ))
