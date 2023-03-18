@@ -65,4 +65,9 @@ class TransactionConstants {
   static const loginToYourAccount = "loginToYourAccount";
   static const loginError = 'loginError';
   static const pressBackAgain = 'pressBackAgain';
+
+  static const signUpTitle = 'signup.title';
+  static const createAccount = 'createAccount';
+  static const firstName = 'firstName';
+  static const lastName = 'lastName';
 }

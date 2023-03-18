@@ -112,7 +112,7 @@ const viString = {
 
   //  signup
   "signup.title": "Sign Up",
-  "createAccountButton": "CREATE ACCOUNT",
+  "createAccount": "CREATE ACCOUNT",
 
   //cart
   "cart.title": "Cart",

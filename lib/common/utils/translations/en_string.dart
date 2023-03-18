@@ -112,7 +112,7 @@ const enString = {
 
   //  signup
   "signup.title": "Sign Up",
-  "createAccountButton": "CREATE ACCOUNT",
+  "createAccount": "Create An Account",
 
   //cart
   "cart.title": "Cart",

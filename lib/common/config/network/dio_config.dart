@@ -5,7 +5,6 @@ import 'package:magento_app/common/config/network/network_config.dart';
 import 'package:magento_app/domain/models/base_response.dart';
 import 'dart:convert';
 import 'dart:io';
-import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:dio/dio.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'dio_interceptor.dart';

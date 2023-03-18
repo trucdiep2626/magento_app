@@ -16,6 +16,7 @@ import 'package:magento_app/presentation/journey/home/home_controller.dart';
 import 'package:magento_app/presentation/journey/login/login_controller.dart';
 import 'package:magento_app/presentation/journey/main/main_controller.dart';
 import 'package:magento_app/presentation/journey/splash/splash_controller.dart';
+import 'package:magento_app/presentation/register/register_controller.dart';
 
 GetIt getIt = GetIt.instance;
 
@@ -41,6 +42,7 @@ void configLocator() {
   );
   getIt.registerFactory<LoginController>(
       () => LoginController(accountUsecase: getIt<AccountUseCase>()));
+  getIt.registerFactory<RegisterController>(() => RegisterController());
 
   /// UseCases
   getIt.registerFactory<HomeUseCase>(
