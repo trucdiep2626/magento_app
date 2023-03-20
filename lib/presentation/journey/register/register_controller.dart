@@ -1,45 +1,103 @@
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:magento_app/common/common_export.dart';
+import 'package:magento_app/common/utils/app_validator.dart';
+import 'package:magento_app/domain/usecases/account_usecase.dart';
 import 'package:magento_app/presentation/controllers/mixin/export.dart';
+import 'package:magento_app/presentation/widgets/export.dart';
 
 class RegisterController extends GetxController with MixinController {
-  // Rx<ButtonState> buttonState = ButtonState.active.obs;
-  //
-  // final AuthenticationUseCase authUseCase;
-
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
-  final confirmPasswordController = TextEditingController();
+  final firstNameController = TextEditingController();
+  final lastNameController = TextEditingController();
 
   final emailFocusNode = FocusNode();
   final passwordFocusNode = FocusNode();
-  final confirmPasswordFocusNode = FocusNode();
+  final firstNameFocusNode = FocusNode();
+  final lastNameFocusNode = FocusNode();
 
-  RxString errorText = ''.obs;
+  //RxString errorText = ''.obs;
 
   RxString emailValidate = ''.obs;
   RxString passwordValidate = ''.obs;
-  RxString confirmPasswordValidate = ''.obs;
+  RxString firstNameValidate = ''.obs;
+  RxString lastNameValidate = ''.obs;
 
-  RxBool confirmPwdHasFocus = false.obs;
   RxBool emailHasFocus = false.obs;
   RxBool pwdHasFocus = false.obs;
+  RxBool firstNameHasFocus = false.obs;
+  RxBool lastNameHasFocus = false.obs;
 
   RxBool buttonEnable = false.obs;
 
-  // RegisterController({required this.authUseCase});
+  Rx<LoadedType> rxLoadedButton = LoadedType.finish.obs;
+  AccountUseCase accountUsecase;
+
+  //final mainController = Get.find<MainController>();
+
+  RegisterController({required this.accountUsecase});
 
   void checkButtonEnable() {
-    if (emailController.text.isNotEmpty &&
-        passwordController.text.isNotEmpty &&
-        confirmPasswordController.text.isNotEmpty) {
+    if (emailController.text.trim().isNotEmpty &&
+        passwordController.text.trim().isNotEmpty &&
+        lastNameController.text.trim().isNotEmpty &&
+        firstNameController.text.trim().isNotEmpty) {
       buttonEnable.value = true;
     } else {
       buttonEnable.value = false;
     }
   }
 
-  void postRegister() async {}
+  void postRegister() async {
+    rxLoadedButton.value = LoadedType.start;
+    hideKeyboard();
+    // errorText.value = '';
+    emailValidate.value = AppValidator.validateEmail(emailController);
+    passwordValidate.value = AppValidator.validatePassword(passwordController);
+    firstNameValidate.value = AppValidator.validateName(
+      TransactionConstants.firstName.tr,
+      firstNameController,
+    );
+    lastNameValidate.value = AppValidator.validateName(
+      TransactionConstants.lastName.tr,
+      lastNameController,
+    );
+
+    var connectivityResult = await Connectivity().checkConnectivity();
+    if (connectivityResult == ConnectivityResult.none) {
+      showTopSnackBarError(context, TransactionConstants.noConnectionError.tr);
+      rxLoadedButton.value = LoadedType.finish;
+      return;
+    }
+
+    if (emailValidate.value.isEmpty &&
+        passwordValidate.value.isEmpty &&
+        firstNameValidate.value.isEmpty &&
+        lastNameValidate.value.isEmpty) {
+      final result = await accountUsecase.register(
+        username: emailController.text.trim(),
+        password: passwordController.text.trim(),
+        firstName: firstNameController.text.trim(),
+        lastName: lastNameController.text.trim(),
+      );
+
+      if (result) {
+        debugPrint('đăng ký thành công');
+        Get.back();
+      }
+      // else {
+      //   showTopSnackBarError(context, TransactionConstants.unknownError.tr);
+      //   //
+      //   // } else {
+      //   //   debugPrint('đăng nhập thất bại');
+      //   //   errorText.value = TransactionConstants.loginError.tr;
+      // }
+    }
+
+    rxLoadedButton.value = LoadedType.finish;
+  }
 
   void onChangedEmail() {
     checkButtonEnable();
@@ -48,7 +106,8 @@ class RegisterController extends GetxController with MixinController {
 
   void onTapEmailTextField() {
     pwdHasFocus.value = false;
-    confirmPwdHasFocus.value = false;
+    lastNameHasFocus.value = false;
+    firstNameHasFocus.value = false;
     emailHasFocus.value = true;
   }
 
@@ -65,29 +124,49 @@ class RegisterController extends GetxController with MixinController {
 
   void onTapPwdTextField() {
     pwdHasFocus.value = true;
-    confirmPwdHasFocus.value = false;
+    lastNameHasFocus.value = false;
+    firstNameHasFocus.value = false;
     emailHasFocus.value = false;
   }
 
   void onEditingCompletePwd() {
     pwdHasFocus.value = false;
-    confirmPwdHasFocus.value = true;
-    FocusScope.of(context).requestFocus(confirmPasswordFocusNode);
+    firstNameHasFocus.value = true;
+    FocusScope.of(context).requestFocus(firstNameFocusNode);
   }
 
-  void onChangedConfirmPwd() {
+  void onChangedFirstName() {
     checkButtonEnable();
-    confirmPasswordValidate.value = '';
+    firstNameValidate.value = '';
   }
 
-  void onTapConfirmPwdTextField() {
+  void onTapFirstNameTextField() {
     pwdHasFocus.value = false;
-    confirmPwdHasFocus.value = true;
+    lastNameHasFocus.value = false;
+    firstNameHasFocus.value = true;
     emailHasFocus.value = false;
   }
 
-  void onEditingCompleteConfirmPwd() {
-    confirmPwdHasFocus.value = false;
+  void onEditingCompleteFirstName() {
+    firstNameHasFocus.value = false;
+    lastNameHasFocus.value = true;
+    FocusScope.of(context).requestFocus(lastNameFocusNode);
+  }
+
+  void onChangedLastName() {
+    checkButtonEnable();
+    lastNameValidate.value = '';
+  }
+
+  void onTapLastNameTextField() {
+    pwdHasFocus.value = false;
+    lastNameHasFocus.value = true;
+    firstNameHasFocus.value = false;
+    emailHasFocus.value = false;
+  }
+
+  void onEditingCompleteLastName() {
+    lastNameHasFocus.value = false;
     FocusScope.of(context).unfocus();
     if (buttonEnable.value) {
       postRegister();
@@ -96,7 +175,8 @@ class RegisterController extends GetxController with MixinController {
 
   void onPressedRegister() {
     pwdHasFocus.value = false;
-    confirmPwdHasFocus.value = false;
+    lastNameHasFocus.value = false;
+    firstNameHasFocus.value = false;
     emailHasFocus.value = false;
     if (buttonEnable.value) {
       postRegister();
@@ -115,9 +195,6 @@ class RegisterController extends GetxController with MixinController {
     });
     passwordFocusNode.addListener(() {
       pwdHasFocus.value = passwordFocusNode.hasFocus;
-    });
-    confirmPasswordFocusNode.addListener(() {
-      confirmPwdHasFocus.value = confirmPasswordFocusNode.hasFocus;
     });
   }
 }

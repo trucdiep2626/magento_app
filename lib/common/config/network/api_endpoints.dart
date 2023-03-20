@@ -10,4 +10,5 @@ class ApiEndpoints {
   static String login = '/rest/default/V1/integration/customer/token';
   static String getCustomerInfor = '/rest/V1/customers/me';
   static String getStoreConfig = '/rest/default/V1/store/storeConfigs';
+  static String register = '/rest/V1/customers';
 }

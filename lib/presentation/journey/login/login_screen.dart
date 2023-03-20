@@ -4,7 +4,6 @@ import 'package:magento_app/common/utils/export.dart';
 import 'package:magento_app/gen/assets.gen.dart';
 import 'package:magento_app/presentation/journey/login/login_controller.dart';
 import 'package:magento_app/presentation/theme/export.dart';
-import 'package:magento_app/presentation/widgets/app_bar_widget.dart';
 import 'package:magento_app/presentation/widgets/export.dart';
 
 class LogInScreen extends GetView<LoginController> {
@@ -14,18 +13,19 @@ class LogInScreen extends GetView<LoginController> {
   Widget build(BuildContext context) {
     controller.context = context;
     return Scaffold(
-      appBar: AppBarWidget(
-        showBackButton: true,
-        onPressed: () => Get.back(),
-        title: TransactionConstants.accountTitle.tr,
-      ),
-      body: SingleChildScrollView(
+      // appBar: AppBarWidget(
+      //   onPressed: () => Get.back(),
+      //   title: TransactionConstants.accountTitle.tr,
+      // ),
+      body: SizedBox(
+        height: Get.height,
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SizedBox(
-              height: 68.sp,
-            ),
+            // SizedBox(
+            //   height: Get.mediaQuery.padding.top + 68.sp,
+            // ),
             Text(
               TransactionConstants.loginToYourAccount.tr,
               style: ThemeText.bodyMedium.s24,

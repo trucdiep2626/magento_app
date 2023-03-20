@@ -3,11 +3,9 @@ import 'package:get/get.dart';
 import 'package:magento_app/common/common_export.dart';
 import 'package:magento_app/gen/assets.gen.dart';
 import 'package:magento_app/presentation/journey/home/components/banner_item.dart';
-import 'package:magento_app/presentation/journey/home/components/draw_widget.dart';
 import 'package:magento_app/presentation/widgets/product_widget.dart';
 import 'package:magento_app/presentation/journey/home/components/product_type_item.dart';
 import 'package:magento_app/presentation/theme/export.dart';
-import 'package:magento_app/presentation/widgets/app_bar_widget.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:magento_app/presentation/widgets/export.dart';
 import 'home_controller.dart';
@@ -59,26 +57,27 @@ class HomePage extends GetView<HomeController> {
     return Scaffold(
       key: controller.scaffoldKey,
       backgroundColor: AppColors.grey50,
-      appBar: AppBarWidget(
-        showMenu: true,
-        onPressed: () =>
-            (controller.scaffoldKey.currentState?.isDrawerOpen ?? false)
-                ? controller.closeDrawer()
-                : controller.openDrawer(),
-        title: TransactionConstants.mainNavigationHome.tr,
-      ),
-      drawer: const DrawerWidget(),
+      // appBar: AppBarWidget(
+      //   showMenu: true,
+      //   onPressed: () =>
+      //       (controller.scaffoldKey.currentState?.isDrawerOpen ?? false)
+      //           ? controller.closeDrawer()
+      //           : controller.openDrawer(),
+      //   title: TransactionConstants.mainNavigationHome.tr,
+      // ),
+      // drawer: const DrawerWidget(),
       body: _buildBody(),
     );
   }
 
   Widget _buildBody() {
     return Obx(() => controller.rxLoadedList.value == LoadedType.start
-        ? AppLoadingWidget()
+        ? const AppLoadingWidget()
         : SingleChildScrollView(
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
+                SizedBox(height: Get.mediaQuery.padding.top),
                 _buildBannerWidget(),
                 const SizedBox(height: 40),
                 Text(
@@ -155,8 +154,8 @@ class HomePage extends GetView<HomeController> {
   }
 
   _buildHotItemsList() {
-    return controller.hotItems.value.length == 0
-        ? SizedBox.shrink()
+    return controller.hotItems.value.isEmpty
+        ? const SizedBox.shrink()
         : SizedBox(
             height: Get.width,
             child: ListView.builder(

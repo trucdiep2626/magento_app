@@ -24,7 +24,8 @@ GetIt getIt = GetIt.instance;
 void configLocator() {
   /// Controllers
   getIt.registerLazySingleton<AppController>(() => AppController());
-  getIt.registerFactory<SplashController>(() => SplashController());
+  getIt.registerFactory<SplashController>(
+      () => SplashController(accountUseCase: getIt<AccountUseCase>()));
   getIt.registerFactory<MainController>(
       () => MainController(accountUseCase: getIt<AccountUseCase>()));
   getIt.registerFactory<HomeController>(
@@ -43,7 +44,8 @@ void configLocator() {
   );
   getIt.registerFactory<LoginController>(
       () => LoginController(accountUsecase: getIt<AccountUseCase>()));
-  getIt.registerFactory<RegisterController>(() => RegisterController());
+  getIt.registerFactory<RegisterController>(
+      () => RegisterController(accountUsecase: getIt<AccountUseCase>()));
   getIt.registerFactory<ProductController>(() => ProductController(
       productUseCase: getIt<ProductUseCase>(),
       categoryUseCase: getIt<CategoryUseCase>()));

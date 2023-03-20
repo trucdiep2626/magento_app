@@ -56,20 +56,20 @@ class HomeController extends GetxController with MixinController {
     }
   }
 
-  Future<void> getCategoriesTree() async {
-    categories.clear();
-    var connectivityResult = await Connectivity().checkConnectivity();
-    if (connectivityResult == ConnectivityResult.none) {
-      showTopSnackBarError(context, TransactionConstants.noConnectionError.tr);
-      return;
-    }
-    final result = await categoryUseCase.getCategorysWithAttribute();
-    if (result != null) {
-      categories.addAll(result.childrenData ?? []);
-    } else {
-      showTopSnackBarError(context, TransactionConstants.unknownError.tr);
-    }
-  }
+  // Future<void> getCategoriesTree() async {
+  //   categories.clear();
+  //   var connectivityResult = await Connectivity().checkConnectivity();
+  //   if (connectivityResult == ConnectivityResult.none) {
+  //     showTopSnackBarError(context, TransactionConstants.noConnectionError.tr);
+  //     return;
+  //   }
+  //   final result = await categoryUseCase.getCategorysWithAttribute();
+  //   if (result != null) {
+  //     categories.addAll(result.childrenData ?? []);
+  //   } else {
+  //     showTopSnackBarError(context, TransactionConstants.unknownError.tr);
+  //   }
+  // }
 
   Future<void> getHotItems() async {
     hotItems.clear();
@@ -81,54 +81,16 @@ class HomeController extends GetxController with MixinController {
     }
   }
 
-  Future<void> loginWithUsername() async {
-    String? username =
-        await accountUseCase.getSecureData(StringConstants.keyEmail);
-    String? password =
-        await accountUseCase.getSecureData(StringConstants.keyPassword);
 
-    if (isNullEmpty(username) || isNullEmpty(password)) {
-      mainController.token.value = '';
-      mainController.rxCustomer.value = null;
-    } else {
-      final result =
-          await accountUseCase.login(username: username!, password: password!);
-
-      try {
-        if (result != null) {
-          debugPrint('đăng nhập thành công');
-          await accountUseCase.saveToken(result);
-          mainController.token.value = result;
-          final customerInfo = await accountUseCase.getCustomerInformation();
-
-          if (customerInfo != null) {
-            await accountUseCase.saveCustomerInformation(customerInfo);
-            mainController.rxCustomer.value = customerInfo;
-          } else {
-            showTopSnackBarError(context, TransactionConstants.unknownError.tr);
-          }
-        } else {
-          mainController.token.value = '';
-          mainController.rxCustomer.value = null;
-        }
-        mainController.updateLogin();
-      } catch (e) {
-        debugPrint(e.toString());
-        mainController.token.value = '';
-        mainController.rxCustomer.value = null;
-        showTopSnackBarError(context, TransactionConstants.unknownError.tr);
-      }
-    }
-  }
 
   @override
   Future<void> onReady() async {
     super.onReady();
     rxLoadedList.value = LoadedType.start;
     await getStoreConfig();
-    await getCategoriesTree();
+  //  await getCategoriesTree();
     await getHotItems();
-    await loginWithUsername();
+  //  await loginWithUsername();
     rxLoadedList.value = LoadedType.finish;
   }
 }

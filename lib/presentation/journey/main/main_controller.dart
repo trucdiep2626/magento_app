@@ -15,6 +15,7 @@ class MainController extends GetxController with MixinController {
   Rx<StoreConfigResponseModel> storeConfig = StoreConfigResponseModel().obs;
   final AccountUseCase accountUseCase;
   RxString token = ''.obs;
+  Rx<LoadedType> rxCustomerLoaded = LoadedType.start.obs;
 
   final AppController _appController = Get.find<AppController>();
 
@@ -41,12 +42,38 @@ class MainController extends GetxController with MixinController {
     return Future.value(false);
   }
 
-  Future<void> getUserProfile() async {
-    rxCustomer.value = await accountUseCase.getCustomerInformation();
-  }
+  // Future<void> getUserProfile() async {
+  //   rxCustomer.value = await accountUseCase.getCustomerInformation();
+  // }
 
   void onChangedNav(int index) {
     rxCurrentNavIndex.value = index;
+  }
+
+  Future<void> getUserProfile() async {
+    rxCustomerLoaded.value = LoadedType.start;
+
+    var connectivityResult = await Connectivity().checkConnectivity();
+    if (connectivityResult == ConnectivityResult.none) {
+      showTopSnackBarError(context, TransactionConstants.noConnectionError.tr);
+      rxCustomer.value = accountUseCase.getCustomerInformationLocal();
+      rxCustomerLoaded.value = LoadedType.finish;
+      return;
+    }
+
+    final customerInfo = await accountUseCase.getCustomerInformation();
+
+    if (customerInfo != null) {
+      await accountUseCase.saveCustomerInformation(customerInfo);
+      rxCustomer.value = customerInfo;
+      // mainController.updateLogin();
+      // //go to main screen
+      // Get.back();
+    } else {
+      showTopSnackBarError(context, TransactionConstants.unknownError.tr);
+    }
+
+    rxCustomerLoaded.value = LoadedType.finish;
   }
 
   @override

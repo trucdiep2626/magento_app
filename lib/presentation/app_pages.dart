@@ -21,6 +21,7 @@ List<GetPage> myPages = [
     MainBinding(),
     HomeBinding(),
     CategoryBinding(),
+    ProductBinding(),
   ]),
   GetPage(
     name: AppRoutes.login,

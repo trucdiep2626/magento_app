@@ -4,6 +4,7 @@ import 'package:magento_app/common/common_export.dart';
 import 'package:magento_app/gen/assets.gen.dart';
 import 'package:magento_app/presentation/journey/category/category_screen.dart';
 import 'package:magento_app/presentation/journey/home/home_page.dart';
+import 'package:magento_app/presentation/journey/product/product_screen.dart';
 import 'package:magento_app/presentation/theme/export.dart';
 import 'package:magento_app/presentation/widgets/export.dart';
 
@@ -112,9 +113,7 @@ class MainScreen extends GetView<MainController> {
       Center(
         child: Text(StringConstants.workflow.tr),
       ),
-      Center(
-        child: Text(StringConstants.love.tr),
-      ),
+      ProductScreen(),
       Center(
         child: Text(StringConstants.account.tr),
       ),

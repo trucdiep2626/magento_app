@@ -16,7 +16,7 @@ class SplashScreen extends GetView<SplashController> {
           Center(
               child: Text(
             'SimiCart',
-            style: ThemeText.bodyMedium.s20,
+            style: ThemeText.bodyStrong.s24.orange,
           )),
         ],
       ),

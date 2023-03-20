@@ -5,7 +5,6 @@ import 'package:magento_app/common/common_export.dart';
 import 'package:magento_app/common/utils/app_validator.dart';
 import 'package:magento_app/domain/usecases/account_usecase.dart';
 import 'package:magento_app/presentation/controllers/mixin/export.dart';
-import 'package:magento_app/presentation/journey/main/main_controller.dart';
 import 'package:magento_app/presentation/widgets/export.dart';
 
 class LoginController extends GetxController with MixinController {
@@ -28,7 +27,7 @@ class LoginController extends GetxController with MixinController {
 
   AccountUseCase accountUsecase;
 
-  final mainController = Get.find<MainController>();
+  // final mainController = Get.find<MainController>();
 
   LoginController({required this.accountUsecase});
 
@@ -63,17 +62,17 @@ class LoginController extends GetxController with MixinController {
         if (result != null) {
           debugPrint('đăng nhập thành công');
           await accountUsecase.saveToken(result);
-          mainController.token.value = result;
+          //   mainController.token.value = result;
           await accountUsecase.saveEmail(emailController.text.trim());
           await accountUsecase.savePass(passwordController.text.trim());
           final customerInfo = await accountUsecase.getCustomerInformation();
 
           if (customerInfo != null) {
             await accountUsecase.saveCustomerInformation(customerInfo);
-            mainController.rxCustomer.value = customerInfo;
-            mainController.updateLogin();
+            //  mainController.rxCustomer.value = customerInfo;
+            // mainController.updateLogin();
             //go to main screen
-            Get.back();
+            Get.offNamed(AppRoutes.main);
           } else {
             showTopSnackBarError(context, TransactionConstants.unknownError.tr);
           }

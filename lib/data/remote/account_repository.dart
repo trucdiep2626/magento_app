@@ -1,8 +1,11 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:magento_app/common/config/network/api_endpoints.dart';
 import 'package:magento_app/common/config/network/network_config.dart';
+import 'package:magento_app/common/utils/translations/app_translations.dart';
 import 'package:magento_app/domain/models/customer_model.dart';
+import 'package:magento_app/presentation/widgets/export.dart';
 
 class AccountRepository {
   final Dio _dio;
@@ -27,8 +30,10 @@ class AccountRepository {
       if (result.statusCode == 200) {
         return result.data;
       }
+      showTopSnackBarError(Get.context!, result.statusMessage ?? TransactionConstants.unknownError.tr);
       return null;
     } catch (e) {
+      showTopSnackBarError(Get.context!, TransactionConstants.unknownError.tr);
       debugPrint(e.toString());
       return null;
     }
@@ -49,6 +54,40 @@ class AccountRepository {
     } catch (e) {
       debugPrint(e.toString());
       return null;
+    }
+  }
+
+  Future<bool> register({
+    required String username,
+    required String password,
+    required String firstName,
+    required String lastName,
+  }) async {
+    final params = {
+      "customer": {
+        "email": username,
+        "firstname": firstName,
+        "lastname": lastName
+      },
+      "password": password
+    };
+    try {
+      final result =
+          await _dio.request('${NetworkConfig.baseUrl}${ApiEndpoints.register}',
+              data: params,
+              options: Options(
+                method: 'POST',
+              ));
+      if (result.statusCode == 200) {
+        return true;
+      }
+      showTopSnackBarError(Get.context!,
+          result.statusMessage ?? TransactionConstants.unknownError.tr);
+      return false;
+    } catch (e) {
+      debugPrint(e.toString());
+      showTopSnackBarError(Get.context!, TransactionConstants.unknownError.tr);
+      return false;
     }
   }
 }
