@@ -18,21 +18,41 @@ class ProductRepository {
   Future<ProductsResponseModel?> getProductsWithAttribute(
       {int pageSize = 10,
       int currentPage = 1,
-      String? conditionType,
-      String? attributeCode,
-      String? attributeValue,
+      Map<String, dynamic>? filters,
+      Map<String, dynamic>? sortOrders,
       String? fields}) async {
-    String searchKey = getSearchKey(
-      pageSize: pageSize,
-      currentPage: currentPage,
-      conditionType: conditionType,
-      attributeCode: attributeCode,
-      attributeValue: attributeValue,
-      fields: fields,
-    );
+    // String searchKey = getSearchKey(
+    //   pageSize: pageSize,
+    //   currentPage: currentPage,
+    //   conditionType: conditionType,
+    //   attributeCode: attributeCode,
+    //   attributeValue: attributeValue,
+    //   fields: fields,
+    // );
+
+    Map<String, dynamic> _params = {
+      searchKeyPageSize: pageSize,
+      searchKeyCurrentPage: currentPage,
+    };
+
+    if (filters != null) {
+      _params.addAll(filters);
+    }
+
+    if (sortOrders != null) {
+      _params.addAll(sortOrders);
+    }
+
+    if (fields != null) {
+      _params.addAll({searchKeyFields: fields});
+    }
+
+    debugPrint('=====$_params');
+
     try {
       final result = await _dio.request(
-          '${NetworkConfig.baseUrl}${ApiEndpoints.getProducts}?$searchKey',
+          '${NetworkConfig.baseUrl}${ApiEndpoints.getProducts}',
+          queryParameters: _params,
           options: Options(
             method: 'GET',
             headers: <String, dynamic>{r'Authorization': NetworkConfig.token},
@@ -53,6 +73,7 @@ class ProductRepository {
     String? attributeValue,
     String? fields,
   }) {
+    debugPrint('-----------$currentPage');
     String searchKey =
         '$searchKeyCurrentPage=$currentPage&$searchKeyPageSize=$pageSize';
 

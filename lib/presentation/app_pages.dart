@@ -3,11 +3,11 @@ import 'package:magento_app/common/common_export.dart';
 import 'package:magento_app/common/injector/bindings/category_binding.dart';
 import 'package:magento_app/common/injector/bindings/home_binding.dart';
 import 'package:magento_app/common/injector/bindings/login_binding.dart';
+import 'package:magento_app/common/injector/bindings/product_binding.dart';
 import 'package:magento_app/common/injector/bindings/register_binding.dart';
 import 'package:magento_app/presentation/journey/login/login_screen.dart';
-import 'package:magento_app/presentation/register/register_controller.dart';
-import 'package:magento_app/presentation/register/register_screen.dart';
-
+import 'package:magento_app/presentation/journey/product/product_screen.dart';
+import 'package:magento_app/presentation/journey/register/register_screen.dart';
 import 'journey/main/main_screen.dart';
 import 'journey/splash/splash_screen.dart';
 
@@ -31,5 +31,10 @@ List<GetPage> myPages = [
     name: AppRoutes.register,
     page: () => RegisterScreen(),
     binding: RegisterBinding(),
+  ),
+  GetPage(
+    name: AppRoutes.product,
+    page: () => ProductScreen(),
+    binding: ProductBinding(),
   ),
 ];

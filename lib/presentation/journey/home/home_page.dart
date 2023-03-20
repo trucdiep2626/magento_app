@@ -4,7 +4,7 @@ import 'package:magento_app/common/common_export.dart';
 import 'package:magento_app/gen/assets.gen.dart';
 import 'package:magento_app/presentation/journey/home/components/banner_item.dart';
 import 'package:magento_app/presentation/journey/home/components/draw_widget.dart';
-import 'package:magento_app/presentation/journey/home/components/hot_item_widget.dart';
+import 'package:magento_app/presentation/widgets/product_widget.dart';
 import 'package:magento_app/presentation/journey/home/components/product_type_item.dart';
 import 'package:magento_app/presentation/theme/export.dart';
 import 'package:magento_app/presentation/widgets/app_bar_widget.dart';
@@ -162,7 +162,7 @@ class HomePage extends GetView<HomeController> {
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
               itemBuilder: (context, index) =>
-                  HotItemWidget(productModel: controller.hotItems.value[index]),
+                  ProductWidget(productModel: controller.hotItems.value[index]),
               itemCount: controller.hotItems.value.length >= 10
                   ? 10
                   : controller.hotItems.value.length,

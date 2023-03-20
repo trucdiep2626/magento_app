@@ -62,6 +62,8 @@ const viString = {
   'subCategories': 'Sub Categories',
   "mainMenu": "Main Menu",
   "pressBackAgain": "Press back again to exit app",
+  'sortByName': "Sort by name",
+  'sortByPrice': "Sort by price",
 
   //"sortOption"
   "aToZ": "Name: a to z",

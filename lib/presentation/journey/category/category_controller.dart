@@ -4,8 +4,8 @@ import 'package:get/get.dart';
 import 'package:magento_app/common/common_export.dart';
 import 'package:magento_app/domain/models/category_tree_model.dart';
 import 'package:magento_app/domain/models/product_model.dart';
+import 'package:magento_app/domain/models/search_criteria_model.dart';
 import 'package:magento_app/domain/usecases/category_usecase.dart';
-import 'package:magento_app/domain/usecases/home_usecase.dart';
 import 'package:magento_app/domain/usecases/product_usecase.dart';
 import 'package:magento_app/presentation/controllers/mixin/export.dart';
 import 'package:magento_app/presentation/widgets/snack_bar/app_snack_bar.dart';
@@ -61,6 +61,13 @@ class CategoryController extends GetxController with MixinController {
     rxLoadedLeftList.value = LoadedType.finish;
   }
 
+  void onViewProductList(int categoryId) {
+    debugPrint('============$categoryId');
+    Get.toNamed(AppRoutes.product, arguments: {
+      'category_id': categoryId,
+    });
+  }
+
   Future<void> onSelectCategory(int newIndex) async {
     rxLoadedRightList.value = LoadedType.start;
     selectedIndex.value = newIndex;
@@ -82,22 +89,32 @@ class CategoryController extends GetxController with MixinController {
       return;
     }
 
-    final result = await categoryUseCase.getProsuctsOfCategory(categoryId);
+    Filters categoryFilter = Filters(
+      field: 'category_id',
+      value: categoryId.toString(),
+      conditionType: 'in',
+    );
+
+    final result = await productUseCase.getProductsWithAttribute(
+      pageSize: 2,
+      currentPage: 1,
+      filters: categoryFilter.toJson(),
+    );
     debugPrint('--------777--$result');
     if (result != null) {
       debugPrint('--------777--$result');
-      if (result.isNotEmpty) {
-        final products = <ProductModel>[];
+      if ((result.items ?? []).isNotEmpty) {
+        // final products = <ProductModel>[];
+        //
+        // for (int i = 0; i < 2; i++) {
+        //   final product = await getProductDetail(result[i].sku);
+        //   if (product != null) {
+        //     products.add(product);
+        //     debugPrint('----------------123---$products');
+        //   }
+        // }
 
-        for (int i = 0; i < 3; i++) {
-          final product = await getProductDetail(result[i].sku);
-          if (product != null) {
-            products.add(product);
-            debugPrint('----------------123---$products');
-          }
-        }
-
-        productsOfCategory.value.addAll(products);
+        productsOfCategory.value.addAll(result.items ?? []);
         debugPrint('----------------453---$productsOfCategory');
         // for (var category in categories.value) {
         //   final image = await getCategoryImage(category.id);
@@ -123,12 +140,11 @@ class CategoryController extends GetxController with MixinController {
       final result = await productUseCase.getProductsWithAttribute(
         pageSize: 1,
         fields: 'items[id,name,media_gallery_entries]',
-        conditionType: 'eq',
-        attributeCode: 'sku',
-        attributeValue: productSku,
+        filters: Filters(field: 'sku', value: productSku, conditionType: 'eq')
+            .toJson(),
       );
       if (result != null) {
-     //   debugPrint('----------------123---$products');
+        //   debugPrint('----------------123---$products');
         return result.items?.first;
       } else {
         showTopSnackBarError(context, TransactionConstants.unknownError.tr);

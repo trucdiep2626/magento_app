@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/src/simple/get_view.dart';
 import 'package:magento_app/common/common_export.dart';
 import 'package:magento_app/common/config/network/network_config.dart';
-import 'package:magento_app/common/utils/translations/app_translations.dart';
 import 'package:magento_app/domain/models/category_tree_model.dart';
 import 'package:magento_app/gen/assets.gen.dart';
 import 'package:magento_app/presentation/journey/category/category_controller.dart';
@@ -33,8 +30,8 @@ class CategoryScreen extends GetView<CategoryController> {
         children: [
           Expanded(
             flex: 1,
-            child: controller.rxLoadedLeftList == LoadedType.start
-                ? AppLoadingWidget()
+            child: controller.rxLoadedLeftList.value == LoadedType.start
+                ? const AppLoadingWidget()
                 : ListView.builder(
                     itemBuilder: (context, index) => AppTouchable(
                       onPressed: () async =>
@@ -52,80 +49,72 @@ class CategoryScreen extends GetView<CategoryController> {
               flex: 2,
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16.sp),
-                child: controller.rxLoadedRightList == LoadedType.start
-                    ? AppLoadingWidget()
+                child: controller.rxLoadedRightList.value == LoadedType.start
+                    ? const AppLoadingWidget()
                     : SingleChildScrollView(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            Row(
-                              children: [
-                                Expanded(
-                                    child: Text(
-                                  TransactionConstants.viewAll.tr,
-                                  style: ThemeText.bodySemibold.s16,
-                                )),
-                                AppImageWidget(
-                                  asset: Assets.images.icArrowRight,
-                                  size: 18.sp,
-                                  color: AppColors.black,
-                                )
-                              ],
-                            ),
-                            SizedBox(
-                              height: 8.sp,
-                            ),
-                            Wrap(
-                              children: controller.productsOfCategory.value
-                                  .map((e) => _buildItem(
-                                      title: e.name,
-                                      image: e.mediaGalleryEntries?.first.file))
-                                  .toList(),
-                            ),
-                            SizedBox(
-                              height: 20.sp,
-                            ),
-                            Text(
-                              TransactionConstants.subCategories.tr,
-                              style: ThemeText.bodySemibold.s16,
-                            ),
-                            SizedBox(
-                              height: 8.sp,
-                            ),
-                            Wrap(
-                              children: controller.subCategories.value
-                                  .map((e) => AppTouchable(
-                                        onPressed: () {},
-                                        child: Padding(
-                                          padding: EdgeInsets.symmetric(
-                                              vertical: 4.sp),
-                                          child: Row(
-                                            children: [
-                                              AppImageWidget(
-                                                asset: Assets.images.icCircle,
-                                                size: 10.sp,
-                                              ),
-                                              SizedBox(
-                                                width: 8.sp,
-                                              ),
-                                              Expanded(
-                                                  child: Text(
-                                                e.name ?? '',
-                                                style: ThemeText.bodyRegular,
-                                              )),
-                                              AppImageWidget(
-                                                asset:
-                                                    Assets.images.icArrowRight,
-                                                size: 12.sp,
-                                                color: AppColors.black,
-                                              )
-                                            ],
-                                          ),
+                            Obx(
+                              () => controller.productsOfCategory.value.isEmpty
+                                  ? const SizedBox.shrink()
+                                  : Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Row(
+                                          children: [
+                                            Expanded(
+                                                child: Text(
+                                              TransactionConstants.viewAll.tr,
+                                              style: ThemeText.bodySemibold.s16,
+                                            )),
+                                            AppImageWidget(
+                                              asset: Assets.images.icArrowRight,
+                                              size: 18.sp,
+                                              color: AppColors.black,
+                                            )
+                                          ],
                                         ),
-                                      ))
-                                  .toList(),
+                                        SizedBox(
+                                          height: 8.sp,
+                                        ),
+                                        Wrap(
+                                          children: controller
+                                              .productsOfCategory.value
+                                              .map((e) => _buildItem(
+                                                  title: e.name,
+                                                  image: e.mediaGalleryEntries
+                                                      ?.first.file))
+                                              .toList(),
+                                        ),
+                                        SizedBox(
+                                          height: 20.sp,
+                                        ),
+                                      ],
+                                    ),
                             ),
+                            Obx(() => controller.subCategories.value.isEmpty
+                                ? const SizedBox.shrink()
+                                : Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        TransactionConstants.subCategories.tr,
+                                        style: ThemeText.bodySemibold.s16,
+                                      ),
+                                      SizedBox(
+                                        height: 8.sp,
+                                      ),
+                                      Column(
+                                          children: controller
+                                              .subCategories.value
+                                              .map((e) => _buildSubCategory(e))
+                                              .toList())
+                                    ],
+                                  ))
                           ],
                         ),
                       ),
@@ -137,12 +126,12 @@ class CategoryScreen extends GetView<CategoryController> {
 
   Widget _buildItem({String? title, String? image}) {
     return Container(
-      margin: EdgeInsets.fromLTRB(0, 8.sp, 8.sp, 8.sp),
+      margin: EdgeInsets.only(right: 16.sp),
       width: Get.width / 5,
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         color: AppColors.white,
       ),
-  //    padding: EdgeInsets.all(16.sp),
+      //    padding: EdgeInsets.all(16.sp),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
@@ -152,7 +141,7 @@ class CategoryScreen extends GetView<CategoryController> {
             url: '${NetworkConfig.baseProductMediaUrl}$image',
             //  fit: ,
           ),
-          SizedBox(
+          const SizedBox(
             height: 4,
           ),
           Text(
@@ -160,6 +149,50 @@ class CategoryScreen extends GetView<CategoryController> {
             style: ThemeText.bodyRegular,
           )
         ],
+      ),
+    );
+  }
+
+  Widget _buildSubCategory(CategoryTreeModel category) {
+    if ((category.childrenData ?? []).isEmpty) {
+      return _buildSubCategoryTile(category);
+    }
+    return ExpansionTile(
+      tilePadding: EdgeInsets.zero,
+      title: Text(
+        category.name ?? '',
+        style: ThemeText.bodyRegular,
+      ),
+      iconColor: AppColors.black,
+      collapsedIconColor: AppColors.black,
+      childrenPadding: EdgeInsets.only(left: 10.sp, top: 0.sp),
+      children: (category.childrenData ?? [])
+          .map<Widget>((e) => _buildSubCategoryTile(e))
+          .toList(),
+    );
+  }
+
+  Widget _buildSubCategoryTile(CategoryTreeModel e) {
+    return AppTouchable(
+      onPressed: () => controller.onViewProductList(e.id ?? 0),
+      child: Padding(
+        padding: EdgeInsets.symmetric(vertical: 8.sp),
+        child: Row(
+          children: [
+            AppImageWidget(
+              asset: Assets.images.icCircle,
+              size: 10.sp,
+            ),
+            SizedBox(
+              width: 8.sp,
+            ),
+            Expanded(
+                child: Text(
+              e.name ?? '',
+              style: ThemeText.bodyRegular,
+            )),
+          ],
+        ),
       ),
     );
   }
@@ -177,7 +210,7 @@ class CategoryScreen extends GetView<CategoryController> {
             url: '${NetworkConfig.baseMediaUrl}$image',
             //  fit: ,
           ),
-          SizedBox(
+          const SizedBox(
             height: 4,
           ),
           Text(

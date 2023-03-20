@@ -9,4 +9,5 @@ class ApiEndpoints {
   static String getCategoriesTree = '/rest/default/V1/categories';
   static String login = '/rest/default/V1/integration/customer/token';
   static String getCustomerInfor = '/rest/V1/customers/me';
+  static String getStoreConfig = '/rest/default/V1/store/storeConfigs';
 }

@@ -70,4 +70,10 @@ class TransactionConstants {
   static const createAccount = 'createAccount';
   static const firstName = 'firstName';
   static const lastName = 'lastName';
+
+  //product
+  static const sortByName = 'sortByName';
+  static const sortByPrice = 'sortByPrice';
+  static const filter = 'filter';
+  static const searchPlaceholderText = 'search.searchPlaceholderText';
 }

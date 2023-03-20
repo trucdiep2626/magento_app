@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:magento_app/common/common_export.dart';
 import 'package:magento_app/domain/models/category_tree_model.dart';
 import 'package:magento_app/domain/models/product_model.dart';
+import 'package:magento_app/domain/models/store_config_response_model.dart';
 import 'package:magento_app/domain/usecases/account_usecase.dart';
 import 'package:magento_app/domain/usecases/category_usecase.dart';
 import 'package:magento_app/domain/usecases/home_usecase.dart';
@@ -41,19 +42,30 @@ class HomeController extends GetxController with MixinController {
     scaffoldKey.currentState?.openEndDrawer();
   }
 
+  Future<void> getStoreConfig() async {
+    var connectivityResult = await Connectivity().checkConnectivity();
+    if (connectivityResult == ConnectivityResult.none) {
+      showTopSnackBarError(context, TransactionConstants.noConnectionError.tr);
+      return;
+    }
+    final result = await homeUseCase.getStoreConfig();
+    if (result != null) {
+      mainController.storeConfig.value = result;
+    } else {
+      showTopSnackBarError(context, TransactionConstants.unknownError.tr);
+    }
+  }
+
   Future<void> getCategoriesTree() async {
     categories.clear();
     var connectivityResult = await Connectivity().checkConnectivity();
     if (connectivityResult == ConnectivityResult.none) {
       showTopSnackBarError(context, TransactionConstants.noConnectionError.tr);
-
       return;
     }
-
     final result = await categoryUseCase.getCategorysWithAttribute();
     if (result != null) {
       categories.addAll(result.childrenData ?? []);
-      debugPrint('==========$categories');
     } else {
       showTopSnackBarError(context, TransactionConstants.unknownError.tr);
     }
@@ -113,6 +125,7 @@ class HomeController extends GetxController with MixinController {
   Future<void> onReady() async {
     super.onReady();
     rxLoadedList.value = LoadedType.start;
+    await getStoreConfig();
     await getCategoriesTree();
     await getHotItems();
     await loginWithUsername();

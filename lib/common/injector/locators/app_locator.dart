@@ -15,8 +15,9 @@ import 'package:magento_app/presentation/journey/category/category_controller.da
 import 'package:magento_app/presentation/journey/home/home_controller.dart';
 import 'package:magento_app/presentation/journey/login/login_controller.dart';
 import 'package:magento_app/presentation/journey/main/main_controller.dart';
+import 'package:magento_app/presentation/journey/product/product_controller.dart';
+import 'package:magento_app/presentation/journey/register/register_controller.dart';
 import 'package:magento_app/presentation/journey/splash/splash_controller.dart';
-import 'package:magento_app/presentation/register/register_controller.dart';
 
 GetIt getIt = GetIt.instance;
 
@@ -43,6 +44,9 @@ void configLocator() {
   getIt.registerFactory<LoginController>(
       () => LoginController(accountUsecase: getIt<AccountUseCase>()));
   getIt.registerFactory<RegisterController>(() => RegisterController());
+  getIt.registerFactory<ProductController>(() => ProductController(
+      productUseCase: getIt<ProductUseCase>(),
+      categoryUseCase: getIt<CategoryUseCase>()));
 
   /// UseCases
   getIt.registerFactory<HomeUseCase>(

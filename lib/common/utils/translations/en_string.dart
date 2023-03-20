@@ -62,6 +62,8 @@ const enString = {
   'subCategories': 'Sub Categories',
   "mainMenu": "Main Menu",
   "pressBackAgain": "Press back again to exit app",
+  'sortByName': "Name",
+  'sortByPrice': "Price",
 
   //"sortOption"
   "aToZ": "Name: a to z",

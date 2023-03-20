@@ -6,19 +6,18 @@ class ProductUseCase {
 
   ProductUseCase({required this.productRepo});
 
-  Future<ProductsResponseModel?> getProductsWithAttribute(
-      {int pageSize = 10,
-      int currentPage = 1,
-      String? conditionType,
-      String? attributeCode,
-      String? attributeValue,
-      String? fields}) async {
+  Future<ProductsResponseModel?> getProductsWithAttribute({
+    int pageSize = 10,
+    int currentPage = 1,
+    Map<String, dynamic>? filters,
+    Map<String, dynamic>? sortOrders,
+    String? fields,
+  }) async {
     return await productRepo.getProductsWithAttribute(
       pageSize: pageSize,
       currentPage: currentPage,
-      conditionType: conditionType,
-      attributeCode: attributeCode,
-      attributeValue: attributeValue,
+      filters: filters,
+      sortOrders: sortOrders,
       fields: fields,
     );
   }
