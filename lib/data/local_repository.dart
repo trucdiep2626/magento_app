@@ -43,4 +43,10 @@ class LocalRepository {
     FlutterSecureStorage storage = const FlutterSecureStorage();
     return storage.read(key: key);
   }
+
+  Future<void> logout() async {
+    FlutterSecureStorage storage = const FlutterSecureStorage();
+    await storage.deleteAll();
+    await SharePreferencesConstants.prefs.clear();
+  }
 }

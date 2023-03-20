@@ -221,8 +221,8 @@ class ProductController extends GetxController with MixinController {
   @override
   void onInit() async {
     super.onInit();
-    Map args = Get.arguments;
-    categoryId = args['category_id'];
+    Map? args = Get.arguments;
+    categoryId = args?['category_id'];
     debugPrint('============$categoryId');
   }
 

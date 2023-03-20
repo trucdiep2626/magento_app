@@ -78,9 +78,10 @@ const viString = {
   //account
   "account.title": "Account",
   "contactInformation": "Contact Information",
-  "logoutButton": "LOG OUT",
+  "logoutButton": "Log out",
   "myOrdersButton": "My Orders",
   "myAddressButton": "My Address",
+  "myProfile": "My Profile",
 
   //addAccountAddress
   "addAccountAddress.title": "My Address",
@@ -111,6 +112,7 @@ const viString = {
   "passwordRecovery": "PASSWORD RECOVERY",
   "passwordRecoveryInstructions":
       "Please enter your email address below to receive a password reset link",
+  "changePassword": "Change password",
 
   //  signup
   "signup.title": "Sign Up",

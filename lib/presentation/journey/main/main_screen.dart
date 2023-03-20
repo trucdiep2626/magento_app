@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:magento_app/common/common_export.dart';
 import 'package:magento_app/gen/assets.gen.dart';
+import 'package:magento_app/presentation/journey/account/account_screen.dart';
 import 'package:magento_app/presentation/journey/category/category_screen.dart';
 import 'package:magento_app/presentation/journey/home/home_page.dart';
 import 'package:magento_app/presentation/journey/product/product_screen.dart';
@@ -114,9 +115,7 @@ class MainScreen extends GetView<MainController> {
         child: Text(StringConstants.workflow.tr),
       ),
       ProductScreen(),
-      Center(
-        child: Text(StringConstants.account.tr),
-      ),
+      AccountScreen()
     ];
 
     return Scaffold(

@@ -78,9 +78,11 @@ const enString = {
   //account
   "account.title": "Account",
   "contactInformation": "Contact Information",
-  "logoutButton": "LOG OUT",
+  "logoutButton": "Log out",
   "myOrdersButton": "My Orders",
   "myAddressButton": "My Address",
+  "myProfile": "My Profile",
+  // "myAddressButton": "My Address",
 
   //addAccountAddress
   "addAccountAddress.title": "My Address",
@@ -111,6 +113,7 @@ const enString = {
   "passwordRecovery": "PASSWORD RECOVERY",
   "passwordRecoveryInstructions":
       "Please enter your email address below to receive a password reset link",
+  "changePassword": "Change password",
 
   //  signup
   "signup.title": "Sign Up",

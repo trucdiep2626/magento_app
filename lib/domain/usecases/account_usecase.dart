@@ -46,7 +46,7 @@ class AccountUseCase {
   }
 
   Future<String?> getSecureData(String key) async {
-    return localRepo.getSecureData(key);
+    return await localRepo.getSecureData(key);
   }
 
   Future<bool> register({
@@ -55,11 +55,15 @@ class AccountUseCase {
     required String firstName,
     required String lastName,
   }) async {
-    return accountRepo.register(
+    return await accountRepo.register(
       username: username,
       password: password,
       firstName: firstName,
       lastName: lastName,
     );
+  }
+
+  Future<void> logout() async {
+    return await localRepo.logout();
   }
 }

@@ -76,4 +76,14 @@ class TransactionConstants {
   static const sortByPrice = 'sortByPrice';
   static const filter = 'filter';
   static const searchPlaceholderText = 'search.searchPlaceholderText';
+
+  static const logOut = 'logoutButton';
+  static const ok = 'ok';
+  static const cancel = 'cancel';
+  static const contactInformation = "contactInformation";
+  static const myOrders = "myOrdersButton";
+  static const myAddress = "myAddressButton";
+  static const myProfile = "myProfile";
+
+  static const changePassword = "changePassword";
 }

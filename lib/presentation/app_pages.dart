@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:magento_app/common/common_export.dart';
+import 'package:magento_app/common/injector/bindings/account_binding.dart';
 import 'package:magento_app/common/injector/bindings/category_binding.dart';
 import 'package:magento_app/common/injector/bindings/home_binding.dart';
 import 'package:magento_app/common/injector/bindings/login_binding.dart';
@@ -22,6 +23,7 @@ List<GetPage> myPages = [
     HomeBinding(),
     CategoryBinding(),
     ProductBinding(),
+    AccountBinding(),
   ]),
   GetPage(
     name: AppRoutes.login,

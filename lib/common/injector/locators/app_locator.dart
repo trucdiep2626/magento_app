@@ -11,6 +11,7 @@ import 'package:magento_app/domain/usecases/category_usecase.dart';
 import 'package:magento_app/domain/usecases/home_usecase.dart';
 import 'package:magento_app/domain/usecases/product_usecase.dart';
 import 'package:magento_app/presentation/controllers/app_controller.dart';
+import 'package:magento_app/presentation/journey/account/account_controller.dart';
 import 'package:magento_app/presentation/journey/category/category_controller.dart';
 import 'package:magento_app/presentation/journey/home/home_controller.dart';
 import 'package:magento_app/presentation/journey/login/login_controller.dart';
@@ -49,6 +50,8 @@ void configLocator() {
   getIt.registerFactory<ProductController>(() => ProductController(
       productUseCase: getIt<ProductUseCase>(),
       categoryUseCase: getIt<CategoryUseCase>()));
+  getIt.registerFactory<AccountController>(
+          () => AccountController(accountUseCase: getIt<AccountUseCase>()));
 
   /// UseCases
   getIt.registerFactory<HomeUseCase>(
