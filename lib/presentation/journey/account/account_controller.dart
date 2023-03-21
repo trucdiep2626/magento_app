@@ -35,9 +35,9 @@ class AccountController extends GetxController with MixinController {
   }
 
   goToProfile() {
-    // Get.toNamed(
-    //   AppRoutes.profile,
-    // );
+    Get.toNamed(
+      AppRoutes.profile,
+    );
     //Get.toNamed(AppRoute.profile);
   }
 

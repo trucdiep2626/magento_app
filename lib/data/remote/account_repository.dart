@@ -30,7 +30,8 @@ class AccountRepository {
       if (result.statusCode == 200) {
         return result.data;
       }
-      showTopSnackBarError(Get.context!, result.statusMessage ?? TransactionConstants.unknownError.tr);
+      showTopSnackBarError(Get.context!,
+          result.statusMessage ?? TransactionConstants.unknownError.tr);
       return null;
     } catch (e) {
       showTopSnackBarError(Get.context!, TransactionConstants.unknownError.tr);
@@ -50,9 +51,12 @@ class AccountRepository {
       if (result.statusCode == 200) {
         return CustomerModel.fromJson(result.data);
       }
+      showTopSnackBarError(Get.context!,
+          result.statusMessage ?? TransactionConstants.unknownError.tr);
       return null;
     } catch (e) {
       debugPrint(e.toString());
+      showTopSnackBarError(Get.context!, TransactionConstants.unknownError.tr);
       return null;
     }
   }
@@ -73,7 +77,7 @@ class AccountRepository {
     };
     try {
       final result =
-          await _dio.request('${NetworkConfig.baseUrl}${ApiEndpoints.register}',
+          await _dio.request('${NetworkConfig.baseUrl}${ApiEndpoints.customer}',
               data: params,
               options: Options(
                 method: 'POST',
@@ -88,6 +92,32 @@ class AccountRepository {
       debugPrint(e.toString());
       showTopSnackBarError(Get.context!, TransactionConstants.unknownError.tr);
       return false;
+    }
+  }
+
+  Future<CustomerModel?> updateCustomer(
+      {required CustomerModel customer}) async {
+    final params = {
+      "customer": {...customer.toUpdateCustomer()},
+    };
+    try {
+      final result = await _dio.request(
+          '${NetworkConfig.baseUrl}${ApiEndpoints.customer}/${customer.id ?? 0}',
+          data: params,
+          options: Options(
+            method: 'PUT',
+            headers: <String, dynamic>{r'Authorization': '${NetworkConfig.token}'},
+          ));
+      if (result.statusCode == 200) {
+        return CustomerModel.fromJson(result.data);
+      }
+      showTopSnackBarError(Get.context!,
+          result.statusMessage ?? TransactionConstants.unknownError.tr);
+      return null;
+    } catch (e) {
+      debugPrint(e.toString());
+      showTopSnackBarError(Get.context!, TransactionConstants.unknownError.tr);
+      return null;
     }
   }
 }

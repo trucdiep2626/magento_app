@@ -66,4 +66,9 @@ class AccountUseCase {
   Future<void> logout() async {
     return await localRepo.logout();
   }
+
+  Future<CustomerModel?> updateCustomer(
+      {required CustomerModel customer}) async {
+    return await accountRepo.updateCustomer(customer: customer);
+  }
 }

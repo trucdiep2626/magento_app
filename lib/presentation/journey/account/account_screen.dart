@@ -34,7 +34,7 @@ class AccountScreen extends GetView<AccountController> {
                 asset: Assets.images.icUser,
               ),
               title: Text(
-                '${mainController.rxCustomer.value?.firstname ?? ''} ${mainController.rxCustomer.value?.lastname ?? ''}',
+                'Hi, ${mainController.rxCustomer.value?.firstname ?? ''} ${mainController.rxCustomer.value?.lastname ?? ''}',
                 style: ThemeText.bodySemibold.s16,
               ),
             ),
@@ -42,7 +42,7 @@ class AccountScreen extends GetView<AccountController> {
           _buildListTile(
               onTap: controller.goToProfile,
               icon: Assets.images.icUser,
-              title: TransactionConstants.myProfile.tr),
+              title: TransactionConstants.accountInformation.tr),
           _buildListTile(
               onTap: controller.onPressLogout,
               icon: Assets.images.icOrder,
@@ -64,8 +64,11 @@ class AccountScreen extends GetView<AccountController> {
     );
   }
 
-  Widget _buildListTile(
-      {required SvgGenImage icon, required String title, required onTap}) {
+  Widget _buildListTile({
+    required SvgGenImage icon,
+    required String title,
+    required onTap,
+  }) {
     return GestureDetector(
       onTap: onTap,
       child: Row(
@@ -82,7 +85,7 @@ class AccountScreen extends GetView<AccountController> {
           ),
           Text(
             title,
-            style: ThemeText.bodyRegular,
+            style: ThemeText.bodyRegular.s16,
           ),
         ],
       ),

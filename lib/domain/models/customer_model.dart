@@ -121,6 +121,16 @@ class CustomerModel {
     }
     return data;
   }
+
+  Map<String, dynamic> toUpdateCustomer() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['dob'] = dob;
+    data['firstname'] = firstname;
+    data['lastname'] = lastname;
+    data['gender'] = gender;
+    return data;
+  }
 }
 
 class Addresses {

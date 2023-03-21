@@ -45,8 +45,10 @@ const enString = {
   "max": "Max.",
   "region": "Region",
   "country": "Country",
-  "firstName": "Firstname",
-  "lastName": "Lastname",
+  "firstName": "First Name",
+  "lastName": "Last Name",
+  "gender": "Gender",
+  "dob":"DOB",
   "postcode": "Postcode",
   "street": "Street",
   "city": "City",
@@ -82,6 +84,8 @@ const enString = {
   "myOrdersButton": "My Orders",
   "myAddressButton": "My Address",
   "myProfile": "My Profile",
+  "accountInformation": "Account Information",
+  "editAccountInformation": "Edit Account Information",
   // "myAddressButton": "My Address",
 
   //addAccountAddress

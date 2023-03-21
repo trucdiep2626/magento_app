@@ -86,4 +86,9 @@ class TransactionConstants {
   static const myProfile = "myProfile";
 
   static const changePassword = "changePassword";
+  static const accountInformation = "accountInformation";
+  static const editAccountInformation = "editAccountInformation";
+  static const gender = "gender";
+  static const dob = "dob";
+  static const save = "save";
 }

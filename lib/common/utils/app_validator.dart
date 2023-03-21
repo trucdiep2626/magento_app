@@ -16,6 +16,7 @@ enum AppValidation {
   bankAccNo,
   creditCardNo,
   visaCardNo,
+  dob,
 }
 
 final _pattern = <AppValidation, Pattern>{
@@ -27,7 +28,8 @@ final _pattern = <AppValidation, Pattern>{
   AppValidation.email:
       r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$',
   AppValidation.username: r'^([a-zA-Z0-9\.\-]{1,50})$',
-  AppValidation.password: r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$',
+  AppValidation.password:
+      r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$',
   AppValidation.dateTime:
       r'^(([0-9]{4}\-[0-9]{2}\-[0-9]{2}T[0-9]{2}\:[0-9]{2}\:[0-9]{2}Z))|(([0-9]{4}\-[0-9]{2}\-[0-9]{2}T[0-9]{2}\:[0-9]{2}\:[0-9]{2}\+[0-9]{2}\:[0-9]{2}))$',
   AppValidation.amount: r'^(?:\\d{1,3}(?:,\\d{3})*|\\d+)(?:.\\d+)?$',
@@ -36,6 +38,7 @@ final _pattern = <AppValidation, Pattern>{
   AppValidation.bankAccNo: r'^[0-9A-Za-z?]{5,16}$',
   AppValidation.creditCardNo: r'^(9704|6201) \d{4} \d{4} ?\d{0,4}$',
   AppValidation.visaCardNo: r'^4[0-9]{12}(?:[0-9]{3})?$',
+  AppValidation.dob: r'^\d{4}\-(0?[1-9]|1[012])\-(0?[1-9]|[12][0-9]|3[01])$',
 };
 
 class AppValidator {
@@ -53,9 +56,17 @@ class AppValidator {
 
   static String validateEmail(TextEditingController emailCtrl) {
     return error(
-      emailCtrl.text,
+      emailCtrl.text.trim(),
       AppValidation.email,
       'Email is not a valid email address',
+    );
+  }
+
+  static String validateDob(TextEditingController emailCtrl) {
+    return error(
+      emailCtrl.text.trim(),
+      AppValidation.dob,
+      'DOB is not a valid datetime',
     );
   }
 
@@ -77,8 +88,9 @@ class AppValidator {
   }
 
   static String validateName(String typeName, TextEditingController nameCtrl) {
+    debugPrint('====${nameCtrl.text}00');
     return error(
-      nameCtrl.text,
+      nameCtrl.text.trim(),
       AppValidation.name,
       '$typeName is a required value',
     );

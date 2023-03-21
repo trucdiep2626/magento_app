@@ -5,9 +5,11 @@ import 'package:magento_app/common/injector/bindings/category_binding.dart';
 import 'package:magento_app/common/injector/bindings/home_binding.dart';
 import 'package:magento_app/common/injector/bindings/login_binding.dart';
 import 'package:magento_app/common/injector/bindings/product_binding.dart';
+import 'package:magento_app/common/injector/bindings/profile_binding.dart';
 import 'package:magento_app/common/injector/bindings/register_binding.dart';
 import 'package:magento_app/presentation/journey/login/login_screen.dart';
 import 'package:magento_app/presentation/journey/product/product_screen.dart';
+import 'package:magento_app/presentation/journey/profile/profile_screen.dart';
 import 'package:magento_app/presentation/journey/register/register_screen.dart';
 import 'journey/main/main_screen.dart';
 import 'journey/splash/splash_screen.dart';
@@ -39,5 +41,10 @@ List<GetPage> myPages = [
     name: AppRoutes.product,
     page: () => ProductScreen(),
     binding: ProductBinding(),
+  ),
+  GetPage(
+    name: AppRoutes.profile,
+    page: () => ProfileScreen(),
+    binding: ProfileBinding(),
   ),
 ];
