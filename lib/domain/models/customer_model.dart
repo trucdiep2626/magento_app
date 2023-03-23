@@ -129,8 +129,58 @@ class CustomerModel {
     data['firstname'] = firstname;
     data['lastname'] = lastname;
     data['gender'] = gender;
+    if (addresses != null) {
+      data['addresses'] = addresses!.map((v) => v.toJson()).toList();
+    }
     return data;
   }
+
+  Map<String, dynamic> toUpdateAddress() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    if (addresses != null) {
+      data['addresses'] = addresses!.map((v) => v.toJson()).toList();
+    }
+    return data;
+  }
+
+  CustomerModel copyWith({
+    int? groupId,
+    String? defaultBilling,
+    String? defaultShipping,
+    String? confirmation,
+    String? dob,
+    String? email,
+    String? firstname,
+    String? lastname,
+    String? prefix,
+    String? suffix,
+    int? gender,
+    int? storeId,
+    String? taxvat,
+    List<Addresses>? addresses,
+  }) =>
+      CustomerModel(
+          id: this.id,
+          groupId: groupId ?? this.groupId,
+          taxvat: taxvat ?? this.taxvat,
+          defaultBilling: defaultBilling ?? this.defaultBilling,
+          defaultShipping: defaultShipping ?? this.defaultShipping,
+          confirmation: confirmation ?? this.confirmation,
+          dob: dob ?? this.dob,
+          email: email ?? this.email,
+          firstname: firstname ?? this.firstname,
+          lastname: lastname ?? this.lastname,
+          middlename: this.middlename,
+          prefix: this.prefix,
+          suffix: this.suffix,
+          gender: gender ?? this.gender,
+          storeId: this.storeId,
+          websiteId: this.websiteId,
+          addresses: addresses ?? this.addresses,
+          disableAutoGroupChange: this.disableAutoGroupChange,
+          extensionAttributes: this.extensionAttributes,
+          customAttributes: this.customAttributes);
 }
 
 class Addresses {

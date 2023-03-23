@@ -124,26 +124,28 @@ class _AppDialogState extends State<AppDialog> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                isNullEmpty(widget.title)
-                    ? const SizedBox.shrink()
-                    : Text(
+                // isNullEmpty(widget.title)
+                //     ? const SizedBox.shrink()
+                //     :
+                Text(
                         widget.title!,
                         textAlign: TextAlign.start,
-                        style: ThemeText.bodySemibold,
+                        style: ThemeText.bodyRegular.s20,
                       ),
                 SizedBox(height: 16.sp),
-                Text(
-                  widget.message,
-                  textAlign: widget.messageTextAlign,
-                  style: ThemeText.bodyRegular.grey500Color,
-                ),
+                // Text(
+                //   widget.message,
+                //   textAlign: widget.messageTextAlign,
+                //   style: ThemeText.bodyRegular.grey500Color,
+                // ),
                 SizedBox(height: 16.sp),
                 Visibility(
                   visible: enableConfirm,
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Expanded(
                         child: AppButton(
@@ -153,6 +155,7 @@ class _AppDialogState extends State<AppDialog> {
                           loaded: widget.firstButtonState ?? LoadedType.finish,
                         ),
                       ),
+                      SizedBox(width: 8.sp,),
                       if (widget.secondButtonText != null)
                         Expanded(
                           child: AppButton(

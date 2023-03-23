@@ -1,12 +1,16 @@
 import 'package:get/get.dart';
 import 'package:magento_app/common/common_export.dart';
 import 'package:magento_app/common/injector/bindings/account_binding.dart';
+import 'package:magento_app/common/injector/bindings/addresses_list_binding.dart';
 import 'package:magento_app/common/injector/bindings/category_binding.dart';
+import 'package:magento_app/common/injector/bindings/create_address_binding.dart';
 import 'package:magento_app/common/injector/bindings/home_binding.dart';
 import 'package:magento_app/common/injector/bindings/login_binding.dart';
 import 'package:magento_app/common/injector/bindings/product_binding.dart';
 import 'package:magento_app/common/injector/bindings/profile_binding.dart';
 import 'package:magento_app/common/injector/bindings/register_binding.dart';
+import 'package:magento_app/presentation/journey/addresses_list/address_screen.dart';
+import 'package:magento_app/presentation/journey/create_address/create_address_screen.dart';
 import 'package:magento_app/presentation/journey/login/login_screen.dart';
 import 'package:magento_app/presentation/journey/product/product_screen.dart';
 import 'package:magento_app/presentation/journey/profile/profile_screen.dart';
@@ -46,5 +50,15 @@ List<GetPage> myPages = [
     name: AppRoutes.profile,
     page: () => ProfileScreen(),
     binding: ProfileBinding(),
+  ),
+  GetPage(
+    name: AppRoutes.address,
+    page: () => AddressScreen(),
+    binding: AddressBinding(),
+  ),
+  GetPage(
+    name: AppRoutes.createAddress,
+    page: () => CreateNewAddressScreen(),
+    binding: CreateAddressBinding(),
   ),
 ];

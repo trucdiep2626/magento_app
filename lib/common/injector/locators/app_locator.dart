@@ -12,7 +12,9 @@ import 'package:magento_app/domain/usecases/home_usecase.dart';
 import 'package:magento_app/domain/usecases/product_usecase.dart';
 import 'package:magento_app/presentation/controllers/app_controller.dart';
 import 'package:magento_app/presentation/journey/account/account_controller.dart';
+import 'package:magento_app/presentation/journey/addresses_list/address_controller.dart';
 import 'package:magento_app/presentation/journey/category/category_controller.dart';
+import 'package:magento_app/presentation/journey/create_address/create_address_controller.dart';
 import 'package:magento_app/presentation/journey/home/home_controller.dart';
 import 'package:magento_app/presentation/journey/login/login_controller.dart';
 import 'package:magento_app/presentation/journey/main/main_controller.dart';
@@ -55,6 +57,9 @@ void configLocator() {
       () => AccountController(accountUseCase: getIt<AccountUseCase>()));
   getIt.registerFactory<ProfileController>(
       () => ProfileController(accountUsecase: getIt<AccountUseCase>()));
+  getIt.registerFactory<AddressController>(() => AddressController());
+  getIt.registerFactory<CreateNewAddressController>(() =>
+      CreateNewAddressController(accountUsecase: getIt<AccountUseCase>()));
 
   /// UseCases
   getIt.registerFactory<HomeUseCase>(

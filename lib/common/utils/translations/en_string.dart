@@ -21,7 +21,7 @@ const enString = {
 
   //common
   "brandName": "magento-flutter-app",
-  "ok": "OK!",
+  "ok": "OK",
   "cancel": "Cancel",
   "continue": "Continue",
   "select": "Select",
@@ -48,7 +48,7 @@ const enString = {
   "firstName": "First Name",
   "lastName": "Last Name",
   "gender": "Gender",
-  "dob":"DOB",
+  "dob": "DOB",
   "postcode": "Postcode",
   "street": "Street",
   "city": "City",
@@ -66,6 +66,8 @@ const enString = {
   "pressBackAgain": "Press back again to exit app",
   'sortByName': "Name",
   'sortByPrice': "Price",
+  'noData': "No Data",
+  'address': "Address",
 
   //"sortOption"
   "aToZ": "Name: a to z",
@@ -90,6 +92,12 @@ const enString = {
 
   //addAccountAddress
   "addAccountAddress.title": "My Address",
+  "addAccountAddress": "Add new address",
+  'addressDefaultBillingAddress': "Use as my default billing address",
+  'addressDefaultShippingAddress': "Use as my default shipping address",
+  'defaultBillingAddress': 'Default Billing Address',
+  'defaultShippingAddress': 'Default Shipping Address',
+  "editAddress": "Edit address",
 
   //login
   "login.title": "Login",

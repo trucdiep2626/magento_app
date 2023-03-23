@@ -91,4 +91,16 @@ class TransactionConstants {
   static const gender = "gender";
   static const dob = "dob";
   static const save = "save";
+  static const telephone = "telephone";
+  static const address = "address";
+
+  static const noData = "noData";
+  static const addAccountAddress = "addAccountAddress";
+
+  static const addressDefaultBillingAddress = 'addressDefaultBillingAddress';
+  static const addressDefaultShippingAddress = 'addressDefaultShippingAddress';
+
+  static const defaultBillingAddress = 'defaultBillingAddress';
+  static const defaultShippingAddress = 'defaultShippingAddress';
+  static const editAddress = "editAddress";
 }

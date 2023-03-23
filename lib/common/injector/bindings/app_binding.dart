@@ -7,5 +7,4 @@ class AppBinding extends Bindings {
   void dependencies() {
     Get.put(getIt<AppController>());
   }
-
 }

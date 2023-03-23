@@ -15,7 +15,8 @@ class AccountController extends GetxController with MixinController {
   final MainController _mainController = Get.find<MainController>();
 
   onPressLogout() async {
-    await showAppDialog(context, TransactionConstants.loginButton.tr, '',
+    await showAppDialog(context,
+        TransactionConstants.logOut.tr,'',
         firstButtonText: TransactionConstants.ok.tr,
         messageTextAlign: TextAlign.start,
         dismissAble: true,
@@ -34,12 +35,6 @@ class AccountController extends GetxController with MixinController {
         secondButtonCallback: () => Get.back());
   }
 
-  goToProfile() {
-    Get.toNamed(
-      AppRoutes.profile,
-    );
-    //Get.toNamed(AppRoute.profile);
-  }
 
   goToChangePassword() {
     //Get.toNamed(AppRoutes.changePassword);

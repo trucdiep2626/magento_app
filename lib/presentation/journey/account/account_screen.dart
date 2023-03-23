@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:magento_app/common/common_export.dart';
 import 'package:magento_app/common/utils/export.dart';
 import 'package:magento_app/gen/assets.gen.dart';
 import 'package:magento_app/presentation/journey/account/account_controller.dart';
@@ -40,19 +41,29 @@ class AccountScreen extends GetView<AccountController> {
             ),
           ),
           _buildListTile(
-              onTap: controller.goToProfile,
+              onTap: (){
+                Get.toNamed(
+                    AppRoutes.profile
+                );
+              },
               icon: Assets.images.icUser,
               title: TransactionConstants.accountInformation.tr),
           _buildListTile(
-              onTap: controller.onPressLogout,
+              onTap: (){
+
+              },
               icon: Assets.images.icOrder,
               title: TransactionConstants.myOrders.tr),
           _buildListTile(
-              onTap: controller.onPressLogout,
+              onTap: (){
+                Get.toNamed(
+                    AppRoutes.address
+                );
+              },
               icon: Assets.images.icLocation,
               title: TransactionConstants.myAddress.tr),
           _buildListTile(
-              onTap: controller.goToChangePassword(),
+              onTap: controller.goToChangePassword,
               icon: Assets.images.icPassword,
               title: TransactionConstants.changePassword.tr),
           _buildListTile(

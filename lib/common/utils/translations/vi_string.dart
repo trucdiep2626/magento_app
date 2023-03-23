@@ -21,7 +21,7 @@ const viString = {
 
   //common
   "brandName": "magento-flutter-app",
-  "ok": "OK!",
+  "ok": "OK",
   "cancel": "Cancel",
   "continue": "Continue",
   "select": "Select",
@@ -66,6 +66,8 @@ const viString = {
   "pressBackAgain": "Press back again to exit app",
   'sortByName': "Sort by name",
   'sortByPrice': "Sort by price",
+  'noData': "No Data",
+  'address': "Address",
 
   //"sortOption"
   "aToZ": "Name: a to z",
@@ -89,6 +91,12 @@ const viString = {
 
   //addAccountAddress
   "addAccountAddress.title": "My Address",
+  "addAccountAddress": "Add new address",
+  'addressDefaultBillingAddress': "Use as my default billing address",
+  'addressDefaultShippingAddress': "Use as my default shipping address",
+  'defaultBillingAddress': 'Default Billing Address',
+  'defaultShippingAddress': 'Default Shipping Address',
+  "editAddress": "Edit address",
 
   //login
   "login.title": "Login",

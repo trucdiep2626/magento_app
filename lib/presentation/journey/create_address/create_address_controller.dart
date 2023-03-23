@@ -9,35 +9,31 @@ import 'package:magento_app/presentation/controllers/mixin/export.dart';
 import 'package:magento_app/presentation/journey/main/main_controller.dart';
 import 'package:magento_app/presentation/widgets/export.dart';
 
-enum Gender {
-  man(0),
-  woman(1);
-
-  const Gender(this.value);
-  final int value;
-}
-
-class ProfileController extends GetxController with MixinController {
+class CreateNewAddressController extends GetxController with MixinController {
   Rx<LoadedType> rxLoadedButton = LoadedType.finish.obs;
   AccountUseCase accountUsecase;
 
   final firstNameController = TextEditingController();
   final lastNameController = TextEditingController();
-  final dobController = TextEditingController();
+  final phoneController = TextEditingController();
+  final addressController = TextEditingController();
 
   final firstNameFocusNode = FocusNode();
   final lastNameFocusNode = FocusNode();
-  final dobFocusNode = FocusNode();
+  final phoneFocusNode = FocusNode();
+  final addressFocusNode = FocusNode();
 
   //RxString errorText = ''.obs;
 
   RxString firstNameValidate = ''.obs;
   RxString lastNameValidate = ''.obs;
-  RxString dobValidate = ''.obs;
+  RxString phoneValidate = ''.obs;
+  RxString addressValidate = ''.obs;
 
   RxBool firstNameHasFocus = false.obs;
   RxBool lastNameHasFocus = false.obs;
-  RxBool dobHasFocus = false.obs;
+  RxBool phoneHasFocus = false.obs;
+  RxBool addressHasFocus = false.obs;
 
   RxBool buttonEnable = false.obs;
 
@@ -45,14 +41,16 @@ class ProfileController extends GetxController with MixinController {
 
   CustomerModel customer = CustomerModel();
 
-  Rx<Gender?> selectedGender = (null as Gender?).obs;
-  RxString selectedDate = ''.obs;
-
   final MainController _mainController = Get.find<MainController>();
 
   bool loadError = false;
 
-  ProfileController({required this.accountUsecase});
+  RxBool defaultBillingAddress = false.obs;
+  RxBool defaultShippingAddress = false.obs;
+
+  Addresses? editAddress;
+
+  CreateNewAddressController({required this.accountUsecase});
 
   void checkButtonEnable() {
     if (firstNameController.text.trim().isNotEmpty &&
@@ -63,8 +61,12 @@ class ProfileController extends GetxController with MixinController {
     }
   }
 
-  void updateSelectedGender(Gender gender) {
-    selectedGender.value = gender;
+  void onChangeSetDefaultBillingAddress() {
+    defaultBillingAddress.value = !defaultBillingAddress.value;
+  }
+
+  void onChangeSetDefaultShippingAddress() {
+    defaultShippingAddress.value = !defaultShippingAddress.value;
   }
 
   void saveInfo() async {
@@ -82,9 +84,12 @@ class ProfileController extends GetxController with MixinController {
       lastNameController,
     );
 
-    if (dobController.text.trim().isNotEmpty) {
-      dobValidate.value = AppValidator.validateDob(dobController);
-    }
+    phoneValidate.value = AppValidator.validatePhoneNumber(phoneController);
+
+    addressValidate.value = addressController.text.trim().isEmpty
+        ? 'Address is a required value '
+        : '';
+    ;
 
     var connectivityResult = await Connectivity().checkConnectivity();
     if (connectivityResult == ConnectivityResult.none) {
@@ -93,16 +98,30 @@ class ProfileController extends GetxController with MixinController {
       return;
     }
 
-    if (dobValidate.value.isEmpty &&
+    if (phoneValidate.value.isEmpty &&
         firstNameValidate.value.isEmpty &&
-        lastNameValidate.value.isEmpty) {
+        lastNameValidate.value.isEmpty &&
+        addressValidate.value.isEmpty) {
+      if (editAddress != null) {
+        (customer.addresses ?? [])
+            .removeWhere((element) => element.id == editAddress?.id);
+      }
+
+      (customer.addresses ?? []).add(Addresses(
+        customerId: customer.id,
+        firstname: firstNameController.text.trim(),
+        lastname: lastNameController.text.trim(),
+        telephone: phoneController.text.trim(),
+        city: addressController.text.trim(),
+        street: [addressController.text.trim()],
+        postcode: '000084',
+        countryId: 'VN',
+        defaultBilling: defaultBillingAddress.value,
+        defaultShipping: defaultShippingAddress.value,
+      ));
+
       final result = await accountUsecase.updateCustomer(
-        customer: customer.copyWith(
-          firstname: firstNameController.text.trim(),
-          lastname: lastNameController.text.trim(),
-          dob: dobController.text.trim(),
-          gender: selectedGender.value?.value,
-        ),
+        customer: customer,
       );
 
       if (result != null) {
@@ -110,20 +129,13 @@ class ProfileController extends GetxController with MixinController {
         await _mainController.getUserProfile();
         Get.back();
       }
-      // else {
-      //   showTopSnackBarError(context, TransactionConstants.unknownError.tr);
-      //   //
-      //   // } else {
-      //   //   debugPrint('đăng nhập thất bại');
-      //   //   errorText.value = TransactionConstants.loginError.tr;
-      // }
     }
 
     rxLoadedButton.value = LoadedType.finish;
   }
 
-  void onEditingCompleteDob() {
-    dobHasFocus.value = false;
+  void onEditingCompleteAddress() {
+    addressHasFocus.value = false;
     FocusScope.of(context).unfocus();
     if (buttonEnable.value) {
       saveInfo();
@@ -131,7 +143,8 @@ class ProfileController extends GetxController with MixinController {
   }
 
   void onPressedSave() {
-    dobHasFocus.value = false;
+    phoneHasFocus.value = false;
+    addressHasFocus.value = false;
     lastNameHasFocus.value = false;
     firstNameHasFocus.value = false;
     checkButtonEnable();
@@ -143,6 +156,9 @@ class ProfileController extends GetxController with MixinController {
   @override
   void onInit() {
     super.onInit();
+    Map? args = Get.arguments;
+    editAddress = args?['address'];
+    debugPrint('============$editAddress');
     customer = _mainController.rxCustomer.value ?? CustomerModel();
   }
 
@@ -154,11 +170,13 @@ class ProfileController extends GetxController with MixinController {
   }
 
   Future<void> getInitInfo() async {
-    firstNameController.text = customer.firstname ?? '';
-    lastNameController.text = customer.lastname ?? '';
-    dobController.text = customer.dob ?? '';
-    if (customer.gender != null) {
-      selectedGender.value = (customer.gender == 1) ? Gender.woman : Gender.man;
+    if (editAddress != null) {
+      firstNameController.text = editAddress?.firstname ?? '';
+      lastNameController.text = editAddress?.lastname ?? '';
+      phoneController.text = editAddress?.telephone ?? '';
+      addressController.text = editAddress?.city ?? '';
+      defaultBillingAddress.value = editAddress?.defaultBilling ?? false;
+      defaultShippingAddress.value = editAddress?.defaultShipping ?? false;
     }
   }
 }
