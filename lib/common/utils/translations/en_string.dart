@@ -88,7 +88,6 @@ const enString = {
   "myProfile": "My Profile",
   "accountInformation": "Account Information",
   "editAccountInformation": "Edit Account Information",
-  // "myAddressButton": "My Address",
 
   //addAccountAddress
   "addAccountAddress.title": "My Address",
@@ -126,6 +125,9 @@ const enString = {
   "passwordRecoveryInstructions":
       "Please enter your email address below to receive a password reset link",
   "changePassword": "Change password",
+  "currentPassword": "Current password",
+  "newPassword": "New password",
+  "currentPasswordIncorrect":"Your current password is incorrect",
 
   //  signup
   "signup.title": "Sign Up",

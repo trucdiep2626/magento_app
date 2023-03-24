@@ -135,21 +135,30 @@ class CreateNewAddressScreen extends GetView<CreateNewAddressController> {
                     SizedBox(
                       height: 24.h,
                     ),
-                    Obx(() => AppButton(
-                          //   margin: EdgeInsets.all(0),
-                          title: TransactionConstants.save.tr,
-                          onPressed: controller.onPressedSave,
-                          loaded: controller.rxLoadedButton.value,
-                        )),
-                    SizedBox(
-                      height: AppDimens.height_50,
-                    ),
+                    // Obx(() => AppButton(
+                    //       //   margin: EdgeInsets.all(0),
+                    //       title: TransactionConstants.save.tr,
+                    //       onPressed: controller.onPressedSave,
+                    //       loaded: controller.rxLoadedButton.value,
+                    //     )),
+                    // SizedBox(
+                    //   height: AppDimens.height_50,
+                    // ),
                   ],
                 ),
               ),
             ),
           ),
-        ]));
+        ],),
+      bottomNavigationBar: Padding(
+        padding: EdgeInsets.all(16.sp),
+        child: Obx(() => AppButton(
+          title: TransactionConstants.save.tr,
+          onPressed: controller.onPressedSave,
+          loaded: controller.rxLoadedButton.value,
+        )),
+      ),
+    );
   }
 
   // Widget _itemInfoSkeletonWidget() {

@@ -48,7 +48,7 @@ const viString = {
   "firstName": "First Name",
   "lastName": "Last Name",
   "gender": "Gender",
-  "dob":"DOB",
+  "dob": "DOB",
   "postcode": "Postcode",
   "street": "Street",
   "city": "City",
@@ -125,6 +125,9 @@ const viString = {
   "passwordRecoveryInstructions":
       "Please enter your email address below to receive a password reset link",
   "changePassword": "Change password",
+  "currentPassword": "Current password",
+  "newPassword": "New password",
+  "currentPasswordIncorrect":"Your current password is incorrect",
 
   //  signup
   "signup.title": "Sign Up",

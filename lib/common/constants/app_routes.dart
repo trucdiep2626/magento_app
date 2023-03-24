@@ -7,5 +7,5 @@ class AppRoutes {
   static const String changePassword = '/change_password';
   static const String profile = '/profile';
   static const String address = '/address';
-  static const String createAddress = '/createAddress';
+  static const String createAddress = '/create_address';
 }

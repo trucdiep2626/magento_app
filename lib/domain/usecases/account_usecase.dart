@@ -71,4 +71,18 @@ class AccountUseCase {
       {required CustomerModel customer}) async {
     return await accountRepo.updateCustomer(customer: customer);
   }
+
+  Future<bool> changePassword({
+    required String currentPassword,
+    required String newPassword,
+  }) async {
+    String? token = getToken();
+
+    return token == null
+        ? false
+        : await accountRepo.changePassword(
+            token: token,
+            currentPassword: currentPassword,
+            newPassword: newPassword);
+  }
 }

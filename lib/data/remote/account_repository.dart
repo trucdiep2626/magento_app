@@ -106,7 +106,9 @@ class AccountRepository {
           data: params,
           options: Options(
             method: 'PUT',
-            headers: <String, dynamic>{r'Authorization': '${NetworkConfig.token}'},
+            headers: <String, dynamic>{
+              r'Authorization': '${NetworkConfig.token}'
+            },
           ));
       if (result.statusCode == 200) {
         return CustomerModel.fromJson(result.data);
@@ -118,6 +120,36 @@ class AccountRepository {
       debugPrint(e.toString());
       showTopSnackBarError(Get.context!, TransactionConstants.unknownError.tr);
       return null;
+    }
+  }
+
+  Future<bool> changePassword({
+    required String token,
+    required String currentPassword,
+    required String newPassword,
+  }) async {
+    final params = {
+      "currentPassword": currentPassword,
+      "newPassword": newPassword,
+    };
+    try {
+      final result = await _dio.request(
+          '${NetworkConfig.baseUrl}${ApiEndpoints.changePassword}',
+          data: params,
+          options: Options(
+            method: 'PUT',
+            headers: <String, dynamic>{r'Authorization': 'Bearer $token'},
+          ));
+      if (result.statusCode == 200) {
+        return true;
+      }
+      showTopSnackBarError(Get.context!,
+          result.statusMessage ?? TransactionConstants.unknownError.tr);
+      return false;
+    } catch (e) {
+      debugPrint(e.toString());
+      showTopSnackBarError(Get.context!, TransactionConstants.unknownError.tr);
+      return false;
     }
   }
 }

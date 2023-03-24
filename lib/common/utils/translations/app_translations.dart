@@ -103,4 +103,9 @@ class TransactionConstants {
   static const defaultBillingAddress = 'defaultBillingAddress';
   static const defaultShippingAddress = 'defaultShippingAddress';
   static const editAddress = "editAddress";
+
+  static const currentPassword = "currentPassword";
+  static const newPassword = "newPassword";
+  static const currentPasswordIncorrect = "currentPasswordIncorrect";
+
 }

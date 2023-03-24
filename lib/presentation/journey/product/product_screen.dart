@@ -91,6 +91,7 @@ class ProductScreen extends GetView<ProductController> {
       width: Get.width,
       child: Row(
         children: [
+        if(controller.categoryId != null)
           AppTouchable(
             onPressed: () => Get.back(),
             child: AppImageWidget(
@@ -98,6 +99,7 @@ class ProductScreen extends GetView<ProductController> {
               size: 18.sp,
             ),
           ),
+          if(controller.categoryId != null)
           SizedBox(
             width: 8.sp,
           ),
@@ -193,8 +195,6 @@ class ProductScreen extends GetView<ProductController> {
       ),
     );
   }
-
-
 
   Widget _buildAddToCartButton() {
     return AppTouchable(

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:magento_app/common/common_export.dart';
-import 'package:magento_app/common/utils/export.dart';
 import 'package:magento_app/gen/assets.gen.dart';
 import 'package:magento_app/presentation/journey/account/account_controller.dart';
 import 'package:magento_app/presentation/journey/main/main_controller.dart';
@@ -31,9 +30,9 @@ class AccountScreen extends GetView<AccountController> {
             width: Get.width,
             child: ListTile(
               tileColor: AppColors.grey200,
-              leading: AppImageWidget(
-                asset: Assets.images.icUser,
-              ),
+              // leading: AppImageWidget(
+              //   asset: Assets.images.icUser,
+              // ),
               title: Text(
                 'Hi, ${mainController.rxCustomer.value?.firstname ?? ''} ${mainController.rxCustomer.value?.lastname ?? ''}',
                 style: ThemeText.bodySemibold.s16,
@@ -41,29 +40,25 @@ class AccountScreen extends GetView<AccountController> {
             ),
           ),
           _buildListTile(
-              onTap: (){
-                Get.toNamed(
-                    AppRoutes.profile
-                );
+              onTap: () {
+                Get.toNamed(AppRoutes.profile);
               },
               icon: Assets.images.icUser,
               title: TransactionConstants.accountInformation.tr),
           _buildListTile(
-              onTap: (){
-
-              },
+              onTap: () {},
               icon: Assets.images.icOrder,
               title: TransactionConstants.myOrders.tr),
           _buildListTile(
-              onTap: (){
-                Get.toNamed(
-                    AppRoutes.address
-                );
+              onTap: () {
+                Get.toNamed(AppRoutes.address);
               },
               icon: Assets.images.icLocation,
               title: TransactionConstants.myAddress.tr),
           _buildListTile(
-              onTap: controller.goToChangePassword,
+              onTap: () {
+                Get.toNamed(AppRoutes.changePassword);
+              },
               icon: Assets.images.icPassword,
               title: TransactionConstants.changePassword.tr),
           _buildListTile(
@@ -96,7 +91,7 @@ class AccountScreen extends GetView<AccountController> {
           ),
           Text(
             title,
-            style: ThemeText.bodyRegular.s16,
+            style: ThemeText.bodyRegular,
           ),
         ],
       ),

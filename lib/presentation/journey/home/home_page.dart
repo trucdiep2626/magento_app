@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 import 'package:magento_app/common/common_export.dart';
 import 'package:magento_app/gen/assets.gen.dart';
 import 'package:magento_app/presentation/journey/home/components/banner_item.dart';
+import 'package:magento_app/presentation/journey/main/main_controller.dart';
+import 'package:magento_app/presentation/widgets/app_bar_widget.dart';
 import 'package:magento_app/presentation/widgets/product_widget.dart';
 import 'package:magento_app/presentation/journey/home/components/product_type_item.dart';
 import 'package:magento_app/presentation/theme/export.dart';
@@ -54,17 +56,39 @@ class HomePage extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     controller.context = context;
+    final mainController = Get.find<MainController>();
     return Scaffold(
       key: controller.scaffoldKey,
       backgroundColor: AppColors.grey50,
-      // appBar: AppBarWidget(
-      //   showMenu: true,
-      //   onPressed: () =>
-      //       (controller.scaffoldKey.currentState?.isDrawerOpen ?? false)
-      //           ? controller.closeDrawer()
-      //           : controller.openDrawer(),
-      //   title: TransactionConstants.mainNavigationHome.tr,
-      // ),
+      appBar: AppBarWidget(
+        // showMenu: true,
+        //  onPressed: () =>
+        //      (controller.scaffoldKey.currentState?.isDrawerOpen ?? false)
+        //          ? controller.closeDrawer()
+        //          : controller.openDrawer(),
+        title:
+            'Hi, ${mainController.rxCustomer.value?.firstname ?? ''} ${mainController.rxCustomer.value?.lastname ?? ''}',
+        actions: [
+          AppTouchable(
+            onPressed: () => mainController.onChangedNav(3),
+            margin: EdgeInsets.symmetric(horizontal: 8.sp),
+            child: AppImageWidget(
+              asset: Assets.images.icSearch,
+              size: AppDimens.space_20,
+              // color: isSelected ? AppColors.primary : AppColors.grey,
+            ),
+          ),
+          AppTouchable(
+            onPressed: () => mainController.onChangedNav(2),
+            margin: EdgeInsets.symmetric(horizontal: 16.sp),
+            child: AppImageWidget(
+              asset: Assets.images.icShoppingCart,
+              size: AppDimens.space_20,
+              // color: isSelected ? AppColors.primary : AppColors.grey,
+            ),
+          ),
+        ],
+      ),
       // drawer: const DrawerWidget(),
       body: _buildBody(),
     );
@@ -77,7 +101,7 @@ class HomePage extends GetView<HomeController> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                SizedBox(height: Get.mediaQuery.padding.top),
+                //    SizedBox(height: Get.mediaQuery.padding.top),
                 _buildBannerWidget(),
                 const SizedBox(height: 40),
                 Text(

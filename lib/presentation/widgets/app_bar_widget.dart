@@ -51,7 +51,7 @@ class AppBarWidget extends GetView implements PreferredSizeWidget {
       title: Text(
         title,
         overflow: TextOverflow.ellipsis,
-        style: ThemeText.bodySemibold.s20,
+        style: ThemeText.bodySemibold.s16,
       ),
       actions: actions,
       elevation: 0,

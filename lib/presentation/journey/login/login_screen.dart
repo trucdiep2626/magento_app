@@ -117,19 +117,19 @@ class LogInScreen extends GetView<LoginController> {
                     )
                   : const SizedBox.shrink(),
             ),
-            AppTouchable(
-              onPressed: () => controller.onPressForgotPassword(),
-              child: Container(
-                margin: EdgeInsets.symmetric(horizontal: 16.sp, vertical: 4.sp),
-                width: MediaQuery.of(context).size.width - 16.sp * 2,
-                child: Text(
-                  TransactionConstants.forgetPassword.tr,
-                  style: ThemeText.bodySemibold.s12.copyWith(
-                    decoration: TextDecoration.underline,
-                  ),
-                ),
-              ),
-            ),
+            // AppTouchable(
+            //   onPressed: () => controller.onPressForgotPassword(),
+            //   child: Container(
+            //     margin: EdgeInsets.symmetric(horizontal: 16.sp, vertical: 4.sp),
+            //     width: MediaQuery.of(context).size.width - 16.sp * 2,
+            //     child: Text(
+            //       TransactionConstants.forgetPassword.tr,
+            //       style: ThemeText.bodySemibold.s12.copyWith(
+            //         decoration: TextDecoration.underline,
+            //       ),
+            //     ),
+            //   ),
+            // ),
             SizedBox(
               height: 20.sp,
             ),
