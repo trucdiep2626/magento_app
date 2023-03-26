@@ -20,6 +20,7 @@ import 'package:magento_app/presentation/journey/home/home_controller.dart';
 import 'package:magento_app/presentation/journey/login/login_controller.dart';
 import 'package:magento_app/presentation/journey/main/main_controller.dart';
 import 'package:magento_app/presentation/journey/product/product_controller.dart';
+import 'package:magento_app/presentation/journey/product_detail/product_detail_controller.dart';
 import 'package:magento_app/presentation/journey/profile/profile_controller.dart';
 import 'package:magento_app/presentation/journey/register/register_controller.dart';
 import 'package:magento_app/presentation/journey/splash/splash_controller.dart';
@@ -63,6 +64,8 @@ void configLocator() {
       CreateNewAddressController(accountUsecase: getIt<AccountUseCase>()));
   getIt.registerFactory<ChangePasswordController>(
       () => ChangePasswordController(accountUsecase: getIt<AccountUseCase>()));
+  getIt.registerFactory<ProductDetailController>(() => ProductDetailController(
+      productUseCase: getIt<ProductUseCase>()));
 
   /// UseCases
   getIt.registerFactory<HomeUseCase>(

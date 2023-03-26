@@ -13,6 +13,7 @@ class AppButton extends StatelessWidget {
   final Color? titleColor;
   final double? width;
   final Function()? onPressed;
+  final TextStyle? titleStyle;
 
   const AppButton({
     Key? key,
@@ -22,6 +23,7 @@ class AppButton extends StatelessWidget {
     this.titleColor = AppColors.white,
     this.width,
     this.onPressed,
+    this.titleStyle,
   }) : super(key: key);
 
   @override
@@ -41,15 +43,14 @@ class AppButton extends StatelessWidget {
             },
             style: ButtonStyle(
               textStyle: MaterialStateProperty.resolveWith(
-                (states) => ThemeText.bodyMedium,
+                (states) => titleStyle ?? ThemeText.bodyMedium,
               ),
               // padding: MaterialStateProperty.resolveWith(
               //   (states) => widget.padding,
               // ),
               enableFeedback: true,
               foregroundColor: MaterialStateColor.resolveWith(
-                (states) =>
-                    isNullEmpty(onPressed) ? titleColor! : AppColors.white,
+                (states) => titleColor!,
               ),
               overlayColor: MaterialStateColor.resolveWith(
                 (states) => AppColors.white.withOpacity(0.1),
@@ -79,7 +80,9 @@ class AppButton extends StatelessWidget {
             ),
             child: loaded == LoadedType.start
                 ? const SizedBox.shrink()
-                : Text(title),
+                : Text(
+                    title,
+                  ),
           ),
         ),
         loaded == LoadedType.start

@@ -127,7 +127,7 @@ const viString = {
   "changePassword": "Change password",
   "currentPassword": "Current password",
   "newPassword": "New password",
-  "currentPasswordIncorrect":"Your current password is incorrect",
+  "currentPasswordIncorrect": "Your current password is incorrect",
 
   //  signup
   "signup.title": "Sign Up",
@@ -170,4 +170,11 @@ const viString = {
   "home.title": "Magento Flutter App",
 
   "filterByCategory": "Filter By Category",
+
+  "selectQuantity": 'Select the quantity',
+  "buyNow": 'Buy Now',
+  'availability': 'Availability',
+  'inStock': 'In stock',
+  'outOfStock': 'Out of stock',
+  'description': 'Description'
 };

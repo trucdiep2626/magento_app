@@ -8,6 +8,7 @@ import 'package:magento_app/common/injector/bindings/create_address_binding.dart
 import 'package:magento_app/common/injector/bindings/home_binding.dart';
 import 'package:magento_app/common/injector/bindings/login_binding.dart';
 import 'package:magento_app/common/injector/bindings/product_binding.dart';
+import 'package:magento_app/common/injector/bindings/product_detail_binding.dart';
 import 'package:magento_app/common/injector/bindings/profile_binding.dart';
 import 'package:magento_app/common/injector/bindings/register_binding.dart';
 import 'package:magento_app/presentation/journey/addresses_list/address_screen.dart';
@@ -15,6 +16,7 @@ import 'package:magento_app/presentation/journey/change_password/change_password
 import 'package:magento_app/presentation/journey/create_address/create_address_screen.dart';
 import 'package:magento_app/presentation/journey/login/login_screen.dart';
 import 'package:magento_app/presentation/journey/product/product_screen.dart';
+import 'package:magento_app/presentation/journey/product_detail/product_detail_screen.dart';
 import 'package:magento_app/presentation/journey/profile/profile_screen.dart';
 import 'package:magento_app/presentation/journey/register/register_screen.dart';
 import 'journey/main/main_screen.dart';
@@ -67,5 +69,10 @@ List<GetPage> myPages = [
     name: AppRoutes.changePassword,
     page: () => ChangePasswordScreen(),
     binding: ChangePasswordBinding(),
+  ),
+  GetPage(
+    name: AppRoutes.productDetail,
+    page: () => ProductDetailScreen(),
+    binding: ProductDetailBinding(),
   ),
 ];

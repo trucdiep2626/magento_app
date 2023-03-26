@@ -109,4 +109,11 @@ class TransactionConstants {
   static const currentPasswordIncorrect = "currentPasswordIncorrect";
 
   static const filterByCategory = "filterByCategory";
+
+  static const selectQuantity = "selectQuantity";
+  static const buyNow = "buyNow";
+  static const availability = 'availability';
+  static const inStock = 'inStock';
+  static const outOfStock = 'outOfStock';
+  static const description = 'description';
 }

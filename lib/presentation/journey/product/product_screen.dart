@@ -186,7 +186,7 @@ class ProductScreen extends GetView<ProductController> {
             maxLines: 3,
             overflow: TextOverflow.ellipsis,
           ),
-          const SizedBox(height: 8),
+           SizedBox(height: 8.sp),
           Obx(
             () => Text(
                 '${currencySymbols[mainController.storeConfig.value.baseCurrencyCode ?? 'USD']}${productModel.price ?? 0}',

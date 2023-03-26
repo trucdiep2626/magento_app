@@ -170,4 +170,11 @@ const enString = {
   "home.title": "Magento Flutter App",
 
   "filterByCategory": "Filter By Category",
+
+  "selectQuantity": 'Select the quantity',
+  "buyNow": 'Buy Now',
+  'availability': 'Availability',
+  'inStock': 'In stock',
+  'outOfStock': 'Out of stock',
+  'description': 'Description'
 };
