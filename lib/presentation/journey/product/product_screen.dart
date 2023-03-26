@@ -5,6 +5,7 @@ import 'package:magento_app/common/config/network/network_config.dart';
 import 'package:magento_app/domain/models/product_model.dart';
 import 'package:magento_app/gen/assets.gen.dart';
 import 'package:magento_app/presentation/journey/main/main_controller.dart';
+import 'package:magento_app/presentation/journey/product/components/draw_widget.dart';
 import 'package:magento_app/presentation/journey/product/product_controller.dart';
 import 'package:magento_app/presentation/theme/export.dart';
 import 'package:magento_app/presentation/widgets/export.dart';
@@ -22,7 +23,9 @@ class ProductScreen extends GetView<ProductController> {
         return true;
       },
       child: Scaffold(
+        key: controller.scaffoldKey,
         backgroundColor: Colors.white,
+        endDrawer: DrawerWidget(),
         body: Padding(
           padding: EdgeInsets.symmetric(horizontal: 16.sp),
           child: Column(
@@ -91,18 +94,18 @@ class ProductScreen extends GetView<ProductController> {
       width: Get.width,
       child: Row(
         children: [
-        if(controller.categoryId != null)
-          AppTouchable(
-            onPressed: () => Get.back(),
-            child: AppImageWidget(
-              asset: Assets.images.icArrowLeft,
-              size: 18.sp,
+          if (controller.categoryId.value != null)
+            AppTouchable(
+              onPressed: () => Get.back(),
+              child: AppImageWidget(
+                asset: Assets.images.icArrowLeft,
+                size: 18.sp,
+              ),
             ),
-          ),
-          if(controller.categoryId != null)
-          SizedBox(
-            width: 8.sp,
-          ),
+          if (controller.categoryId.value != null)
+            SizedBox(
+              width: 8.sp,
+            ),
           Expanded(
             child: AppTextField(
               prefixIcon: Padding(

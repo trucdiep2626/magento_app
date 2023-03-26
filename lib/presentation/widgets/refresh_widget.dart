@@ -28,7 +28,12 @@ class RefreshWidget extends StatelessWidget {
       onRefresh: onRefresh,
       onLoading: onLoadMore,
       header: const MaterialClassicHeader(),
-      footer: const ClassicFooter(),
+      footer: const ClassicFooter(
+        noDataText: '',
+        idleText: '',
+        canLoadingIcon: SizedBox(),
+        idleIcon: SizedBox(),
+      ),
       child: child,
     );
   }

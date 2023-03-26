@@ -108,4 +108,5 @@ class TransactionConstants {
   static const newPassword = "newPassword";
   static const currentPasswordIncorrect = "currentPasswordIncorrect";
 
+  static const filterByCategory = "filterByCategory";
 }

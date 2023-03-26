@@ -50,11 +50,11 @@ class ProductController extends GetxController with MixinController {
   var scaffoldKey = GlobalKey<ScaffoldState>();
 
   void openDrawer() {
-    scaffoldKey.currentState?.openDrawer();
+    scaffoldKey.currentState?.openEndDrawer();
   }
 
   void closeDrawer() {
-    scaffoldKey.currentState?.openEndDrawer();
+    scaffoldKey.currentState?.closeEndDrawer();
   }
 
   Future<void> onChangeSortByName() async {
@@ -202,6 +202,12 @@ class ProductController extends GetxController with MixinController {
     rxLoadedList.value = LoadedType.finish;
   }
 
+  Future<void> filterByCategory(int? filterCatId) async {
+    categoryId.value = filterCatId;
+    await onRefresh();
+    closeDrawer();
+  }
+
   Future<void> onSearch() async {
     // rxPurchaseOrderLoaded.value = LoadedType.start;
     // if (value.isNotEmpty) {
@@ -222,14 +228,15 @@ class ProductController extends GetxController with MixinController {
   void onInit() async {
     super.onInit();
     Map? args = Get.arguments;
-    categoryId = args?['category_id'];
-    debugPrint('============$categoryId');
+    categoryId.value = args?['category_id'];
+    debugPrint('============${categoryId.value}');
   }
 
   @override
   void onReady() async {
     super.onReady();
     await onRefresh();
+    await getCategoriesTree();
     // searchController.addListener(() {
     //   if (AppUtils.isNullEmpty(searchController.text.trim())) {
     //     displayPurchaseOrderList.value = purchaseOrderList;

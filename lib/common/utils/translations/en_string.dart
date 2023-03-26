@@ -168,4 +168,6 @@ const enString = {
 
   //home
   "home.title": "Magento Flutter App",
+
+  "filterByCategory": "Filter By Category",
 };
