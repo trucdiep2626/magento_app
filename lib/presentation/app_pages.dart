@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:magento_app/common/common_export.dart';
 import 'package:magento_app/common/injector/bindings/account_binding.dart';
 import 'package:magento_app/common/injector/bindings/addresses_list_binding.dart';
+import 'package:magento_app/common/injector/bindings/cart_binding.dart';
 import 'package:magento_app/common/injector/bindings/category_binding.dart';
 import 'package:magento_app/common/injector/bindings/change_password_binding.dart';
 import 'package:magento_app/common/injector/bindings/create_address_binding.dart';
@@ -12,6 +13,7 @@ import 'package:magento_app/common/injector/bindings/product_detail_binding.dart
 import 'package:magento_app/common/injector/bindings/profile_binding.dart';
 import 'package:magento_app/common/injector/bindings/register_binding.dart';
 import 'package:magento_app/presentation/journey/addresses_list/address_screen.dart';
+import 'package:magento_app/presentation/journey/cart/cart_screen.dart';
 import 'package:magento_app/presentation/journey/change_password/change_password_screen.dart';
 import 'package:magento_app/presentation/journey/create_address/create_address_screen.dart';
 import 'package:magento_app/presentation/journey/login/login_screen.dart';
@@ -74,5 +76,10 @@ List<GetPage> myPages = [
     name: AppRoutes.productDetail,
     page: () => ProductDetailScreen(),
     binding: ProductDetailBinding(),
+  ),
+  GetPage(
+    name: AppRoutes.cart,
+    page: () => CartScreen(),
+    binding: CartBinding(),
   ),
 ];

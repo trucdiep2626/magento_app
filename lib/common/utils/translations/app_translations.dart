@@ -116,4 +116,18 @@ class TransactionConstants {
   static const inStock = 'inStock';
   static const outOfStock = 'outOfStock';
   static const description = 'description';
+
+  static const clearAllItems = "clearAllItems";
+
+  static const cartTitle = "cart.title";
+  static const emptyCartMessage = "emptyMessage";
+  static const checkoutButton = "checkoutButton";
+  static const noProductDetail = "noProductDetail";
+  static const selectAllItems = "selectAllItems";
+
+  static const size = 'size';
+  static const color = 'color';
+  static const coupon = 'coupon';
+  static const orderTotal = 'orderTotal';
+  static const select = 'select';
 }

@@ -68,6 +68,9 @@ const enString = {
   'sortByPrice': "Price",
   'noData': "No Data",
   'address': "Address",
+  'size': 'Size',
+  'color': 'Color',
+  'coupon':'Coupon',
 
   //"sortOption"
   "aToZ": "Name: a to z",
@@ -127,7 +130,7 @@ const enString = {
   "changePassword": "Change password",
   "currentPassword": "Current password",
   "newPassword": "New password",
-  "currentPasswordIncorrect":"Your current password is incorrect",
+  "currentPasswordIncorrect": "Your current password is incorrect",
 
   //  signup
   "signup.title": "Sign Up",
@@ -135,8 +138,10 @@ const enString = {
 
   //cart
   "cart.title": "Cart",
-  "emptyMessage": "Your cart is empty",
+  "emptyCartMessage": "Your cart is empty",
   "checkoutButton": "Go to Checkout",
+  "clearAllItems": "Clear all",
+  "selectAllItems": "Select all",
 
   //cartListItem
   "removeItemDialogTitle": "You sure?",

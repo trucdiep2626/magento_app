@@ -68,6 +68,9 @@ const viString = {
   'sortByPrice': "Sort by price",
   'noData': "No Data",
   'address': "Address",
+  'size': 'Size',
+  'color': 'Color',
+  'coupon':'Coupon',
 
   //"sortOption"
   "aToZ": "Name: a to z",
@@ -110,7 +113,7 @@ const viString = {
   //orderListItem
   "created": "Created",
   "shipTo": "Ship to",
-  "orderTotal": "Order Total",
+  "orderTotal": "Total",
   "status": "Status",
   "shippingAndHandling": "Shipping & Handling",
 
@@ -135,8 +138,10 @@ const viString = {
 
   //cart
   "cart.title": "Cart",
-  "emptyMessage": "Your cart is empty",
+  "emptyCartMessage": "Your cart is empty",
   "checkoutButton": "Go to Checkout",
+  "clearAllItems": "Clear all items",
+  "selectAllItems": "Select all",
 
   //cartListItem
   "removeItemDialogTitle": "You sure?",
