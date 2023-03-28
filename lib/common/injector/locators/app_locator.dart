@@ -3,10 +3,12 @@ import 'package:magento_app/common/config/network/dio_config.dart';
 import 'package:magento_app/common/config/network/network_info.dart';
 import 'package:magento_app/data/local_repository.dart';
 import 'package:magento_app/data/remote/account_repository.dart';
+import 'package:magento_app/data/remote/cart_repository.dart';
 import 'package:magento_app/data/remote/category_repository.dart';
 import 'package:magento_app/data/remote/home_repository.dart';
 import 'package:magento_app/data/remote/product_repository.dart';
 import 'package:magento_app/domain/usecases/account_usecase.dart';
+import 'package:magento_app/domain/usecases/cart_usecase.dart';
 import 'package:magento_app/domain/usecases/category_usecase.dart';
 import 'package:magento_app/domain/usecases/home_usecase.dart';
 import 'package:magento_app/domain/usecases/product_usecase.dart';
@@ -20,6 +22,7 @@ import 'package:magento_app/presentation/journey/create_address/create_address_c
 import 'package:magento_app/presentation/journey/home/home_controller.dart';
 import 'package:magento_app/presentation/journey/login/login_controller.dart';
 import 'package:magento_app/presentation/journey/main/main_controller.dart';
+import 'package:magento_app/presentation/journey/my_orders/my_orders_controller.dart';
 import 'package:magento_app/presentation/journey/product/product_controller.dart';
 import 'package:magento_app/presentation/journey/product_detail/product_detail_controller.dart';
 import 'package:magento_app/presentation/journey/profile/profile_controller.dart';
@@ -66,10 +69,12 @@ void configLocator() {
   getIt.registerFactory<ChangePasswordController>(
       () => ChangePasswordController(accountUsecase: getIt<AccountUseCase>()));
   getIt.registerFactory<ProductDetailController>(() => ProductDetailController(
+      cartUseCase: getIt<CartUseCase>(),
       productUseCase: getIt<ProductUseCase>()));
   getIt.registerFactory<CartController>(() => CartController(
-      productUseCase: getIt<ProductUseCase>()));
-
+      productUseCase: getIt<ProductUseCase>(),
+      cartUseCase: getIt<CartUseCase>()));
+  getIt.registerFactory<MyOrdersController>(() => MyOrdersController());
 
   /// UseCases
   getIt.registerFactory<HomeUseCase>(
@@ -81,6 +86,8 @@ void configLocator() {
   getIt.registerFactory<AccountUseCase>(() => AccountUseCase(
       accountRepo: getIt<AccountRepository>(),
       localRepo: getIt<LocalRepository>()));
+  getIt.registerFactory<CartUseCase>(() => CartUseCase(
+      cartRepo: getIt<CartRepository>(), localRepo: getIt<LocalRepository>()));
 
   /// Repositories
   getIt.registerFactory<HomeRepository>(() => HomeRepository(dio));
@@ -88,6 +95,7 @@ void configLocator() {
   getIt.registerFactory<LocalRepository>(() => LocalRepository());
   getIt.registerFactory<CategoryRepository>(() => CategoryRepository(dio));
   getIt.registerFactory<AccountRepository>(() => AccountRepository(dio));
+  getIt.registerFactory<CartRepository>(() => CartRepository(dio));
 
   /// Network
   getIt.registerFactory<NetworkInfo>(() => NetworkInfoImpl());

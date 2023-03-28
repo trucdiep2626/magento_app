@@ -29,7 +29,8 @@ final _pattern = <AppValidation, Pattern>{
       r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$',
   AppValidation.username: r'^([a-zA-Z0-9\.\-]{1,50})$',
   AppValidation.password:
-      r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$',
+      r'^(?=.*[A-Za-z])(?=.*?[0-9])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z0-9\d@$!%*#?&]{8,}$',
+  //^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$
   AppValidation.dateTime:
       r'^(([0-9]{4}\-[0-9]{2}\-[0-9]{2}T[0-9]{2}\:[0-9]{2}\:[0-9]{2}Z))|(([0-9]{4}\-[0-9]{2}\-[0-9]{2}T[0-9]{2}\:[0-9]{2}\:[0-9]{2}\+[0-9]{2}\:[0-9]{2}))$',
   AppValidation.amount: r'^(?:\\d{1,3}(?:,\\d{3})*|\\d+)(?:.\\d+)?$',
@@ -81,9 +82,9 @@ class AppValidator {
 
   static String validatePassword(TextEditingController passwordCtrl) {
     return error(
-      passwordCtrl.text.trim(),
+      passwordCtrl.text.trim().replaceAll('.', ''),
       AppValidation.password,
-      'A minimum 8 characters password contains a combination of uppercase and lowercase letter and number are required.',
+      'A minimum 8 characters password contains a combination of letter, number and special character are required.',
     );
   }
 

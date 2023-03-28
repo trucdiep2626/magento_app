@@ -16,7 +16,7 @@ class AccountController extends GetxController with MixinController {
 
   onPressLogout() async {
     await showAppDialog(context,
-        TransactionConstants.logOut.tr,'',
+        TransactionConstants.logOut.tr,
         firstButtonText: TransactionConstants.ok.tr,
         messageTextAlign: TextAlign.start,
         dismissAble: true,

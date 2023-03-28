@@ -33,10 +33,10 @@ class AccountScreen extends GetView<AccountController> {
               // leading: AppImageWidget(
               //   asset: Assets.images.icUser,
               // ),
-              title: Text(
-                'Hi, ${mainController.rxCustomer.value?.firstname ?? ''} ${mainController.rxCustomer.value?.lastname ?? ''}',
-                style: ThemeText.bodySemibold.s16,
-              ),
+              title: Obx(() => Text(
+                    'Hi, ${mainController.rxCustomer.value?.firstname ?? ''} ${mainController.rxCustomer.value?.lastname ?? ''}',
+                    style: ThemeText.bodySemibold.s16,
+                  )),
             ),
           ),
           _buildListTile(
@@ -46,7 +46,9 @@ class AccountScreen extends GetView<AccountController> {
               icon: Assets.images.icUser,
               title: TransactionConstants.accountInformation.tr),
           _buildListTile(
-              onTap: () {},
+              onTap: () {
+                Get.toNamed(AppRoutes.myOrders);
+              },
               icon: Assets.images.icOrder,
               title: TransactionConstants.myOrders.tr),
           _buildListTile(

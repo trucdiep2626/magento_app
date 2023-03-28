@@ -38,7 +38,7 @@ class AppButton extends StatelessWidget {
             onPressed: () {
               hideKeyboard();
               if (!isNullEmpty(onPressed)) {
-                onPressed!();
+                loaded == LoadedType.finish ? onPressed!(): null;
               }
             },
             style: ButtonStyle(

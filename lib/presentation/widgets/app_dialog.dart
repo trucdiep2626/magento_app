@@ -7,7 +7,7 @@ import 'package:magento_app/common/utils/export.dart';
 import 'package:magento_app/presentation/theme/export.dart';
 import 'package:magento_app/presentation/widgets/export.dart';
 
-Future showAppDialog(BuildContext context, String titleText, String messageText,
+Future showAppDialog(BuildContext context, String titleText,
     {Widget? messageWidget,
     String? iconPath,
     bool isIconSvg = false,
@@ -31,7 +31,6 @@ Future showAppDialog(BuildContext context, String titleText, String messageText,
         (BuildContext context) => AppDialog(
               delayConfirm: delayConfirm,
               title: titleText,
-              message: messageText,
               messageWidget: messageWidget,
               iconPath: iconPath,
               isIconSvg: isIconSvg,
@@ -51,7 +50,6 @@ Future showAppDialog(BuildContext context, String titleText, String messageText,
 
 class AppDialog extends StatefulWidget {
   final String? title;
-  final String message;
   final Widget? messageWidget;
   final String? iconPath;
   final bool isIconSvg;
@@ -72,7 +70,6 @@ class AppDialog extends StatefulWidget {
   const AppDialog(
       {Key? key,
       this.title,
-      required this.message,
       this.messageWidget,
       this.iconPath,
       this.isIconSvg = false,
@@ -130,9 +127,9 @@ class _AppDialogState extends State<AppDialog> {
                 //     ? const SizedBox.shrink()
                 //     :
                 Text(
-                        widget.title!,
+                        widget.title ?? '',
                         textAlign: TextAlign.start,
-                        style: ThemeText.bodyRegular.s20,
+                        style: ThemeText.bodyRegular,
                       ),
                 SizedBox(height: 16.sp),
                 // Text(

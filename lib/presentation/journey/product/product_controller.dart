@@ -37,7 +37,7 @@ class ProductController extends GetxController with MixinController {
   final RefreshController productRefreshController =
       RefreshController(initialRefresh: false);
   final mainController = Get.find<MainController>();
-  int? categoryId;
+  Rx<CategoryTreeModel?> category = (null as CategoryTreeModel?).obs;
 
   Rx<SortType> sortByName = SortType.none.obs;
   Rx<SortType> sortByPrice = SortType.none.obs;
@@ -125,7 +125,7 @@ class ProductController extends GetxController with MixinController {
       currentPage.value = currentPage.value + 1;
       canLoadMore.value = products.value.length < (result.totalCount ?? 0);
     } else {
-      showTopSnackBarError(context, TransactionConstants.unknownError.tr);
+     // showTopSnackBarError(context, TransactionConstants.unknownError.tr);
     }
     //  displayPurchaseOrderList.value = purchaseOrderList;
     // rxLoadedList.value = LoadedType.finish;
@@ -179,10 +179,10 @@ class ProductController extends GetxController with MixinController {
       index1++;
     }
 
-    if (categoryId != null) {
+    if (category.value != null) {
       Filters categoryFilter = Filters(
         field: 'category_id',
-        value: categoryId.toString(),
+        value: (category.value?.id ?? 0).toString(),
         conditionType: 'in',
       );
       filters.addAll(categoryFilter.toJson(index1: index1, index2: index2));
@@ -202,8 +202,8 @@ class ProductController extends GetxController with MixinController {
     rxLoadedList.value = LoadedType.finish;
   }
 
-  Future<void> filterByCategory(int? filterCatId) async {
-    categoryId.value = filterCatId;
+  Future<void> filterByCategory(CategoryTreeModel? filterCat) async {
+    category.value = filterCat;
     await onRefresh();
     closeDrawer();
   }
@@ -224,12 +224,14 @@ class ProductController extends GetxController with MixinController {
     // rxPurchaseOrderLoaded.value = LoadedType.finish;
   }
 
+
+
   @override
   void onInit() async {
     super.onInit();
-    Map? args = Get.arguments;
-    categoryId.value = args?['category_id'];
-    debugPrint('============${categoryId.value}');
+    // Map? args = Get.arguments;
+    // categoryId.value = args?['category_id'];
+    // debugPrint('============${categoryId.value}');
   }
 
   @override

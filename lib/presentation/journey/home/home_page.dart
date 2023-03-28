@@ -57,7 +57,7 @@ class HomePage extends GetView<HomeController> {
   Widget build(BuildContext context) {
     controller.context = context;
     final mainController = Get.find<MainController>();
-    return Scaffold(
+    return Obx(() => Scaffold(
       key: controller.scaffoldKey,
       backgroundColor: AppColors.grey50,
       appBar: AppBarWidget(
@@ -67,7 +67,7 @@ class HomePage extends GetView<HomeController> {
         //          ? controller.closeDrawer()
         //          : controller.openDrawer(),
         title:
-            'Hi, ${mainController.rxCustomer.value?.firstname ?? ''} ${mainController.rxCustomer.value?.lastname ?? ''}',
+        'Hi, ${mainController.rxCustomer.value?.firstname ?? ''} ${mainController.rxCustomer.value?.lastname ?? ''}',
         actions: [
           AppTouchable(
             onPressed: () => mainController.onChangedNav(3),
@@ -91,7 +91,7 @@ class HomePage extends GetView<HomeController> {
       ),
       // drawer: const DrawerWidget(),
       body: _buildBody(),
-    );
+    ));
   }
 
   Widget _buildBody() {
@@ -181,7 +181,7 @@ class HomePage extends GetView<HomeController> {
     return controller.hotItems.value.isEmpty
         ? const SizedBox.shrink()
         : SizedBox(
-            height: Get.width,
+            height: Get.width*0.8,
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
               itemBuilder: (context, index) =>

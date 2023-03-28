@@ -11,6 +11,7 @@ class ProductModel {
   String? typeId;
   String? createdAt;
   String? updatedAt;
+  int? weight;
   ExtensionAttributes? extensionAttributes;
   List<ProductLinks>? productLinks;
   // List<Null>? options;
@@ -27,6 +28,7 @@ class ProductModel {
       this.status,
       this.visibility,
       this.typeId,
+      this.weight,
       this.createdAt,
       this.updatedAt,
       this.extensionAttributes,
@@ -45,6 +47,7 @@ class ProductModel {
     status = json['status'];
     visibility = json['visibility'];
     typeId = json['type_id'];
+    weight = json['weight'];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
     extensionAttributes = json['extension_attributes'] != null
@@ -121,8 +124,13 @@ class ProductModel {
 class ExtensionAttributes {
   List<int>? websiteIds;
   List<CategoryLinks>? categoryLinks;
+  StockItem? stockItem;
 
-  ExtensionAttributes({this.websiteIds, this.categoryLinks});
+  ExtensionAttributes({
+    this.websiteIds,
+    this.categoryLinks,
+    this.stockItem,
+  });
 
   ExtensionAttributes.fromJson(Map<String, dynamic> json) {
     websiteIds = json['website_ids'].cast<int>();
@@ -132,6 +140,9 @@ class ExtensionAttributes {
         categoryLinks!.add(CategoryLinks.fromJson(v));
       });
     }
+    stockItem = json['stock_item'] != null
+        ? StockItem.fromJson(json['stock_item'])
+        : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -139,6 +150,9 @@ class ExtensionAttributes {
     data['website_ids'] = websiteIds;
     if (categoryLinks != null) {
       data['category_links'] = categoryLinks!.map((v) => v.toJson()).toList();
+    }
+    if (stockItem != null) {
+      data['stock_item'] = stockItem!.toJson();
     }
     return data;
   }
@@ -192,6 +206,123 @@ class ProductLinks {
     data['linked_product_sku'] = linkedProductSku;
     data['linked_product_type'] = linkedProductType;
     data['position'] = position;
+    return data;
+  }
+}
+
+class StockItem {
+  int? itemId;
+  int? productId;
+  int? stockId;
+  int? qty;
+  bool? isInStock;
+  bool? isQtyDecimal;
+  bool? showDefaultNotificationMessage;
+  bool? useConfigMinQty;
+  int? minQty;
+  int? useConfigMinSaleQty;
+  int? minSaleQty;
+  bool? useConfigMaxSaleQty;
+  int? maxSaleQty;
+  bool? useConfigBackorders;
+  int? backorders;
+  bool? useConfigNotifyStockQty;
+  int? notifyStockQty;
+  bool? useConfigQtyIncrements;
+  int? qtyIncrements;
+  bool? useConfigEnableQtyInc;
+  bool? enableQtyIncrements;
+  bool? useConfigManageStock;
+  bool? manageStock;
+//  Null lowStockDate;
+  bool? isDecimalDivided;
+  int? stockStatusChangedAuto;
+
+  StockItem(
+      {this.itemId,
+      this.productId,
+      this.stockId,
+      this.qty,
+      this.isInStock,
+      this.isQtyDecimal,
+      this.showDefaultNotificationMessage,
+      this.useConfigMinQty,
+      this.minQty,
+      this.useConfigMinSaleQty,
+      this.minSaleQty,
+      this.useConfigMaxSaleQty,
+      this.maxSaleQty,
+      this.useConfigBackorders,
+      this.backorders,
+      this.useConfigNotifyStockQty,
+      this.notifyStockQty,
+      this.useConfigQtyIncrements,
+      this.qtyIncrements,
+      this.useConfigEnableQtyInc,
+      this.enableQtyIncrements,
+      this.useConfigManageStock,
+      this.manageStock,
+      //   this.lowStockDate,
+      this.isDecimalDivided,
+      this.stockStatusChangedAuto});
+
+  StockItem.fromJson(Map<String, dynamic> json) {
+    itemId = json['item_id'];
+    productId = json['product_id'];
+    stockId = json['stock_id'];
+    qty = json['qty'];
+    isInStock = json['is_in_stock'];
+    isQtyDecimal = json['is_qty_decimal'];
+    showDefaultNotificationMessage = json['show_default_notification_message'];
+    useConfigMinQty = json['use_config_min_qty'];
+    minQty = json['min_qty'];
+    useConfigMinSaleQty = json['use_config_min_sale_qty'];
+    minSaleQty = json['min_sale_qty'];
+    useConfigMaxSaleQty = json['use_config_max_sale_qty'];
+    maxSaleQty = json['max_sale_qty'];
+    useConfigBackorders = json['use_config_backorders'];
+    backorders = json['backorders'];
+    useConfigNotifyStockQty = json['use_config_notify_stock_qty'];
+    notifyStockQty = json['notify_stock_qty'];
+    useConfigQtyIncrements = json['use_config_qty_increments'];
+    qtyIncrements = json['qty_increments'];
+    useConfigEnableQtyInc = json['use_config_enable_qty_inc'];
+    enableQtyIncrements = json['enable_qty_increments'];
+    useConfigManageStock = json['use_config_manage_stock'];
+    manageStock = json['manage_stock'];
+    //  lowStockDate = json['low_stock_date'];
+    isDecimalDivided = json['is_decimal_divided'];
+    stockStatusChangedAuto = json['stock_status_changed_auto'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['item_id'] = itemId;
+    data['product_id'] = productId;
+    data['stock_id'] = stockId;
+    data['qty'] = qty;
+    data['is_in_stock'] = isInStock;
+    data['is_qty_decimal'] = isQtyDecimal;
+    data['show_default_notification_message'] = showDefaultNotificationMessage;
+    data['use_config_min_qty'] = useConfigMinQty;
+    data['min_qty'] = minQty;
+    data['use_config_min_sale_qty'] = useConfigMinSaleQty;
+    data['min_sale_qty'] = minSaleQty;
+    data['use_config_max_sale_qty'] = useConfigMaxSaleQty;
+    data['max_sale_qty'] = maxSaleQty;
+    data['use_config_backorders'] = useConfigBackorders;
+    data['backorders'] = backorders;
+    data['use_config_notify_stock_qty'] = useConfigNotifyStockQty;
+    data['notify_stock_qty'] = notifyStockQty;
+    data['use_config_qty_increments'] = useConfigQtyIncrements;
+    data['qty_increments'] = qtyIncrements;
+    data['use_config_enable_qty_inc'] = useConfigEnableQtyInc;
+    data['enable_qty_increments'] = enableQtyIncrements;
+    data['use_config_manage_stock'] = useConfigManageStock;
+    data['manage_stock'] = manageStock;
+    //   data['low_stock_date'] = this.lowStockDate;
+    data['is_decimal_divided'] = isDecimalDivided;
+    data['stock_status_changed_auto'] = stockStatusChangedAuto;
     return data;
   }
 }

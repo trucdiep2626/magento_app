@@ -80,6 +80,9 @@ class ChangePasswordController extends GetxController with MixinController {
       if (result) {
         debugPrint('cập nhật thành công');
         await accountUsecase.savePass(newPwdController.text.trim());
+        showTopSnackBar(context,
+            message: TransactionConstants.successfully.tr,
+            type: SnackBarType.done);
         Get.back();
       }
     }

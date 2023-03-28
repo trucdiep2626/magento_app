@@ -70,7 +70,8 @@ const viString = {
   'address': "Address",
   'size': 'Size',
   'color': 'Color',
-  'coupon':'Coupon',
+  'coupon': 'Coupon',
+  'successfully': 'Successfully',
 
   //"sortOption"
   "aToZ": "Name: a to z",
@@ -87,7 +88,7 @@ const viString = {
   "contactInformation": "Contact Information",
   "logoutButton": "Log out",
   "myOrdersButton": "My Orders",
-  "myAddressButton": "My Address",
+  "myAddressButton": "My Addresses",
   "myProfile": "My Profile",
   "accountInformation": "Account Information",
   "editAccountInformation": "Edit Account Information",
@@ -146,7 +147,7 @@ const viString = {
   //cartListItem
   "removeItemDialogTitle": "You sure?",
   "removeItemDialogMessage":
-      "Just double-checking you wanted to remove the item",
+      "Are you sure about remove this item from the shopping cart?",
 
   //"product"
   "addToCartButton": "Add to Cart",

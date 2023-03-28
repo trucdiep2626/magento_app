@@ -3,12 +3,15 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:get/get.dart';
 import 'package:magento_app/common/common_export.dart';
 import 'package:magento_app/common/config/app_config.dart';
 import 'package:magento_app/common/config/network/api_endpoints.dart';
 import 'package:magento_app/common/config/network/network_config.dart';
 import 'package:magento_app/domain/models/cms_block_response_model.dart';
+import 'package:magento_app/domain/models/product_model.dart';
 import 'package:magento_app/domain/models/products_response_model.dart';
+import 'package:magento_app/presentation/widgets/export.dart';
 
 class ProductRepository {
   final Dio _dio;
@@ -57,10 +60,17 @@ class ProductRepository {
             method: 'GET',
             headers: <String, dynamic>{r'Authorization': NetworkConfig.token},
           ));
-      final ProductsResponseModel response =
-          ProductsResponseModel.fromJson(result.data);
-      return response;
+      if (result.statusCode == 200) {
+        final ProductsResponseModel response =
+            ProductsResponseModel.fromJson(result.data);
+        return response;
+      }
+      showTopSnackBarError(Get.context!,
+          result.statusMessage ?? TransactionConstants.unknownError.tr);
+      return null;
     } catch (e) {
+      showTopSnackBarError(Get.context!, TransactionConstants.unknownError.tr);
+      debugPrint(e.toString());
       return null;
     }
   }
@@ -90,6 +100,28 @@ class ProductRepository {
 
     debugPrint('-----------$searchKey');
     return searchKey;
+  }
+
+  Future<ProductModel?> getProductDetail({required String sku}) async {
+    try {
+      final result = await _dio.request(
+          '${NetworkConfig.baseUrl}${ApiEndpoints.getProducts}/$sku',
+          options: Options(
+            method: 'GET',
+            headers: <String, dynamic>{r'Authorization': NetworkConfig.token},
+          ));
+      if (result.statusCode == 200) {
+        final ProductModel response = ProductModel.fromJson(result.data);
+        return response;
+      }
+      showTopSnackBarError(Get.context!,
+          result.statusMessage ?? TransactionConstants.unknownError.tr);
+      return null;
+    } catch (e) {
+      showTopSnackBarError(Get.context!, TransactionConstants.unknownError.tr);
+      debugPrint(e.toString());
+      return null;
+    }
   }
 
   // getCategoryProducts: (id, offset = 0, sortOrder, pageSize = PAGE_SIZE) =>

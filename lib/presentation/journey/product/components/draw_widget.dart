@@ -15,43 +15,75 @@ class DrawerWidget extends GetView<ProductController> {
   @override
   Widget build(BuildContext context) {
     //  final mainController = Get.find<MainController>();
-    return Obx(() => controller.rxLoadedList.value == LoadedType.start
-        ? const SizedBox.shrink()
-        : Drawer(
-            width: Get.width,
-            backgroundColor: AppColors.white,
-            child: SizedBox(
-              height: Get.height,
-              child: SingleChildScrollView(
-                child: Padding(
-                  padding: EdgeInsets.only(top: Get.mediaQuery.padding.top),
-                  child: Column(children: [
-                    ListTile(
-                      //    tileColor: AppColors.grey200,
-                      title: Text(
-                        TransactionConstants.filterByCategory.tr,
-                        style: ThemeText.bodySemibold.s18,
-                      ),
-                      trailing: AppTouchable(
-                        onPressed: () => controller.closeDrawer(),
-                        child: const Icon(
-                          Icons.clear,
-                          color: AppColors.black45,
+    return Obx(() {
+      return controller.rxLoadedList.value == LoadedType.start
+          ? const SizedBox.shrink()
+          : Drawer(
+              width: Get.width,
+              backgroundColor: AppColors.white,
+              child: SizedBox(
+                height: Get.height,
+                child: SingleChildScrollView(
+                  child: Padding(
+                    padding: EdgeInsets.only(top: Get.mediaQuery.padding.top),
+                    child: Column(children: [
+                      ListTile(
+                        //    tileColor: AppColors.grey200,
+                        title: Text(
+                          TransactionConstants.filterByCategory.tr,
+                          style: ThemeText.bodySemibold.s18,
+                        ),
+                        trailing: AppTouchable(
+                          onPressed: () => controller.closeDrawer(),
+                          child: const Icon(
+                            Icons.clear,
+                            color: AppColors.black45,
+                          ),
                         ),
                       ),
-                    ),
-                    ...List.generate(
-                        controller.categories.length,
-                        (index) => Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 16.sp),
-                              child: _buildSubCategory(
-                                  controller.categories.value[index]),
-                            ))
-                  ]),
+                      if (controller.category.value != null)
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 16.sp),
+                          child: AppTouchable(
+                            onPressed: () {},
+                            backgroundColor: AppColors.orange50,
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 16.sp, vertical: 4.sp),
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  child: Text(
+                                    controller.category.value?.name ?? '',
+                                    style: ThemeText.bodySemibold.orange,
+                                  ),
+                                ),
+                                AppTouchable(
+                                  onPressed: () =>
+                                      controller.filterByCategory(null),
+                                  child: Icon(
+                                    Icons.clear,
+                                    size: 20.sp,
+                                    color: AppColors.orange,
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                      ...List.generate(
+                          controller.categories.length,
+                          (index) => Padding(
+                                padding:
+                                    EdgeInsets.symmetric(horizontal: 16.sp),
+                                child: _buildSubCategory(
+                                    controller.categories.value[index]),
+                              ))
+                    ]),
+                  ),
                 ),
               ),
-            ),
-          ));
+            );
+    });
   }
 
   Widget _buildSubCategory(CategoryTreeModel category) {
@@ -68,14 +100,14 @@ class DrawerWidget extends GetView<ProductController> {
       collapsedIconColor: AppColors.black,
       childrenPadding: EdgeInsets.only(left: 10.sp, top: 0.sp),
       children: (category.childrenData ?? [])
-          .map<Widget>((e) => _buildSubCategoryTile(e))
+          .map<Widget>((e) => _buildSubCategory(e))
           .toList(),
     );
   }
 
   Widget _buildSubCategoryTile(CategoryTreeModel e) {
     return AppTouchable(
-      onPressed: () => controller.filterByCategory(e.id),
+      onPressed: () => controller.filterByCategory(e),
       child: Padding(
         padding: EdgeInsets.symmetric(vertical: 16.sp),
         child: Row(

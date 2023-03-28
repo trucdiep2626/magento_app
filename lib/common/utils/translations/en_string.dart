@@ -71,6 +71,7 @@ const enString = {
   'size': 'Size',
   'color': 'Color',
   'coupon':'Coupon',
+  'successfully':'Successfully',
 
   //"sortOption"
   "aToZ": "Name: a to z",
@@ -87,7 +88,7 @@ const enString = {
   "contactInformation": "Contact Information",
   "logoutButton": "Log out",
   "myOrdersButton": "My Orders",
-  "myAddressButton": "My Address",
+  "myAddressButton": "My Addresses",
   "myProfile": "My Profile",
   "accountInformation": "Account Information",
   "editAccountInformation": "Edit Account Information",
@@ -146,7 +147,7 @@ const enString = {
   //cartListItem
   "removeItemDialogTitle": "You sure?",
   "removeItemDialogMessage":
-      "Just double-checking you wanted to remove the item",
+      "Are you sure about remove this item from the shopping cart?",
 
   //"product"
   "addToCartButton": "Add to Cart",
@@ -181,5 +182,5 @@ const enString = {
   'availability': 'Availability',
   'inStock': 'In stock',
   'outOfStock': 'Out of stock',
-  'description': 'Description'
+  'description': 'Description',
 };

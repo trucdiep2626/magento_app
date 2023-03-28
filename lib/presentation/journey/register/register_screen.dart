@@ -12,7 +12,6 @@ class RegisterScreen extends GetView<RegisterController> {
   @override
   Widget build(BuildContext context) {
     controller.context = context;
-    controller.context = context;
     return Scaffold(
       // appBar: AppBarWidget(
       //   onPressed: () => Get.back(),

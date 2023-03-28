@@ -85,6 +85,9 @@ class RegisterController extends GetxController with MixinController {
 
       if (result) {
         debugPrint('đăng ký thành công');
+        showTopSnackBar(context,
+            message: TransactionConstants.successfully.tr,
+            type: SnackBarType.done);
         Get.back();
       }
       // else {

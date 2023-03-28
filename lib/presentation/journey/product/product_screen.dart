@@ -62,7 +62,7 @@ class ProductScreen extends GetView<ProductController> {
                                   // mainAxisSpacing: 10,
                                   // crossAxisSpacing: 10,
                                   childAspectRatio:
-                                      (Get.width / 3) / (Get.width / 2),
+                                      (Get.width / 4) / (Get.width / 3),
                                 ),
                                 delegate: SliverChildBuilderDelegate(
                                   (context, index) {
@@ -94,18 +94,18 @@ class ProductScreen extends GetView<ProductController> {
       width: Get.width,
       child: Row(
         children: [
-          if (controller.categoryId.value != null)
-            AppTouchable(
-              onPressed: () => Get.back(),
-              child: AppImageWidget(
-                asset: Assets.images.icArrowLeft,
-                size: 18.sp,
-              ),
-            ),
-          if (controller.categoryId.value != null)
-            SizedBox(
-              width: 8.sp,
-            ),
+          // if (controller.categoryId.value != null)
+          //   AppTouchable(
+          //     onPressed: () => Get.back(),
+          //     child: AppImageWidget(
+          //       asset: Assets.images.icArrowLeft,
+          //       size: 18.sp,
+          //     ),
+          //   ),
+          // if (controller.categoryId.value != null)
+          //   SizedBox(
+          //     width: 8.sp,
+          //   ),
           Expanded(
             child: AppTextField(
               prefixIcon: Padding(
@@ -150,9 +150,17 @@ class ProductScreen extends GetView<ProductController> {
             Expanded(
               child: _builsItemFilter(
                 onPressed: controller.openDrawer,
+                bgColor: controller.category.value != null
+                    ? AppColors.orange50
+                    : null,
                 title: TransactionConstants.filter.tr,
+                titleColor:
+                    controller.category.value != null ? AppColors.orange : null,
                 icon: AppImageWidget(
                   asset: Assets.images.icFilter,
+                  color: controller.category.value != null
+                      ? AppColors.orange
+                      : null,
                   size: 14.sp,
                 ),
               ),
@@ -163,38 +171,54 @@ class ProductScreen extends GetView<ProductController> {
 
   Widget _buildProductItem(ProductModel productModel) {
     final mainController = Get.find<MainController>();
-    return Container(
-      color: AppColors.white,
-      //   margin: EdgeInsets.symmetric(horizontal: 16.sp),
-      width: Get.width / 2,
-      // height: Get.width / 2,
-      padding: EdgeInsets.all(16.sp),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          AppImageWidget(
-            url:
-                '${NetworkConfig.baseProductMediaUrl}${productModel.mediaGalleryEntries?.first.file ?? ''}',
-            size: Get.width / 4,
-          ),
-          SizedBox(height: 16.sp),
-          Text(
-            productModel.name ?? '',
-            style: ThemeText.bodyRegular,
-            textAlign: TextAlign.center,
-            maxLines: 3,
-            overflow: TextOverflow.ellipsis,
-          ),
-           SizedBox(height: 8.sp),
-          Obx(
-            () => Text(
-                '${currencySymbols[mainController.storeConfig.value.baseCurrencyCode ?? 'USD']}${productModel.price ?? 0}',
-                style: ThemeText.bodySemibold.s16),
-          ),
-          const Spacer(),
-          _buildAddToCartButton(),
-        ],
+    return AppTouchable(
+      onPressed: () {
+        Get.toNamed(AppRoutes.productDetail, arguments: productModel.sku);
+      },
+      child: Container(
+        color: AppColors.white,
+        //   margin: EdgeInsets.symmetric(horizontal: 16.sp),
+        width: Get.width / 2,
+        // height: Get.width / 2,
+        padding: EdgeInsets.all(16.sp),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            AppImageWidget(
+              url:
+                  '${NetworkConfig.baseProductMediaUrl}${productModel.mediaGalleryEntries?.first.file ?? ''}',
+              size: Get.width / 4,
+            ),
+            SizedBox(height: 16.sp),
+            Text(
+              productModel.name ?? '',
+              style: ThemeText.bodyRegular,
+              textAlign: TextAlign.center,
+              maxLines: 3,
+              overflow: TextOverflow.ellipsis,
+            ),
+            SizedBox(height: 8.sp),
+            Obx(
+              () => Text(
+                  '${currencySymbols[mainController.storeConfig.value.baseCurrencyCode ?? 'USD']}${productModel.price ?? 0}',
+                  style: ThemeText.bodySemibold.s16),
+            ),
+            const Spacer(),
+            // productModel.extensionAttributes?.stockItem?.isInStock ??
+            //     false
+            //     ?_buildAddToCartButton() : AppButton(
+            //   backgroundColor: AppColors.white,
+            //   title: TransactionConstants.outOfStock.tr,
+            //   titleStyle: ThemeText.bodyMedium.orange,
+            //   titleColor: AppColors.black,
+            //   onPressed: () {
+            //     // debugPrint('fvdvdv');
+            //   },
+            // ),
+            // ,
+          ],
+        ),
       ),
     );
   }
@@ -216,8 +240,11 @@ class ProductScreen extends GetView<ProductController> {
     Function()? onPressed,
     required String title,
     required Widget icon,
+    Color? bgColor,
+    Color? titleColor,
   }) {
     return AppTouchable(
+      backgroundColor: bgColor,
       onPressed: onPressed,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -226,7 +253,7 @@ class ProductScreen extends GetView<ProductController> {
         children: [
           Text(
             title,
-            style: ThemeText.bodySemibold,
+            style: ThemeText.bodySemibold.copyWith(color: titleColor),
           ),
           SizedBox(
             width: 4.sp,

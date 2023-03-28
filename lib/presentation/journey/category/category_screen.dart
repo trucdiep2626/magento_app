@@ -83,10 +83,20 @@ class CategoryScreen extends GetView<CategoryController> {
                                         Wrap(
                                           children: controller
                                               .productsOfCategory.value
-                                              .map((e) => _buildItem(
-                                                  title: e.name,
-                                                  image: e.mediaGalleryEntries
-                                                      ?.first.file))
+                                              .map((e) => AppTouchable(
+                                                    onPressed: () {
+                                                      Get.toNamed(
+                                                          AppRoutes
+                                                              .productDetail,
+                                                          arguments: e.sku);
+                                                    },
+                                                    child: _buildItem(
+                                                        title: e.name,
+                                                        image: e
+                                                            .mediaGalleryEntries
+                                                            ?.first
+                                                            .file),
+                                                  ))
                                               .toList(),
                                         ),
                                         SizedBox(
@@ -174,7 +184,7 @@ class CategoryScreen extends GetView<CategoryController> {
 
   Widget _buildSubCategoryTile(CategoryTreeModel e) {
     return AppTouchable(
-      onPressed: () => controller.onViewProductList(e.id ?? 0),
+      onPressed: () async => await controller.onViewProductList(e),
       child: Padding(
         padding: EdgeInsets.symmetric(vertical: 8.sp),
         child: Row(

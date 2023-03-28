@@ -8,6 +8,7 @@ import 'package:magento_app/common/injector/bindings/change_password_binding.dar
 import 'package:magento_app/common/injector/bindings/create_address_binding.dart';
 import 'package:magento_app/common/injector/bindings/home_binding.dart';
 import 'package:magento_app/common/injector/bindings/login_binding.dart';
+import 'package:magento_app/common/injector/bindings/my_orders_binding.dart';
 import 'package:magento_app/common/injector/bindings/product_binding.dart';
 import 'package:magento_app/common/injector/bindings/product_detail_binding.dart';
 import 'package:magento_app/common/injector/bindings/profile_binding.dart';
@@ -17,6 +18,7 @@ import 'package:magento_app/presentation/journey/cart/cart_screen.dart';
 import 'package:magento_app/presentation/journey/change_password/change_password_screen.dart';
 import 'package:magento_app/presentation/journey/create_address/create_address_screen.dart';
 import 'package:magento_app/presentation/journey/login/login_screen.dart';
+import 'package:magento_app/presentation/journey/my_orders/my_orders_screen.dart';
 import 'package:magento_app/presentation/journey/product/product_screen.dart';
 import 'package:magento_app/presentation/journey/product_detail/product_detail_screen.dart';
 import 'package:magento_app/presentation/journey/profile/profile_screen.dart';
@@ -34,6 +36,7 @@ List<GetPage> myPages = [
     MainBinding(),
     HomeBinding(),
     CategoryBinding(),
+    CartBinding(),
     ProductBinding(),
     AccountBinding(),
   ]),
@@ -81,5 +84,10 @@ List<GetPage> myPages = [
     name: AppRoutes.cart,
     page: () => CartScreen(),
     binding: CartBinding(),
+  ),
+  GetPage(
+    name: AppRoutes.myOrders,
+    page: () => MyOrdersScreen(),
+    binding: MyOrdersBinding(),
   ),
 ];

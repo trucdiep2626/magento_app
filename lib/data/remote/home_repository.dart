@@ -2,10 +2,13 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:magento_app/common/common_export.dart';
 import 'package:magento_app/common/config/network/api_endpoints.dart';
 import 'package:magento_app/common/config/network/network_config.dart';
 import 'package:magento_app/domain/models/cms_block_response_model.dart';
 import 'package:magento_app/domain/models/store_config_response_model.dart';
+import 'package:magento_app/presentation/widgets/export.dart';
 
 class HomeRepository {
   final Dio _dio;
@@ -34,16 +37,18 @@ class HomeRepository {
           ));
 
       if (result.statusCode == 200) {
-
         final storeConfig =
             StoreConfigResponseModel.fromJson(result.data.first);
         return storeConfig;
       }
-     return null;
+
+      showTopSnackBarError(Get.context!,
+          result.statusMessage ?? TransactionConstants.unknownError.tr);
+      return null;
     } catch (e) {
+      showTopSnackBarError(Get.context!, TransactionConstants.unknownError.tr);
       debugPrint(e.toString());
       return null;
     }
-
   }
 }

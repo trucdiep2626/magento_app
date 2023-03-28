@@ -85,12 +85,13 @@ class AccountRepository {
       if (result.statusCode == 200) {
         return true;
       }
-      showTopSnackBarError(Get.context!,
-          result.statusMessage ?? TransactionConstants.unknownError.tr);
+      debugPrint('-----------${result.toString()}');
+      // showTopSnackBarError(Get.context!,
+      //     result.data ?? TransactionConstants.unknownError.tr);
       return false;
     } catch (e) {
       debugPrint(e.toString());
-      showTopSnackBarError(Get.context!, TransactionConstants.unknownError.tr);
+    //  showTopSnackBarError(Get.context!, TransactionConstants.unknownError.tr);
       return false;
     }
   }

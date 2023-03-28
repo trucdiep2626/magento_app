@@ -23,6 +23,8 @@ class MainController extends GetxController with MixinController {
 
   Rx<CustomerModel?> rxCustomer = (null as CustomerModel?).obs;
 
+  Rx<int?> cartId = (null as int?).obs;
+
   MainController({required this.accountUseCase});
 
   Future<void> getToken() async {

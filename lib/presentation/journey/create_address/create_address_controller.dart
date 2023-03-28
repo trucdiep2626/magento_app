@@ -127,6 +127,9 @@ class CreateNewAddressController extends GetxController with MixinController {
       if (result != null) {
         debugPrint('cập nhật thành công');
         await _mainController.getUserProfile();
+        showTopSnackBar(context,
+            message: TransactionConstants.successfully.tr,
+            type: SnackBarType.done);
         Get.back();
       }
     }

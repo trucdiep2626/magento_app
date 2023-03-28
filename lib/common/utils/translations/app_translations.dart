@@ -111,6 +111,7 @@ class TransactionConstants {
   static const filterByCategory = "filterByCategory";
 
   static const selectQuantity = "selectQuantity";
+  static const quantity = "quantity";
   static const buyNow = "buyNow";
   static const availability = 'availability';
   static const inStock = 'inStock';
@@ -130,4 +131,7 @@ class TransactionConstants {
   static const coupon = 'coupon';
   static const orderTotal = 'orderTotal';
   static const select = 'select';
+
+  static const successfully = 'successfully';
+  static const removeItemDialogMessage = 'removeItemDialogMessage';
 }

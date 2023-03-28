@@ -11,4 +11,6 @@ class ApiEndpoints {
   static String getStoreConfig = '/rest/default/V1/store/storeConfigs';
   static String customer = '/rest/V1/customers';
   static String changePassword = '/rest/V1/customers/me/password';
+  static String cart = '/rest/default/V1/carts/mine';
+  static String cartItem = '/rest/V1/carts/mine/items';
 }

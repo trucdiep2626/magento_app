@@ -43,8 +43,8 @@ class LoginController extends GetxController with MixinController {
     rxLoadedButton.value = LoadedType.start;
     hideKeyboard();
     errorText.value = '';
-    emailValidate.value = AppValidator.validateEmail(emailController);
-    passwordValidate.value = AppValidator.validatePassword(passwordController);
+    // emailValidate.value = AppValidator.validateEmail(emailController);
+    // passwordValidate.value = AppValidator.validatePassword(passwordController);
 
     var connectivityResult = await Connectivity().checkConnectivity();
     if (connectivityResult == ConnectivityResult.none) {
