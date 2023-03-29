@@ -134,4 +134,7 @@ class TransactionConstants {
 
   static const successfully = 'successfully';
   static const removeItemDialogMessage = 'removeItemDialogMessage';
+
+  static const continueButton = 'continue';
+  static const shippingMethod = 'checkout.shippingMethod';
 }

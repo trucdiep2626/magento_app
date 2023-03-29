@@ -11,6 +11,8 @@ class AddressController extends GetxController with MixinController {
       RefreshController(initialRefresh: false);
   final mainController = Get.find<MainController>();
 
+  bool isCheckout = false;
+
   Future<void> onRefresh() async {
     // rxLoadedList.value = LoadedType.start;
     // currentPage.value = 1;
@@ -22,5 +24,9 @@ class AddressController extends GetxController with MixinController {
     // rxLoadedList.value = LoadedType.finish;
   }
 
-  final MainController _mainController = Get.find<MainController>();
+  @override
+  void onInit() {
+    super.onInit();
+    isCheckout = Get.arguments ?? false;
+  }
 }

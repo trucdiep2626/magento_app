@@ -127,42 +127,41 @@ class CartScreen extends GetView<CartController> {
         ]),
         bottomNavigationBar: Obx(
           () => Visibility(
-            visible: true,
-            //controller.selectedItems.value.isNotEmpty,
+            visible: controller.selectedItems.value.isNotEmpty,
             child: Padding(
                 padding: EdgeInsets.all(16.sp),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Row(
-                      children: [
-                        Text(
-                          '${TransactionConstants.coupon.tr}: ',
-                          style: ThemeText.bodySemibold,
-                        ),
-                        Expanded(
-                          child: Text(
-                            TransactionConstants.select.tr,
-                            textAlign: TextAlign.end,
-                            style: ThemeText.bodySemibold.grey400Color,
-                          ),
-                        ),
-                        // Text(
-                        //   TransactionConstants.select.tr,
-                        //   textAlign: TextAlign.end,
-                        //   style: ThemeText.bodySemibold.grey400Color,
-                        // ),
-                        AppTouchable(
-                            onPressed: () {},
-                            child: AppImageWidget(
-                              asset: Assets.images.icArrowRight,
-                              size: 16.sp,
-                            ))
-                      ],
-                    ),
-                    SizedBox(
-                      height: 8.sp,
-                    ),
+                    // Row(
+                    //   children: [
+                    //     Text(
+                    //       '${TransactionConstants.coupon.tr}: ',
+                    //       style: ThemeText.bodySemibold,
+                    //     ),
+                    //     Expanded(
+                    //       child: Text(
+                    //         TransactionConstants.select.tr,
+                    //         textAlign: TextAlign.end,
+                    //         style: ThemeText.bodySemibold.grey400Color,
+                    //       ),
+                    //     ),
+                    //     // Text(
+                    //     //   TransactionConstants.select.tr,
+                    //     //   textAlign: TextAlign.end,
+                    //     //   style: ThemeText.bodySemibold.grey400Color,
+                    //     // ),
+                    //     AppTouchable(
+                    //         onPressed: () {},
+                    //         child: AppImageWidget(
+                    //           asset: Assets.images.icArrowRight,
+                    //           size: 16.sp,
+                    //         ))
+                    //   ],
+                    // ),
+                    // SizedBox(
+                    //   height: 8.sp,
+                    // ),
                     Row(
                       children: [
                         Text(
@@ -171,7 +170,7 @@ class CartScreen extends GetView<CartController> {
                         ),
                         Expanded(
                           child: Text(
-                            '\$0',
+                            '${currencySymbols[controller.mainController.storeConfig.value.baseCurrencyCode ?? 'USD']}${controller.totalPrice.value}',
                             textAlign: TextAlign.end,
                             style: ThemeText.bodySemibold.s18,
                           ),
@@ -183,10 +182,7 @@ class CartScreen extends GetView<CartController> {
                     ),
                     AppButton(
                       title: TransactionConstants.checkoutButton.tr,
-                      onPressed: () async {
-                        // await controller.onInitDialog();
-                        // showCreateNewOrderDialog(context);
-                      },
+                      onPressed: controller.onPressCreateOrder,
                       loaded: controller.buttonState.value,
                     )
                   ],
@@ -274,7 +270,7 @@ class CartScreen extends GetView<CartController> {
                       height: 2.sp,
                     ),
                     Text(
-                      '${currencySymbols[controller.mainController.storeConfig.value.baseCurrencyCode ?? 'USD']}${productEntity.price ?? 0}',
+                      '${currencySymbols[controller.mainController.storeConfig.value.baseCurrencyCode ?? 'USD']}${(productEntity.price ?? 0) * (productEntity.qty ?? 1)}',
                       style: ThemeText.bodyRegular.s12,
                     ),
                     Text(
@@ -290,8 +286,7 @@ class CartScreen extends GetView<CartController> {
               ),
               AppTouchable(
                   onPressed: () async {
-                    await controller
-                        .onPressDeleteItem(productEntity.itemId.toString());
+                    await controller.onPressDeleteItem(productEntity);
                   },
                   child: AppImageWidget(
                     asset: Assets.images.icTrash,

@@ -6,6 +6,7 @@ import 'package:magento_app/domain/models/cart_information_model.dart';
 import 'package:magento_app/domain/usecases/cart_usecase.dart';
 import 'package:magento_app/domain/usecases/product_usecase.dart';
 import 'package:magento_app/presentation/controllers/mixin/export.dart';
+import 'package:magento_app/presentation/journey/addresses_list/address_screen.dart';
 import 'package:magento_app/presentation/journey/main/main_controller.dart';
 import 'package:magento_app/presentation/widgets/app_dialog.dart';
 import 'package:magento_app/presentation/widgets/export.dart';
@@ -38,6 +39,7 @@ class CartController extends GetxController with MixinController {
 
   MainController mainController = Get.find<MainController>();
   RxBool isSelectedAll = false.obs;
+  RxInt totalPrice = 0.obs;
 
   void checkButtonEnable() {
     if (selectedItems.value.isNotEmpty) {
@@ -56,7 +58,8 @@ class CartController extends GetxController with MixinController {
   }
 
   onPressCreateOrder() async {
-    buttonState.value = LoadedType.start;
+    Get.toNamed(AppRoutes.address, arguments: true);
+    //buttonState.value = LoadedType.start;
     // List<int> ids = [];
     // for (ProductCartEntity product in selectedItems.value) {
     //   if (product.id != null) {
@@ -99,9 +102,18 @@ class CartController extends GetxController with MixinController {
     selectedItems.clear();
     selectedItems.value.addAll(selectedProducts);
     isSelectedAll.value = checkSelectAll();
+    calculateTotalPrice();
   }
 
-  onPressDeleteItem(String itemId) async {
+  calculateTotalPrice() {
+    int total = 0;
+    selectedItems.value.forEach((element) {
+      total += (element.price ?? 0) * (element.qty ?? 1);
+    });
+    totalPrice.value = total;
+  }
+
+  onPressDeleteItem(CartItem item) async {
     await showAppDialog(
         context, TransactionConstants.removeItemDialogMessage.tr,
         firstButtonText: TransactionConstants.ok.tr,
@@ -110,60 +122,43 @@ class CartController extends GetxController with MixinController {
         firstButtonCallback: () async {
           try {
             rxLoadedList.value = LoadedType.start;
-            final result = await cartUseCase.deleteItem(itemId: itemId);
+            final result =
+                await cartUseCase.deleteItem(itemId: item.itemId.toString());
             debugPrint('---------$result');
 
             if (result) {
               // await getProductsList();
+
+              List<CartItem> oldItems = [];
+              oldItems.addAll(items.value);
+              oldItems.remove(item);
+              items.clear();
+              items.value.addAll(oldItems);
+              if (selectedItems.value.contains(item)) {
+                List<CartItem> oldSelectedItems = [];
+                oldSelectedItems.addAll(selectedItems.value);
+                oldSelectedItems.remove(item);
+                selectedItems.clear();
+                selectedItems.value.addAll(oldSelectedItems);
+                isSelectedAll.value = checkSelectAll();
+                calculateTotalPrice();
+              }
               Get.back();
-              await getProductsList();
+              //await getProductsList();
               rxLoadedList.value = LoadedType.finish;
             }
           } catch (e) {
             showTopSnackBarError(context, TransactionConstants.unknownError.tr);
           }
-
-          // Get.offAllNamed(AppRoute.login);
         },
         secondButtonText: TransactionConstants.cancel.tr,
         secondButtonCallback: () => Get.back());
-    // ButtonState acceptButtonState = ButtonState.active;
-    // await showAppDialog(context!, 'Xóa sản phẩm', 'Bạn có chắc chắn muốn xóa sản phẩm này không?',
-    //     firstButtonText: StringConstants.yes,
-    //     firstButtonState: acceptButtonState,
-    //     messageTextAlign: TextAlign.start,
-    //     dismissAble: true,
-    //     firstButtonCallback: () async {
-    //       acceptButtonState = ButtonState.loading;
-    //       final result = await mainController.requestApi(() => cartUsecase.deleteProduct(token, item.id!), context!);
-    //       if (result.status != null && result.status!) {
-    //         List<ProductCartEntity> oldItems = [];
-    //         oldItems.addAll(items.value);
-    //         oldItems.remove(item);
-    //         items.clear();
-    //         items.value.addAll(oldItems);
-    //         if (selectedItems.value.contains(item)) {
-    //           List<ProductCartEntity> oldSelectedItems = [];
-    //           oldSelectedItems.addAll(selectedItems.value);
-    //           oldSelectedItems.remove(item);
-    //           selectedItems.clear();
-    //           selectedItems.value.addAll(oldItems);
-    //           isSelectedAll.value = checkSelectAll();
-    //         }
-    //         acceptButtonState = ButtonState.active;
-    //         Get.back();
-    //         // await getProductsList();
-    //       } else {
-    //         showTopSnackBarError(context!, 'Đã xảy ra lỗi. Vui lòng thử lại!');
-    //       }
-    //     },
-    //     secondButtonText: StringConstants.no,
-    //     secondButtonCallback: () => Get.back());
   }
 
   clearAllSelectedList() {
     selectedItems.clear();
     isSelectedAll.value = false;
+    totalPrice.value = 0;
   }
 
   // clearAllItem() {
@@ -179,7 +174,7 @@ class CartController extends GetxController with MixinController {
     final result = await cartUseCase.getCartItems();
     rxLoadedList.value = LoadedType.finish;
     if (result != null) {
-      items.value.addAll(result ?? []);
+      items.value.addAll(result);
     }
   }
 
@@ -194,6 +189,7 @@ class CartController extends GetxController with MixinController {
       selectedItems.value.addAll(selectedProducts);
       isSelectedAll.value = true;
     }
+    calculateTotalPrice();
   }
 
   Future<void> getCartInfo() async {

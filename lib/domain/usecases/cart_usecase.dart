@@ -3,6 +3,7 @@ import 'package:magento_app/data/remote/account_repository.dart';
 import 'package:magento_app/data/remote/cart_repository.dart';
 import 'package:magento_app/domain/models/cart_information_model.dart';
 import 'package:magento_app/domain/models/customer_model.dart';
+import 'package:magento_app/domain/models/estimate_shipping_methods_model.dart';
 
 class CartUseCase {
   final CartRepository cartRepo;
@@ -58,5 +59,17 @@ class CartUseCase {
             token: token,
             itemId: itemId,
           ));
+  }
+
+  Future<List<EstimateShippingMethodsModel>> getEstimateShippingMethods(
+      {  required int addressId}) async {
+    String? token = getToken();
+
+    return token == null
+        ? []
+        :  await cartRepo.getEstimateShippingMethods(
+      token: token,
+      addressId: addressId,
+    );
   }
 }

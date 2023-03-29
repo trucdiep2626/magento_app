@@ -11,4 +11,7 @@ class AppRoutes {
   static const String cart = '/cart';
   static const String productDetail = '/product_detail';
   static const String myOrders = '/orders';
+  static const String estimateShipping = '/estimate_shipping';
+  static const String checkoutPreview = '/checkout_preview';
+  static const String payment = '/payment';
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:magento_app/common/common_export.dart';
 import 'package:magento_app/domain/models/customer_model.dart';
+import 'package:magento_app/gen/assets.gen.dart';
 import 'package:magento_app/presentation/journey/addresses_list/address_controller.dart';
 import 'package:magento_app/presentation/journey/main/main_controller.dart';
 import 'package:magento_app/presentation/theme/export.dart';
@@ -54,11 +55,11 @@ class AddressScreen extends GetView<AddressController> {
 
   Widget _buildAddressItem({required Addresses addresses}) {
     return GestureDetector(
-      onTap: () {
-        Get.toNamed(AppRoutes.createAddress, arguments: {
-          'address': addresses,
-        });
-      },
+      onTap: controller.isCheckout
+          ? () {
+              Get.toNamed(AppRoutes.estimateShipping, arguments: addresses.id);
+            }
+          : () {},
       child: Container(
         width: double.infinity,
         margin: EdgeInsets.all(8.sp),
@@ -66,33 +67,51 @@ class AddressScreen extends GetView<AddressController> {
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
             border: Border.all(color: AppColors.grey)),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            if (addresses.defaultBilling ?? false)
-              Text(
-                TransactionConstants.defaultBillingAddress.tr,
-                style: ThemeText.bodyRegular.s12
-                    .copyWith(fontStyle: FontStyle.italic),
-              ),
-            if (addresses.defaultShipping ?? false)
-              Text(
-                TransactionConstants.defaultShippingAddress.tr,
-                style: ThemeText.bodyRegular.s12
-                    .copyWith(fontStyle: FontStyle.italic),
-              ),
-            Text(
-              '${addresses.firstname ?? ''} ${addresses.lastname ?? ''}',
-              style: ThemeText.bodySemibold,
-            ),
-            Text(
-              addresses.telephone ?? '',
-              style: ThemeText.bodyRegular,
-            ),
-            Text(
-              addresses.city ?? '',
-              style: ThemeText.bodyRegular,
-            ),
+            Expanded(
+                child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                if (addresses.defaultBilling ?? false)
+                  Text(
+                    TransactionConstants.defaultBillingAddress.tr,
+                    style: ThemeText.bodyRegular.s12
+                        .copyWith(fontStyle: FontStyle.italic),
+                  ),
+                if (addresses.defaultShipping ?? false)
+                  Text(
+                    TransactionConstants.defaultShippingAddress.tr,
+                    style: ThemeText.bodyRegular.s12
+                        .copyWith(fontStyle: FontStyle.italic),
+                  ),
+                Text(
+                  '${addresses.firstname ?? ''} ${addresses.lastname ?? ''}',
+                  style: ThemeText.bodySemibold,
+                ),
+                Text(
+                  addresses.telephone ?? '',
+                  style: ThemeText.bodyRegular,
+                ),
+                Text(
+                  addresses.city ?? '',
+                  style: ThemeText.bodyRegular,
+                ),
+              ],
+            )),
+            AppTouchable(
+                onPressed: () {
+                  Get.toNamed(AppRoutes.createAddress, arguments: {
+                    'address': addresses,
+                  });
+                },
+                child: Icon(
+                  Icons.edit,
+                  color: AppColors.grey,
+                  size: 20.sp,
+                ))
           ],
         ),
       ),

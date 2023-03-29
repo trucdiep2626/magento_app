@@ -5,6 +5,7 @@ import 'package:magento_app/common/config/network/api_endpoints.dart';
 import 'package:magento_app/common/config/network/network_config.dart';
 import 'package:magento_app/common/utils/translations/app_translations.dart';
 import 'package:magento_app/domain/models/cart_information_model.dart';
+import 'package:magento_app/domain/models/estimate_shipping_methods_model.dart';
 import 'package:magento_app/presentation/widgets/export.dart';
 
 class CartRepository {
@@ -138,6 +139,31 @@ class CartRepository {
       return false;
     } catch (e) {
       return false;
+    }
+  }
+
+  Future<List<EstimateShippingMethodsModel>> getEstimateShippingMethods(
+      {required String token, required int addressId}) async {
+    try {
+      final methods = <EstimateShippingMethodsModel>[];
+
+      final result = await _dio.request(
+          '${NetworkConfig.baseUrl}${ApiEndpoints.cart}/estimate-shipping-methods-by-address-id',
+          data: {"addressId": addressId},
+          options: Options(
+            method: 'POST',
+            headers: <String, dynamic>{r'Authorization': 'Bearer $token'},
+          ));
+
+      if (result.statusCode == 200 && result.data is List) {
+        for (var element in (result.data as List)) {
+          final method = EstimateShippingMethodsModel.fromJson(element);
+          methods.add(method);
+        }
+      }
+      return methods;
+    } catch (e) {
+      return [];
     }
   }
 }
