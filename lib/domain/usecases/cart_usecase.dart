@@ -4,6 +4,7 @@ import 'package:magento_app/data/remote/cart_repository.dart';
 import 'package:magento_app/domain/models/cart_information_model.dart';
 import 'package:magento_app/domain/models/customer_model.dart';
 import 'package:magento_app/domain/models/estimate_shipping_methods_model.dart';
+import 'package:magento_app/domain/models/save_shipping_method_response_model.dart';
 
 class CartUseCase {
   final CartRepository cartRepo;
@@ -62,14 +63,48 @@ class CartUseCase {
   }
 
   Future<List<EstimateShippingMethodsModel>> getEstimateShippingMethods(
-      {  required int addressId}) async {
+      {required int addressId}) async {
     String? token = getToken();
 
     return token == null
         ? []
-        :  await cartRepo.getEstimateShippingMethods(
-      token: token,
-      addressId: addressId,
-    );
+        : await cartRepo.getEstimateShippingMethods(
+            token: token,
+            addressId: addressId,
+          );
+  }
+
+  Future<SaveShippingMethodResponseModel?> addShippingInformation(
+      {required EstimateShippingMethodsModel shippingMethod,
+      required CustomerModel customer,
+      required Addresses address}) async {
+    String? token = getToken();
+
+    return token == null
+        ? null
+        : await cartRepo.addShippingInformation(
+            token: token,
+            address: address,
+            customer: customer,
+            shippingMethod: shippingMethod,
+          );
+  }
+
+  Future<int?> createOrder({
+    required String token,
+    required PaymentMethods payment,
+    required CustomerModel customer,
+    required Addresses address,
+  }) async {
+    String? token = getToken();
+
+    return token == null
+        ? null
+        : await cartRepo.createOrder(
+            token: token,
+            address: address,
+            customer: customer,
+            payment: payment,
+          );
   }
 }

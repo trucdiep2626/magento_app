@@ -18,12 +18,14 @@ import 'package:magento_app/presentation/journey/addresses_list/address_controll
 import 'package:magento_app/presentation/journey/cart/cart_controller.dart';
 import 'package:magento_app/presentation/journey/category/category_controller.dart';
 import 'package:magento_app/presentation/journey/change_password/change_password_controller.dart';
+import 'package:magento_app/presentation/journey/checkout/checkout_controller.dart';
 import 'package:magento_app/presentation/journey/create_address/create_address_controller.dart';
 import 'package:magento_app/presentation/journey/estimate_shipping/estimate_shipping_controller.dart';
 import 'package:magento_app/presentation/journey/home/home_controller.dart';
 import 'package:magento_app/presentation/journey/login/login_controller.dart';
 import 'package:magento_app/presentation/journey/main/main_controller.dart';
 import 'package:magento_app/presentation/journey/my_orders/my_orders_controller.dart';
+import 'package:magento_app/presentation/journey/payment/payment_controller.dart';
 import 'package:magento_app/presentation/journey/product/product_controller.dart';
 import 'package:magento_app/presentation/journey/product_detail/product_detail_controller.dart';
 import 'package:magento_app/presentation/journey/profile/profile_controller.dart';
@@ -78,6 +80,8 @@ void configLocator() {
   getIt.registerFactory<MyOrdersController>(() => MyOrdersController());
   getIt.registerFactory<EstimateShippingController>(() => EstimateShippingController(
       cartUseCase: getIt<CartUseCase>()));
+  getIt.registerFactory<PaymentController>(() => PaymentController());
+  getIt.registerFactory<CheckoutController>(() => CheckoutController());
 
   /// UseCases
   getIt.registerFactory<HomeUseCase>(

@@ -2,14 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:magento_app/common/common_export.dart';
 import 'package:magento_app/domain/models/estimate_shipping_methods_model.dart';
+import 'package:magento_app/domain/models/save_shipping_method_response_model.dart';
 import 'package:magento_app/gen/assets.gen.dart';
 import 'package:magento_app/presentation/journey/estimate_shipping/estimate_shipping_controller.dart';
+import 'package:magento_app/presentation/journey/payment/payment_controller.dart';
 import 'package:magento_app/presentation/theme/export.dart';
 import 'package:magento_app/presentation/widgets/app_bar_widget.dart';
 import 'package:magento_app/presentation/widgets/export.dart';
 
-class EstimateShippingScreen extends GetView<EstimateShippingController> {
-  const EstimateShippingScreen({Key? key}) : super(key: key);
+class PaymentScreen extends GetView<PaymentController> {
+  const PaymentScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +19,7 @@ class EstimateShippingScreen extends GetView<EstimateShippingController> {
     return Scaffold(
       appBar: AppBarWidget(
         showBackButton: true,
-        title: TransactionConstants.shippingMethod.tr,
+        title: TransactionConstants.paymentMethod.tr,
         onPressed: () => Get.back(),
       ),
       body: Padding(
@@ -37,7 +39,7 @@ class EstimateShippingScreen extends GetView<EstimateShippingController> {
                   child: Padding(
                   padding: EdgeInsets.only(top: 24.sp),
                   child: Text(
-                    TransactionConstants.noShippingMethod.tr,
+                    TransactionConstants.noPaymentMethod.tr,
                     style: ThemeText.bodyMedium.grey500Color.s20,
                   ),
                 ))
@@ -51,13 +53,13 @@ class EstimateShippingScreen extends GetView<EstimateShippingController> {
             child: AppButton(
               title: TransactionConstants.continueButton.tr,
               loaded: controller.rxLoadedButton.value,
-              onPressed: () async => await controller.saveInfo(),
+              onPressed: ()   => Get.toNamed(AppRoutes.checkout) ,
             ),
           )),
     );
   }
 
-  Widget _buildItem({required EstimateShippingMethodsModel method}) {
+  Widget _buildItem({required PaymentMethods method}) {
     return GestureDetector(
       onTap: () => controller.updateSelectedMethod(method),
       child: Container(
@@ -72,19 +74,9 @@ class EstimateShippingScreen extends GetView<EstimateShippingController> {
               size: 20.sp,
             ),
             SizedBox(width: 16.sp),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  method.carrierTitle ?? '',
-                  style: ThemeText.bodySemibold,
-                ),
-                SizedBox(height: 2.sp),
-                Text(
-                  '${currencySymbols[controller.mainController.storeConfig.value.baseCurrencyCode ?? 'USD']}${method.amount ?? 0}',
-                  style: ThemeText.bodyRegular.grey600Color,
-                ),
-              ],
+            Text(
+              method.title ?? '',
+              style: ThemeText.bodySemibold,
             )
           ],
         ),

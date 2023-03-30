@@ -21,7 +21,7 @@ class CartController extends GetxController with MixinController {
 
   RxBool buttonEnable = false.obs;
   String token = '';
-  RxList<CartItem> selectedItems = <CartItem>[].obs;
+  // RxList<CartItem> selectedItems = <CartItem>[].obs;
   RxList<CartItem> items = <CartItem>[].obs;
   Rx<LoadedType> buttonState = LoadedType.finish.obs;
 
@@ -41,21 +41,21 @@ class CartController extends GetxController with MixinController {
   RxBool isSelectedAll = false.obs;
   RxInt totalPrice = 0.obs;
 
-  void checkButtonEnable() {
-    if (selectedItems.value.isNotEmpty) {
-      buttonEnable.value = true;
-    } else {
-      buttonEnable.value = false;
-    }
-  }
+  // void checkButtonEnable() {
+  //   if (selectedItems.value.isNotEmpty) {
+  //     buttonEnable.value = true;
+  //   } else {
+  //     buttonEnable.value = false;
+  //   }
+  // }
 
   // Future<void> getToken() async {
   //   token = await authUseCase.getToken();
   // }
 
-  bool checkSelectAll() {
-    return items.value.length == selectedItems.value.length;
-  }
+  // bool checkSelectAll() {
+  //   return items.value.length == selectedItems.value.length;
+  // }
 
   onPressCreateOrder() async {
     Get.toNamed(AppRoutes.address, arguments: true);
@@ -91,23 +91,23 @@ class CartController extends GetxController with MixinController {
     cartRefreshController.refreshCompleted();
   }
 
-  onChangeSelect(CartItem item) {
-    List<CartItem> selectedProducts = [];
-    selectedProducts.addAll(selectedItems.value);
-    if (selectedProducts.contains(item)) {
-      selectedProducts.remove(item);
-    } else {
-      selectedProducts.add(item);
-    }
-    selectedItems.clear();
-    selectedItems.value.addAll(selectedProducts);
-    isSelectedAll.value = checkSelectAll();
-    calculateTotalPrice();
-  }
+  // onChangeSelect(CartItem item) {
+  //   List<CartItem> selectedProducts = [];
+  //   selectedProducts.addAll(selectedItems.value);
+  //   if (selectedProducts.contains(item)) {
+  //     selectedProducts.remove(item);
+  //   } else {
+  //     selectedProducts.add(item);
+  //   }
+  //   selectedItems.clear();
+  //   selectedItems.value.addAll(selectedProducts);
+  //   isSelectedAll.value = checkSelectAll();
+  //   calculateTotalPrice();
+  // }
 
   calculateTotalPrice() {
     int total = 0;
-    selectedItems.value.forEach((element) {
+    items.value.forEach((element) {
       total += (element.price ?? 0) * (element.qty ?? 1);
     });
     totalPrice.value = total;
@@ -134,15 +134,16 @@ class CartController extends GetxController with MixinController {
               oldItems.remove(item);
               items.clear();
               items.value.addAll(oldItems);
-              if (selectedItems.value.contains(item)) {
-                List<CartItem> oldSelectedItems = [];
-                oldSelectedItems.addAll(selectedItems.value);
-                oldSelectedItems.remove(item);
-                selectedItems.clear();
-                selectedItems.value.addAll(oldSelectedItems);
-                isSelectedAll.value = checkSelectAll();
-                calculateTotalPrice();
-              }
+              calculateTotalPrice();
+              // if (selectedItems.value.contains(item)) {
+              //   List<CartItem> oldSelectedItems = [];
+              //   oldSelectedItems.addAll(selectedItems.value);
+              //   oldSelectedItems.remove(item);
+              //   selectedItems.clear();
+              //   selectedItems.value.addAll(oldSelectedItems);
+              //   isSelectedAll.value = checkSelectAll();
+              //
+              // }
               Get.back();
               //await getProductsList();
               rxLoadedList.value = LoadedType.finish;
@@ -155,11 +156,11 @@ class CartController extends GetxController with MixinController {
         secondButtonCallback: () => Get.back());
   }
 
-  clearAllSelectedList() {
-    selectedItems.clear();
-    isSelectedAll.value = false;
-    totalPrice.value = 0;
-  }
+  // clearAllSelectedList() {
+  //   selectedItems.clear();
+  //   isSelectedAll.value = false;
+  //   totalPrice.value = 0;
+  // }
 
   // clearAllItem() {
   //   // selectedItems.clear();
@@ -169,28 +170,29 @@ class CartController extends GetxController with MixinController {
   Future<void> getProductsList() async {
     rxLoadedList.value = LoadedType.start;
     items.clear();
-    selectedItems.clear();
-    isSelectedAll.value = false;
+    // selectedItems.clear();
+    // isSelectedAll.value = false;
     final result = await cartUseCase.getCartItems();
     rxLoadedList.value = LoadedType.finish;
     if (result != null) {
       items.value.addAll(result);
     }
-  }
-
-  onChangeSelectAllItem() {
-    if (selectedItems.value.length == items.value.length) {
-      selectedItems.clear();
-      isSelectedAll.value = false;
-    } else {
-      List<CartItem> selectedProducts = [];
-      selectedProducts.addAll(items.value);
-      selectedItems.clear();
-      selectedItems.value.addAll(selectedProducts);
-      isSelectedAll.value = true;
-    }
     calculateTotalPrice();
   }
+
+  // onChangeSelectAllItem() {
+  //   if (selectedItems.value.length == items.value.length) {
+  //     selectedItems.clear();
+  //     isSelectedAll.value = false;
+  //   } else {
+  //     List<CartItem> selectedProducts = [];
+  //     selectedProducts.addAll(items.value);
+  //     selectedItems.clear();
+  //     selectedItems.value.addAll(selectedProducts);
+  //     isSelectedAll.value = true;
+  //   }
+  //   calculateTotalPrice();
+  // }
 
   Future<void> getCartInfo() async {
     rxLoadedList.value = LoadedType.start;

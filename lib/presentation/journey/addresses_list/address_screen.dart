@@ -57,7 +57,7 @@ class AddressScreen extends GetView<AddressController> {
     return GestureDetector(
       onTap: controller.isCheckout
           ? () {
-              Get.toNamed(AppRoutes.estimateShipping, arguments: addresses.id);
+              Get.toNamed(AppRoutes.estimateShipping, arguments: addresses);
             }
           : () {},
       child: Container(
