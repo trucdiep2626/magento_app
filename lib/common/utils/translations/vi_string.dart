@@ -167,6 +167,8 @@ const viString = {
   "checkout.placeOrderButton": "Place Order",
   "checkout.orderSuccessMessage": "Order placed successfully",
   "checkout.youWillBeCharged": "You will be charged",
+  "orderDetails": "Order Details",
+  'shippingAddress': 'Shipping Address',
 
   //search
   "search.title": "Search",

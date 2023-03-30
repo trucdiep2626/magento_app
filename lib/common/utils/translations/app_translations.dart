@@ -137,4 +137,11 @@ class TransactionConstants {
 
   static const continueButton = 'continue';
   static const shippingMethod = 'checkout.shippingMethod';
+  static const noShippingMethod = 'checkout.noShippingMethod';
+  static const noPaymentMethod = 'checkout.noPaymentMethod';
+  static const paymentMethod = 'checkout.paymentMethod';
+  static const orderDetails = "orderDetails";
+  static const shippingAddress = 'shippingAddress';
+  static const total = "total";
+  static const subTotal = 'subTotal';
 }

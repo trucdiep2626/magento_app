@@ -101,6 +101,7 @@ const enString = {
   'defaultBillingAddress': 'Default Billing Address',
   'defaultShippingAddress': 'Default Shipping Address',
   "editAddress": "Edit address",
+  'shippingAddress': 'Shipping Address',
 
   //login
   "login.title": "Login",
@@ -167,6 +168,7 @@ const enString = {
   "checkout.placeOrderButton": "Place Order",
   "checkout.orderSuccessMessage": "Order placed successfully",
   "checkout.youWillBeCharged": "You will be charged",
+  "orderDetails": "Order Details",
 
   //search
   "search.title": "Search",
