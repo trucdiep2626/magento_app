@@ -30,11 +30,11 @@ class AccountRepository {
       if (result.statusCode == 200) {
         return result.data;
       }
-      showTopSnackBarError(Get.context!,
-          result.statusMessage ?? TransactionConstants.unknownError.tr);
+      // showTopSnackBarError(Get.context!,
+      //     result.statusMessage ?? TransactionConstants.unknownError.tr);
       return null;
     } catch (e) {
-      showTopSnackBarError(Get.context!, TransactionConstants.unknownError.tr);
+     // showTopSnackBarError(Get.context!, TransactionConstants.unknownError.tr);
       debugPrint(e.toString());
       return null;
     }
@@ -51,12 +51,12 @@ class AccountRepository {
       if (result.statusCode == 200) {
         return CustomerModel.fromJson(result.data);
       }
-      showTopSnackBarError(Get.context!,
-          result.statusMessage ?? TransactionConstants.unknownError.tr);
+      // showTopSnackBarError(Get.context!,
+      //     result.statusMessage ?? TransactionConstants.unknownError.tr);
       return null;
     } catch (e) {
       debugPrint(e.toString());
-      showTopSnackBarError(Get.context!, TransactionConstants.unknownError.tr);
+      //showTopSnackBarError(Get.context!, TransactionConstants.unknownError.tr);
       return null;
     }
   }
@@ -114,12 +114,12 @@ class AccountRepository {
       if (result.statusCode == 200) {
         return CustomerModel.fromJson(result.data);
       }
-      showTopSnackBarError(Get.context!,
-          result.statusMessage ?? TransactionConstants.unknownError.tr);
+      // showTopSnackBarError(Get.context!,
+      //     result.statusMessage ?? TransactionConstants.unknownError.tr);
       return null;
     } catch (e) {
       debugPrint(e.toString());
-      showTopSnackBarError(Get.context!, TransactionConstants.unknownError.tr);
+   //   showTopSnackBarError(Get.context!, TransactionConstants.unknownError.tr);
       return null;
     }
   }
@@ -144,12 +144,12 @@ class AccountRepository {
       if (result.statusCode == 200) {
         return true;
       }
-      showTopSnackBarError(Get.context!,
-          result.statusMessage ?? TransactionConstants.unknownError.tr);
+      // showTopSnackBarError(Get.context!,
+      //     result.statusMessage ?? TransactionConstants.unknownError.tr);
       return false;
     } catch (e) {
       debugPrint(e.toString());
-      showTopSnackBarError(Get.context!, TransactionConstants.unknownError.tr);
+    //  showTopSnackBarError(Get.context!, TransactionConstants.unknownError.tr);
       return false;
     }
   }

@@ -78,10 +78,11 @@ void configLocator() {
       productUseCase: getIt<ProductUseCase>(),
       cartUseCase: getIt<CartUseCase>()));
   getIt.registerFactory<MyOrdersController>(() => MyOrdersController());
-  getIt.registerFactory<EstimateShippingController>(() => EstimateShippingController(
-      cartUseCase: getIt<CartUseCase>()));
+  getIt.registerFactory<EstimateShippingController>(
+      () => EstimateShippingController(cartUseCase: getIt<CartUseCase>()));
   getIt.registerFactory<PaymentController>(() => PaymentController());
-  getIt.registerFactory<CheckoutController>(() => CheckoutController());
+  getIt.registerFactory<CheckoutController>(
+      () => CheckoutController(cartUseCase: getIt<CartUseCase>()));
 
   /// UseCases
   getIt.registerFactory<HomeUseCase>(

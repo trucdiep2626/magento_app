@@ -24,15 +24,6 @@ class ProductRepository {
       Map<String, dynamic>? filters,
       Map<String, dynamic>? sortOrders,
       String? fields}) async {
-    // String searchKey = getSearchKey(
-    //   pageSize: pageSize,
-    //   currentPage: currentPage,
-    //   conditionType: conditionType,
-    //   attributeCode: attributeCode,
-    //   attributeValue: attributeValue,
-    //   fields: fields,
-    // );
-
     Map<String, dynamic> _params = {
       searchKeyPageSize: pageSize,
       searchKeyCurrentPage: currentPage,
@@ -65,11 +56,11 @@ class ProductRepository {
             ProductsResponseModel.fromJson(result.data);
         return response;
       }
-      showTopSnackBarError(Get.context!,
-          result.statusMessage ?? TransactionConstants.unknownError.tr);
+      // showTopSnackBarError(Get.context!,
+      //     result.statusMessage ?? TransactionConstants.unknownError.tr);
       return null;
     } catch (e) {
-      showTopSnackBarError(Get.context!, TransactionConstants.unknownError.tr);
+      //showTopSnackBarError(Get.context!, TransactionConstants.unknownError.tr);
       debugPrint(e.toString());
       return null;
     }
@@ -114,54 +105,13 @@ class ProductRepository {
         final ProductModel response = ProductModel.fromJson(result.data);
         return response;
       }
-      showTopSnackBarError(Get.context!,
-          result.statusMessage ?? TransactionConstants.unknownError.tr);
+      //    showTopSnackBarError(Get.context!,
+      //        result.statusMessage ?? TransactionConstants.unknownError.tr);
       return null;
     } catch (e) {
-      showTopSnackBarError(Get.context!, TransactionConstants.unknownError.tr);
+      //   showTopSnackBarError(Get.context!, TransactionConstants.unknownError.tr);
       debugPrint(e.toString());
       return null;
     }
   }
-
-  // getCategoryProducts: (id, offset = 0, sortOrder, pageSize = PAGE_SIZE) =>
-  // magento.admin.getProductsWithAttribute(
-  // 'category_id',
-  // id,
-  // offset,
-  // sortOrder,
-  // pageSize,
-  // 'eq',
-  // ),
-  //
-  // getProductsWithAttribute: (
-  // attributeCode,
-  // attributeValue,
-  // offset = 0,
-  // sortOrder,
-  // pageSize = PAGE_SIZE,
-  // conditionType = 'like',
-  // ) => {
-  // const currentPage = parseInt(offset / pageSize, 10) + 1;
-  // const params = {
-  // 'searchCriteria[filterGroups][0][filters][0][field]': attributeCode,
-  // 'searchCriteria[filterGroups][0][filters][0][value]': attributeValue,
-  // 'searchCriteria[filterGroups][0][filters][0][conditionType]': conditionType,
-  // 'searchCriteria[filterGroups][1][filters][0][field]': 'visibility',
-  // 'searchCriteria[filterGroups][1][filters][0][value]': '4',
-  // 'searchCriteria[filterGroups][1][filters][0][conditionType]': 'eq',
-  // 'searchCriteria[pageSize]': pageSize,
-  // 'searchCriteria[currentPage]': currentPage,
-  // };
-  // if (sortOrder) {
-  // params['searchCriteria[sortOrders][0][field]'] = getSortFieldName(
-  // sortOrder,
-  // );
-  // params['searchCriteria[sortOrders][0][direction]'] = getSortDirection(
-  // sortOrder,
-  // );
-  // }
-  // return magento.admin.getProductsWithSearchCritaria(params);
-  // },
-
 }

@@ -90,8 +90,7 @@ class CartUseCase {
           );
   }
 
-  Future<int?> createOrder({
-    required String token,
+  Future<String?> createOrder({
     required PaymentMethods payment,
     required CustomerModel customer,
     required Addresses address,

@@ -54,7 +54,7 @@ class CartRepository {
           result.statusMessage ?? TransactionConstants.unknownError.tr);
       return null;
     } catch (e) {
-      showTopSnackBarError(Get.context!, TransactionConstants.unknownError.tr);
+  //    showTopSnackBarError(Get.context!, TransactionConstants.unknownError.tr);
       debugPrint(e.toString());
       return null;
     }
@@ -96,7 +96,7 @@ class CartRepository {
           result.statusMessage ?? TransactionConstants.unknownError.tr);
       return false;
     } catch (e) {
-      showTopSnackBarError(Get.context!, TransactionConstants.unknownError.tr);
+  //    showTopSnackBarError(Get.context!, TransactionConstants.unknownError.tr);
       debugPrint(e.toString());
       return false;
     }
@@ -174,7 +174,7 @@ class CartRepository {
       required EstimateShippingMethodsModel shippingMethod,
       required CustomerModel customer,
       required Addresses address}) async {
-  //  try {
+    try {
       final data = {
         "addressInformation": {
           "shipping_address": {
@@ -210,12 +210,12 @@ class CartRepository {
         return SaveShippingMethodResponseModel.fromJson(result.data);
       }
       return null;
-    // } catch (e) {
-    //   return null;
-    // }
+    } catch (e) {
+      return null;
+    }
   }
 
-  Future<int?> createOrder({
+  Future<String?> createOrder({
     required String token,
     required PaymentMethods payment,
     required CustomerModel customer,
@@ -223,7 +223,7 @@ class CartRepository {
   }) async {
     try {
       final data = {
-        {
+
           "paymentMethod": {"method": payment.code},
           "billing_address": {
             "email": customer.email,
@@ -241,7 +241,7 @@ class CartRepository {
             "lastname": address.lastname,
             "telephone": address.telephone,
           }
-        }
+
       };
 
       final result = await _dio.request(

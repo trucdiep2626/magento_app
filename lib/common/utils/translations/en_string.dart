@@ -72,6 +72,7 @@ const enString = {
   'color': 'Color',
   'coupon':'Coupon',
   'successfully':'Successfully',
+  'tax':'Tax',
 
   //"sortOption"
   "aToZ": "Name: a to z",

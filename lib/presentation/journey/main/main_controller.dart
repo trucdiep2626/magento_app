@@ -35,7 +35,7 @@ class MainController extends GetxController with MixinController {
     isLogin.value = token.value.isNotEmpty && rxCustomer.value != null;
   }
 
-  onWillPop(BuildContext context) {
+  onWillPop() {
     if (rxCurrentNavIndex.value == 0) {
       _appController.exitApp(context);
     } else {

@@ -42,11 +42,11 @@ class HomeRepository {
         return storeConfig;
       }
 
-      showTopSnackBarError(Get.context!,
-          result.statusMessage ?? TransactionConstants.unknownError.tr);
+      // showTopSnackBarError(Get.context!,
+      //     result.statusMessage ?? TransactionConstants.unknownError.tr);
       return null;
     } catch (e) {
-      showTopSnackBarError(Get.context!, TransactionConstants.unknownError.tr);
+   //   showTopSnackBarError(Get.context!, TransactionConstants.unknownError.tr);
       debugPrint(e.toString());
       return null;
     }
