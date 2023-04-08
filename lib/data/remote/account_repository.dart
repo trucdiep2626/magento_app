@@ -1,11 +1,10 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:magento_app/common/config/network/api_endpoints.dart';
 import 'package:magento_app/common/config/network/network_config.dart';
-import 'package:magento_app/common/utils/translations/app_translations.dart';
+import 'package:magento_app/common/utils/app_utils.dart';
 import 'package:magento_app/domain/models/customer_model.dart';
-import 'package:magento_app/presentation/widgets/export.dart';
+import 'package:magento_app/domain/models/get_all_orders_response_model.dart';
 
 class AccountRepository {
   final Dio _dio;
@@ -34,7 +33,7 @@ class AccountRepository {
       //     result.statusMessage ?? TransactionConstants.unknownError.tr);
       return null;
     } catch (e) {
-     // showTopSnackBarError(Get.context!, TransactionConstants.unknownError.tr);
+      // showTopSnackBarError(Get.context!, TransactionConstants.unknownError.tr);
       debugPrint(e.toString());
       return null;
     }
@@ -91,7 +90,7 @@ class AccountRepository {
       return false;
     } catch (e) {
       debugPrint(e.toString());
-    //  showTopSnackBarError(Get.context!, TransactionConstants.unknownError.tr);
+      //  showTopSnackBarError(Get.context!, TransactionConstants.unknownError.tr);
       return false;
     }
   }
@@ -108,7 +107,7 @@ class AccountRepository {
           options: Options(
             method: 'PUT',
             headers: <String, dynamic>{
-              r'Authorization': '${NetworkConfig.token}'
+              r'Authorization': NetworkConfig.token
             },
           ));
       if (result.statusCode == 200) {
@@ -119,7 +118,7 @@ class AccountRepository {
       return null;
     } catch (e) {
       debugPrint(e.toString());
-   //   showTopSnackBarError(Get.context!, TransactionConstants.unknownError.tr);
+      //   showTopSnackBarError(Get.context!, TransactionConstants.unknownError.tr);
       return null;
     }
   }
@@ -149,8 +148,42 @@ class AccountRepository {
       return false;
     } catch (e) {
       debugPrint(e.toString());
-    //  showTopSnackBarError(Get.context!, TransactionConstants.unknownError.tr);
+      //  showTopSnackBarError(Get.context!, TransactionConstants.unknownError.tr);
       return false;
+    }
+  }
+
+  Future<GetOrdersResponseModel?> getAllOrder({
+    int pageSize = 10,
+    int currentPage = 1,
+    required String email,
+  }) async {
+    Map<String, dynamic> _params = {
+      searchKeyPageSize: pageSize,
+      searchKeyCurrentPage: currentPage,
+      'searchCriteria[filterGroups][0][filters][0][field]': 'customer_email',
+      'searchCriteria[filterGroups][0][filters][0][value]': email,
+    };
+
+    debugPrint('=====$_params');
+
+    try {
+      final result = await _dio.request(
+          '${NetworkConfig.baseUrl}${ApiEndpoints.orders}',
+          queryParameters: _params,
+          options: Options(
+            method: 'GET',
+            headers: <String, dynamic>{r'Authorization': NetworkConfig.token},
+          ));
+      if (result.statusCode == 200) {
+        final GetOrdersResponseModel response =
+            GetOrdersResponseModel.fromJson(result.data);
+        return response;
+      }
+      return null;
+    } catch (e) {
+      debugPrint(e.toString());
+      return null;
     }
   }
 }

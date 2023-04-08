@@ -70,9 +70,9 @@ const enString = {
   'address': "Address",
   'size': 'Size',
   'color': 'Color',
-  'coupon':'Coupon',
-  'successfully':'Successfully',
-  'tax':'Tax',
+  'coupon': 'Coupon',
+  'successfully': 'Successfully',
+  'tax': 'Tax',
 
   //"sortOption"
   "aToZ": "Name: a to z",
@@ -186,4 +186,10 @@ const enString = {
   'inStock': 'In stock',
   'outOfStock': 'Out of stock',
   'description': 'Description',
+
+  "orderId": "Order ID",
+  "createAt": "Create at",
+  'billingAddress': 'Billing Address',
+  "general": "General Information",
+  "customerName": "Customer Name",
 };

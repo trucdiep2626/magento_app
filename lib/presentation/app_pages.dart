@@ -11,6 +11,7 @@ import 'package:magento_app/common/injector/bindings/estimate_shipping_binding.d
 import 'package:magento_app/common/injector/bindings/home_binding.dart';
 import 'package:magento_app/common/injector/bindings/login_binding.dart';
 import 'package:magento_app/common/injector/bindings/my_orders_binding.dart';
+import 'package:magento_app/common/injector/bindings/order_detail_binding.dart';
 import 'package:magento_app/common/injector/bindings/payment_binding.dart';
 import 'package:magento_app/common/injector/bindings/product_binding.dart';
 import 'package:magento_app/common/injector/bindings/product_detail_binding.dart';
@@ -23,6 +24,7 @@ import 'package:magento_app/presentation/journey/checkout/checkout_screen.dart';
 import 'package:magento_app/presentation/journey/create_address/create_address_screen.dart';
 import 'package:magento_app/presentation/journey/estimate_shipping/estimate_shipping_screen.dart';
 import 'package:magento_app/presentation/journey/login/login_screen.dart';
+import 'package:magento_app/presentation/journey/my_order_detail/my_order_detail_screen.dart';
 import 'package:magento_app/presentation/journey/my_orders/my_orders_screen.dart';
 import 'package:magento_app/presentation/journey/payment/payment_screen.dart';
 import 'package:magento_app/presentation/journey/product/product_screen.dart';
@@ -110,5 +112,10 @@ List<GetPage> myPages = [
     name: AppRoutes.checkout,
     page: () => CheckoutScreen(),
     binding: CheckoutBinding(),
+  ),
+  GetPage(
+    name: AppRoutes.myOrderDetail,
+    page: () => OrderDetailScreen(),
+    binding: OrderDetailBinding(),
   ),
 ];

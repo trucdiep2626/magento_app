@@ -149,4 +149,13 @@ class TransactionConstants {
   static const discount = 'discount';
   static const tax = 'tax';
   static const orderSuccessMessage = 'checkout.orderSuccessMessage';
+
+  static const orderId = "orderId";
+  static const createAt = "createAt";
+  static const billingAddress = "billingAddress";
+  static const general = "general";
+  static const status = "status";
+  static const customerName = "customerName";
+  static const street = "street";
+  static const city = "city";
 }

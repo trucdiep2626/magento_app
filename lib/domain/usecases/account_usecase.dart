@@ -1,6 +1,7 @@
 import 'package:magento_app/data/local_repository.dart';
 import 'package:magento_app/data/remote/account_repository.dart';
 import 'package:magento_app/domain/models/customer_model.dart';
+import 'package:magento_app/domain/models/get_all_orders_response_model.dart';
 
 class AccountUseCase {
   final AccountRepository accountRepo;
@@ -84,5 +85,17 @@ class AccountUseCase {
             token: token,
             currentPassword: currentPassword,
             newPassword: newPassword);
+  }
+
+  Future<GetOrdersResponseModel?> getAllOrder({
+    int pageSize = 10,
+    int currentPage = 1,
+    required String email,
+  }) async {
+    return accountRepo.getAllOrder(
+      email: email,
+      currentPage: currentPage,
+      pageSize: pageSize,
+    );
   }
 }

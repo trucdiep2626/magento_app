@@ -24,6 +24,7 @@ import 'package:magento_app/presentation/journey/estimate_shipping/estimate_ship
 import 'package:magento_app/presentation/journey/home/home_controller.dart';
 import 'package:magento_app/presentation/journey/login/login_controller.dart';
 import 'package:magento_app/presentation/journey/main/main_controller.dart';
+import 'package:magento_app/presentation/journey/my_order_detail/my_order_detail_controller.dart';
 import 'package:magento_app/presentation/journey/my_orders/my_orders_controller.dart';
 import 'package:magento_app/presentation/journey/payment/payment_controller.dart';
 import 'package:magento_app/presentation/journey/product/product_controller.dart';
@@ -77,12 +78,15 @@ void configLocator() {
   getIt.registerFactory<CartController>(() => CartController(
       productUseCase: getIt<ProductUseCase>(),
       cartUseCase: getIt<CartUseCase>()));
-  getIt.registerFactory<MyOrdersController>(() => MyOrdersController());
+  getIt.registerFactory<MyOrdersController>(() => MyOrdersController(
+        accountUseCase: getIt<AccountUseCase>(),
+      ));
   getIt.registerFactory<EstimateShippingController>(
       () => EstimateShippingController(cartUseCase: getIt<CartUseCase>()));
   getIt.registerFactory<PaymentController>(() => PaymentController());
   getIt.registerFactory<CheckoutController>(
       () => CheckoutController(cartUseCase: getIt<CartUseCase>()));
+  getIt.registerFactory<OrderDetailController>(() => OrderDetailController());
 
   /// UseCases
   getIt.registerFactory<HomeUseCase>(

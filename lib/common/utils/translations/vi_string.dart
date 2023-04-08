@@ -72,7 +72,7 @@ const viString = {
   'color': 'Color',
   'coupon': 'Coupon',
   'successfully': 'Successfully',
-  'tax':'Tax',
+  'tax': 'Tax',
 
   //"sortOption"
   "aToZ": "Name: a to z",
@@ -102,6 +102,7 @@ const viString = {
   'defaultBillingAddress': 'Default Billing Address',
   'defaultShippingAddress': 'Default Shipping Address',
   "editAddress": "Edit address",
+  'billingAddress': 'Billing Address',
 
   //login
   "login.title": "Login",
@@ -185,5 +186,10 @@ const viString = {
   'availability': 'Availability',
   'inStock': 'In stock',
   'outOfStock': 'Out of stock',
-  'description': 'Description'
+  'description': 'Description',
+
+  "orderId": "Order ID",
+  "createAt": "Create at",
+  "general": "General Information",
+  "customerName": "Customer Name",
 };
