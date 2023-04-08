@@ -16,172 +16,185 @@ class CartScreen extends GetView<CartController> {
   Widget build(BuildContext context) {
     controller.context = context;
     return Scaffold(
-        backgroundColor: Colors.white,
-        body: Column(children: [
-          SizedBox(
-            height: Get.mediaQuery.padding.top * 2,
-          ),
-          // Obx(
-          //   () => Padding(
-          //       padding: EdgeInsets.all(16.sp),
-          //       child: Row(
-          //         children: [
-          //           AppTouchable(
-          //             onPressed: () => controller.onChangeSelectAllItem(),
-          //             child: Container(
-          //               margin: EdgeInsets.only(right: 12.sp),
-          //               height: 16.sp,
-          //               width: 16.sp,
-          //               decoration: BoxDecoration(
-          //                   color: controller.isSelectedAll.value
-          //                       ? AppColors.orange
-          //                       : AppColors.white,
-          //                   borderRadius: BorderRadius.circular(5),
-          //                   border: controller.isSelectedAll.value
-          //                       ? null
-          //                       : Border.all(color: AppColors.grey)),
-          //               child: controller.isSelectedAll.value
-          //                   ? Icon(
-          //                       Icons.check,
-          //                       color: AppColors.white,
-          //                       size: 16.sp,
-          //                     )
-          //                   : const SizedBox(),
-          //             ),
-          //           ),
-          //           Expanded(
-          //             child: Text(
-          //               TransactionConstants.selectAllItems.tr,
-          //               style: ThemeText.bodySemibold,
-          //             ),
-          //           ),
-          //           // AppTouchable(
-          //           //     onPressed: controller.clearAllItem,
-          //           //     child: Text(
-          //           //       TransactionConstants.clearAllItems.tr,
-          //           //       style: ThemeText.bodySemibold.orange,
-          //           //     ))
-          //         ],
-          //       )),
-          // ),
-          Expanded(
-            child: RefreshWidget(
-              controller: controller.cartRefreshController,
-              onRefresh: controller.onRefresh,
-              child:
-                  //   Column(
-                  // children: [
+      backgroundColor: Colors.white,
+      body: Column(children: [
+        SizedBox(
+          height: Get.mediaQuery.padding.top * 2,
+        ),
+        // Obx(
+        //   () => Padding(
+        //       padding: EdgeInsets.all(16.sp),
+        //       child: Row(
+        //         children: [
+        //           AppTouchable(
+        //             onPressed: () => controller.onChangeSelectAllItem(),
+        //             child: Container(
+        //               margin: EdgeInsets.only(right: 12.sp),
+        //               height: 16.sp,
+        //               width: 16.sp,
+        //               decoration: BoxDecoration(
+        //                   color: controller.isSelectedAll.value
+        //                       ? AppColors.orange
+        //                       : AppColors.white,
+        //                   borderRadius: BorderRadius.circular(5),
+        //                   border: controller.isSelectedAll.value
+        //                       ? null
+        //                       : Border.all(color: AppColors.grey)),
+        //               child: controller.isSelectedAll.value
+        //                   ? Icon(
+        //                       Icons.check,
+        //                       color: AppColors.white,
+        //                       size: 16.sp,
+        //                     )
+        //                   : const SizedBox(),
+        //             ),
+        //           ),
+        //           Expanded(
+        //             child: Text(
+        //               TransactionConstants.selectAllItems.tr,
+        //               style: ThemeText.bodySemibold,
+        //             ),
+        //           ),
+        //           // AppTouchable(
+        //           //     onPressed: controller.clearAllItem,
+        //           //     child: Text(
+        //           //       TransactionConstants.clearAllItems.tr,
+        //           //       style: ThemeText.bodySemibold.orange,
+        //           //     ))
+        //         ],
+        //       )),
+        // ),
+        Expanded(
+          child: RefreshWidget(
+            controller: controller.cartRefreshController,
+            onRefresh: controller.onRefresh,
+            child:
+                //   Column(
+                // children: [
 
-                  // Column(
-                  //         crossAxisAlignment: CrossAxisAlignment.start,
-                  //         children: [
+                // Column(
+                //         crossAxisAlignment: CrossAxisAlignment.start,
+                //         children: [
 
-                  CustomScrollView(
-                shrinkWrap: true,
-                slivers: [
-                  Obx(
-                    () => SliverList(
-                      delegate: SliverChildListDelegate([
-                        controller.rxLoadedList.value == LoadedType.start &&
-                                !controller.cartRefreshController.isRefresh
-                            ? Container(
-                                height: Get.height / 2,
-                                child: const AppLoadingWidget())
-                            : Column(
-                                children: controller.items.value
-                                    .map(
-                                      (e) => _buildItem(productEntity: e),
-                                    )
-                                    .toList(),
-                              )
-                      ]),
-                      //     delegate: SliverChildBuilderDelegate(
-                      //   (context, index) => _buildItem(
-                      //       index: index,
-                      //       isSelected: controller
-                      //           .selectedItems.value
-                      //           .contains(controller
-                      //               .items.value[index]),
-                      //       productEntity:
-                      //           controller.items.value[index]),
-                      //   childCount:
-                      //       controller.items.value.length,
-                      // )
-                    ),
+                CustomScrollView(
+              shrinkWrap: true,
+              slivers: [
+                Obx(
+                  () => SliverList(
+                    delegate: SliverChildListDelegate([
+                      controller.rxLoadedList.value == LoadedType.start &&
+                              !controller.cartRefreshController.isRefresh
+                          ? Container(
+                              height: Get.height / 2,
+                              child: const AppLoadingWidget())
+                          : Column(
+                              children: controller.items.value
+                                  .map(
+                                    (e) => _buildItem(productEntity: e),
+                                  )
+                                  .toList(),
+                            )
+                    ]),
+                    //     delegate: SliverChildBuilderDelegate(
+                    //   (context, index) => _buildItem(
+                    //       index: index,
+                    //       isSelected: controller
+                    //           .selectedItems.value
+                    //           .contains(controller
+                    //               .items.value[index]),
+                    //       productEntity:
+                    //           controller.items.value[index]),
+                    //   childCount:
+                    //       controller.items.value.length,
+                    // )
                   ),
-                ],
+                ),
+              ],
 
-                // SizedBox(
-                //   height: AppDimens.height_24,
-                // ),
-                // ])
-                //   ],
-                // ),
-              ),
+              // SizedBox(
+              //   height: AppDimens.height_24,
+              // ),
+              // ])
+              //   ],
+              // ),
             ),
           ),
-        ]),
-        bottomNavigationBar: Obx(
-          () => Padding(
-              padding: EdgeInsets.all(16.sp),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  // Row(
-                  //   children: [
-                  //     Text(
-                  //       '${TransactionConstants.coupon.tr}: ',
-                  //       style: ThemeText.bodySemibold,
-                  //     ),
-                  //     Expanded(
-                  //       child: Text(
-                  //         TransactionConstants.select.tr,
-                  //         textAlign: TextAlign.end,
-                  //         style: ThemeText.bodySemibold.grey400Color,
-                  //       ),
-                  //     ),
-                  //     // Text(
-                  //     //   TransactionConstants.select.tr,
-                  //     //   textAlign: TextAlign.end,
-                  //     //   style: ThemeText.bodySemibold.grey400Color,
-                  //     // ),
-                  //     AppTouchable(
-                  //         onPressed: () {},
-                  //         child: AppImageWidget(
-                  //           asset: Assets.images.icArrowRight,
-                  //           size: 16.sp,
-                  //         ))
-                  //   ],
-                  // ),
-                  // SizedBox(
-                  //   height: 8.sp,
-                  // ),
-                  Row(
-                    children: [
-                      Text(
-                        '${TransactionConstants.orderTotal.tr}: ',
+        ),
+      ]),
+      bottomNavigationBar: Obx(
+        () {
+          int totalItem = 0;
+
+          controller.items.value.forEach((element) {
+            totalItem += (element.qty ?? 1);
+          });
+
+          return Padding(
+            padding: EdgeInsets.all(16.sp),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                // Row(
+                //   children: [
+                //     Text(
+                //       '${TransactionConstants.coupon.tr}: ',
+                //       style: ThemeText.bodySemibold,
+                //     ),
+                //     Expanded(
+                //       child: Text(
+                //         TransactionConstants.select.tr,
+                //         textAlign: TextAlign.end,
+                //         style: ThemeText.bodySemibold.grey400Color,
+                //       ),
+                //     ),
+                //     // Text(
+                //     //   TransactionConstants.select.tr,
+                //     //   textAlign: TextAlign.end,
+                //     //   style: ThemeText.bodySemibold.grey400Color,
+                //     // ),
+                //     AppTouchable(
+                //         onPressed: () {},
+                //         child: AppImageWidget(
+                //           asset: Assets.images.icArrowRight,
+                //           size: 16.sp,
+                //         ))
+                //   ],
+                // ),
+                // SizedBox(
+                //   height: 8.sp,
+                // ),
+                Row(
+                  children: [
+                    Text(
+                      '${TransactionConstants.orderTotal.tr}: ',
+                      style: ThemeText.bodySemibold.s18,
+                    ),
+                    Expanded(
+                      child: Text(
+                        '${currencySymbols[controller.mainController.storeConfig.value.baseCurrencyCode ?? 'USD']}${controller.totalPrice.value}',
+                        textAlign: TextAlign.end,
                         style: ThemeText.bodySemibold.s18,
                       ),
-                      Expanded(
-                        child: Text(
-                          '${currencySymbols[controller.mainController.storeConfig.value.baseCurrencyCode ?? 'USD']}${controller.totalPrice.value}',
-                          textAlign: TextAlign.end,
-                          style: ThemeText.bodySemibold.s18,
-                        ),
-                      )
-                    ],
-                  ),
-                  SizedBox(
-                    height: 8.sp,
-                  ),
-                  AppButton(
-                    title: TransactionConstants.checkoutButton.tr,
-                    onPressed: controller.onPressCreateOrder,
-                    loaded: controller.buttonState.value,
-                  )
-                ],
-              )),
-        ));
+                    )
+                  ],
+                ),
+                SizedBox(
+                  height: 8.sp,
+                ),
+                AppButton(
+                  title:
+                      '${TransactionConstants.checkoutButton.tr} (${totalItem})',
+                  onPressed: controller.items.isEmpty
+                      ? null
+                      : controller.onPressCreateOrder,
+                  loaded: controller.buttonState.value,
+                )
+              ],
+            ),
+          );
+        },
+      ),
+    );
   }
 
   Widget _buildItem({

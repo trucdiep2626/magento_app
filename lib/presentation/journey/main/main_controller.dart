@@ -8,6 +8,7 @@ import 'package:magento_app/domain/models/store_config_response_model.dart';
 import 'package:magento_app/domain/usecases/account_usecase.dart';
 import 'package:magento_app/presentation/controllers/app_controller.dart';
 import 'package:magento_app/presentation/controllers/mixin/export.dart';
+import 'package:magento_app/presentation/journey/cart/cart_controller.dart';
 import 'package:magento_app/presentation/widgets/export.dart';
 
 class MainController extends GetxController with MixinController {
@@ -16,6 +17,7 @@ class MainController extends GetxController with MixinController {
   final AccountUseCase accountUseCase;
   RxString token = ''.obs;
   Rx<LoadedType> rxCustomerLoaded = LoadedType.start.obs;
+  RxInt totalItem = 0.obs;
 
   final AppController _appController = Get.find<AppController>();
 
@@ -26,6 +28,16 @@ class MainController extends GetxController with MixinController {
   Rx<int?> cartId = (null as int?).obs;
 
   MainController({required this.accountUseCase});
+
+  void updateTotalOrder() {
+    final cartController = Get.find<CartController>();
+
+    int total = 0;
+    for (var element in cartController.items.value) {
+      total += (element.qty ?? 1);
+    }
+    totalItem.value = total;
+  }
 
   Future<void> getToken() async {
     token.value = accountUseCase.getToken() ?? '';
@@ -90,5 +102,6 @@ class MainController extends GetxController with MixinController {
     await getToken();
     await getUserProfile();
     updateLogin();
+    updateTotalOrder();
   }
 }

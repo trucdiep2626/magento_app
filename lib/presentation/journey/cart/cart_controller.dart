@@ -13,15 +13,11 @@ import 'package:magento_app/presentation/widgets/export.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class CartController extends GetxController with MixinController {
-  // final ExchangeRateUseCase exchangeRateUseCase;
-  //final CartUsecase cartUsecase;
-  // final AuthenticationUseCase authUseCase;
   final ProductUseCase productUseCase;
   final CartUseCase cartUseCase;
 
   RxBool buttonEnable = false.obs;
   String token = '';
-  // RxList<CartItem> selectedItems = <CartItem>[].obs;
   RxList<CartItem> items = <CartItem>[].obs;
   Rx<LoadedType> buttonState = LoadedType.finish.obs;
 
@@ -40,22 +36,6 @@ class CartController extends GetxController with MixinController {
   MainController mainController = Get.find<MainController>();
   RxBool isSelectedAll = false.obs;
   RxInt totalPrice = 0.obs;
-
-  // void checkButtonEnable() {
-  //   if (selectedItems.value.isNotEmpty) {
-  //     buttonEnable.value = true;
-  //   } else {
-  //     buttonEnable.value = false;
-  //   }
-  // }
-
-  // Future<void> getToken() async {
-  //   token = await authUseCase.getToken();
-  // }
-
-  // bool checkSelectAll() {
-  //   return items.value.length == selectedItems.value.length;
-  // }
 
   onPressCreateOrder() async {
     Get.toNamed(AppRoutes.address, arguments: true);
@@ -135,6 +115,7 @@ class CartController extends GetxController with MixinController {
               items.clear();
               items.value.addAll(oldItems);
               calculateTotalPrice();
+              Get.find<MainController>().updateTotalOrder();
               // if (selectedItems.value.contains(item)) {
               //   List<CartItem> oldSelectedItems = [];
               //   oldSelectedItems.addAll(selectedItems.value);
@@ -175,9 +156,10 @@ class CartController extends GetxController with MixinController {
     final result = await cartUseCase.getCartItems();
     rxLoadedList.value = LoadedType.finish;
     if (result != null) {
-      items.value.addAll(result);
+      items.addAll(result);
     }
     calculateTotalPrice();
+    Get.find<MainController>().updateTotalOrder();
   }
 
   // onChangeSelectAllItem() {

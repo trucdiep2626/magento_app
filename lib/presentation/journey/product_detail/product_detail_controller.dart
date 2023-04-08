@@ -8,6 +8,7 @@ import 'package:magento_app/domain/usecases/cart_usecase.dart';
 import 'package:magento_app/domain/usecases/product_usecase.dart';
 import 'package:magento_app/presentation/controllers/mixin/export.dart';
 import 'package:magento_app/presentation/journey/cart/cart_controller.dart';
+import 'package:magento_app/presentation/journey/main/main_controller.dart';
 import 'package:magento_app/presentation/widgets/snack_bar/app_snack_bar.dart';
 
 class ProductDetailController extends GetxController with MixinController {
@@ -80,6 +81,7 @@ class ProductDetailController extends GetxController with MixinController {
           message: TransactionConstants.successfully.tr,
           type: SnackBarType.done);
       await Get.find<CartController>().getProductsList();
+      Get.find<MainController>().updateTotalOrder();
       await getProductDetail();
     }
 
