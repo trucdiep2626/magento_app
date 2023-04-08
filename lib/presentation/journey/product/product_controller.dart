@@ -5,9 +5,7 @@ import 'package:magento_app/common/common_export.dart';
 import 'package:magento_app/domain/models/category_tree_model.dart';
 import 'package:magento_app/domain/models/product_model.dart';
 import 'package:magento_app/domain/models/search_criteria_model.dart';
-import 'package:magento_app/domain/usecases/account_usecase.dart';
 import 'package:magento_app/domain/usecases/category_usecase.dart';
-import 'package:magento_app/domain/usecases/home_usecase.dart';
 import 'package:magento_app/domain/usecases/product_usecase.dart';
 import 'package:magento_app/presentation/controllers/mixin/export.dart';
 import 'package:magento_app/presentation/journey/main/main_controller.dart';
@@ -125,7 +123,7 @@ class ProductController extends GetxController with MixinController {
       currentPage.value = currentPage.value + 1;
       canLoadMore.value = products.value.length < (result.totalCount ?? 0);
     } else {
-     // showTopSnackBarError(context, TransactionConstants.unknownError.tr);
+      // showTopSnackBarError(context, TransactionConstants.unknownError.tr);
     }
     //  displayPurchaseOrderList.value = purchaseOrderList;
     // rxLoadedList.value = LoadedType.finish;
@@ -207,24 +205,6 @@ class ProductController extends GetxController with MixinController {
     await onRefresh();
     closeDrawer();
   }
-
-  Future<void> onSearch() async {
-    // rxPurchaseOrderLoaded.value = LoadedType.start;
-    // if (value.isNotEmpty) {
-    //   List<PurchaseOrderEntity> resultPurchaseOrderList = [];
-    //   for (PurchaseOrderEntity purchaseOrder in purchaseOrderList) {
-    //     if (purchaseOrder.orderNumber!.toUpperCase().contains(value.toUpperCase())) {
-    //       resultPurchaseOrderList.add(purchaseOrder);
-    //     }
-    //   }
-    //   displayPurchaseOrderList.value = resultPurchaseOrderList;
-    // } else {
-    //   displayPurchaseOrderList.value = purchaseOrderList;
-    // }
-    // rxPurchaseOrderLoaded.value = LoadedType.finish;
-  }
-
-
 
   @override
   void onInit() async {

@@ -16,24 +16,28 @@ class CreateNewAddressController extends GetxController with MixinController {
   final firstNameController = TextEditingController();
   final lastNameController = TextEditingController();
   final phoneController = TextEditingController();
-  final addressController = TextEditingController();
+  final streetController = TextEditingController();
+  final cityController = TextEditingController();
 
   final firstNameFocusNode = FocusNode();
   final lastNameFocusNode = FocusNode();
   final phoneFocusNode = FocusNode();
-  final addressFocusNode = FocusNode();
+  final streetFocusNode = FocusNode();
+  final cityFocusNode = FocusNode();
 
   //RxString errorText = ''.obs;
 
   RxString firstNameValidate = ''.obs;
   RxString lastNameValidate = ''.obs;
   RxString phoneValidate = ''.obs;
-  RxString addressValidate = ''.obs;
+  RxString streetValidate = ''.obs;
+  RxString cityValidate = ''.obs;
 
   RxBool firstNameHasFocus = false.obs;
   RxBool lastNameHasFocus = false.obs;
   RxBool phoneHasFocus = false.obs;
-  RxBool addressHasFocus = false.obs;
+  RxBool streetHasFocus = false.obs;
+  RxBool cityHasFocus = false.obs;
 
   RxBool buttonEnable = false.obs;
 
@@ -86,10 +90,11 @@ class CreateNewAddressController extends GetxController with MixinController {
 
     phoneValidate.value = AppValidator.validatePhoneNumber(phoneController);
 
-    addressValidate.value = addressController.text.trim().isEmpty
-        ? 'Address is a required value '
+    streetValidate.value = streetController.text.trim().isEmpty
+        ? 'Street is a required value '
         : '';
-    ;
+    cityValidate.value =
+        cityController.text.trim().isEmpty ? 'City is a required value ' : '';
 
     var connectivityResult = await Connectivity().checkConnectivity();
     if (connectivityResult == ConnectivityResult.none) {
@@ -101,7 +106,8 @@ class CreateNewAddressController extends GetxController with MixinController {
     if (phoneValidate.value.isEmpty &&
         firstNameValidate.value.isEmpty &&
         lastNameValidate.value.isEmpty &&
-        addressValidate.value.isEmpty) {
+        cityValidate.value.isEmpty &&
+        streetValidate.value.isEmpty) {
       if (editAddress != null) {
         (customer.addresses ?? [])
             .removeWhere((element) => element.id == editAddress?.id);
@@ -112,8 +118,8 @@ class CreateNewAddressController extends GetxController with MixinController {
         firstname: firstNameController.text.trim(),
         lastname: lastNameController.text.trim(),
         telephone: phoneController.text.trim(),
-        city: addressController.text.trim(),
-        street: [addressController.text.trim()],
+        city: cityController.text.trim(),
+        street: [streetController.text.trim()],
         postcode: '000084',
         countryId: 'VN',
         defaultBilling: defaultBillingAddress.value,
@@ -137,8 +143,8 @@ class CreateNewAddressController extends GetxController with MixinController {
     rxLoadedButton.value = LoadedType.finish;
   }
 
-  void onEditingCompleteAddress() {
-    addressHasFocus.value = false;
+  void onEditingCompleteCity() {
+    cityHasFocus.value = false;
     FocusScope.of(context).unfocus();
     if (buttonEnable.value) {
       saveInfo();
@@ -147,7 +153,8 @@ class CreateNewAddressController extends GetxController with MixinController {
 
   void onPressedSave() {
     phoneHasFocus.value = false;
-    addressHasFocus.value = false;
+    cityHasFocus.value = false;
+    streetHasFocus.value = false;
     lastNameHasFocus.value = false;
     firstNameHasFocus.value = false;
     checkButtonEnable();
@@ -177,7 +184,8 @@ class CreateNewAddressController extends GetxController with MixinController {
       firstNameController.text = editAddress?.firstname ?? '';
       lastNameController.text = editAddress?.lastname ?? '';
       phoneController.text = editAddress?.telephone ?? '';
-      addressController.text = editAddress?.city ?? '';
+      cityController.text = editAddress?.city ?? '';
+      streetController.text = editAddress?.street?.first ?? '';
       defaultBillingAddress.value = editAddress?.defaultBilling ?? false;
       defaultShippingAddress.value = editAddress?.defaultShipping ?? false;
     }

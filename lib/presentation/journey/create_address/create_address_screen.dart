@@ -14,12 +14,13 @@ class CreateNewAddressScreen extends GetView<CreateNewAddressController> {
   Widget build(BuildContext context) {
     controller.context = context;
     return Scaffold(
-        appBar: AppBarWidget(
-          showBackButton: true,
-          title: TransactionConstants.addAccountAddress.tr,
-          onPressed: () => Get.back(),
-        ),
-        body: Column(children: [
+      appBar: AppBarWidget(
+        showBackButton: true,
+        title: TransactionConstants.addAccountAddress.tr,
+        onPressed: () => Get.back(),
+      ),
+      body: Column(
+        children: [
           Expanded(
             child: SingleChildScrollView(
               child: Padding(
@@ -27,10 +28,7 @@ class CreateNewAddressScreen extends GetView<CreateNewAddressController> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    _buildTitle(
-                        title: TransactionConstants.firstName.tr,
-                        isRequired: true),
-
+                    _buildTitle(title: TransactionConstants.firstName.tr),
                     Obx(() => AppTextField(
                           controller: controller.firstNameController,
                           keyboardType: TextInputType.name,
@@ -47,10 +45,7 @@ class CreateNewAddressScreen extends GetView<CreateNewAddressController> {
                     SizedBox(
                       height: 24.h,
                     ),
-                    _buildTitle(
-                        title: TransactionConstants.lastName.tr,
-                        isRequired: true),
-
+                    _buildTitle(title: TransactionConstants.lastName.tr),
                     Obx(
                       () => AppTextField(
                         controller: controller.lastNameController,
@@ -66,13 +61,10 @@ class CreateNewAddressScreen extends GetView<CreateNewAddressController> {
                         focusNode: controller.lastNameFocusNode,
                       ),
                     ),
-
                     SizedBox(
                       height: 24.h,
                     ),
-                    _buildTitle(
-                        title: TransactionConstants.telephone.tr,
-                        isRequired: true),
+                    _buildTitle(title: TransactionConstants.telephone.tr),
                     Obx(() => AppTextField(
                           controller: controller.phoneController,
                           keyboardType: TextInputType.phone,
@@ -83,27 +75,41 @@ class CreateNewAddressScreen extends GetView<CreateNewAddressController> {
                           errorText: controller.phoneValidate.value,
                           textInputAction: TextInputAction.next,
                           onEditingComplete: () => FocusScope.of(context)
-                              .requestFocus(controller.addressFocusNode),
+                              .requestFocus(controller.streetFocusNode),
                           focusNode: controller.phoneFocusNode,
                         )),
                     SizedBox(
                       height: 24.h,
                     ),
-                    _buildTitle(
-                        title: TransactionConstants.address.tr,
-                        isRequired: true),
+                    _buildTitle(title: TransactionConstants.street.tr),
                     Obx(() => AppTextField(
-                          controller: controller.addressController,
+                          controller: controller.streetController,
                           keyboardType: TextInputType.name,
                           onChangedText: (value) {
                             controller.checkButtonEnable();
-                            controller.addressValidate.value = '';
+                            controller.streetValidate.value = '';
                           },
-                          errorText: controller.addressValidate.value,
+                          errorText: controller.streetValidate.value,
+                          textInputAction: TextInputAction.next,
+                          onEditingComplete: () => FocusScope.of(context)
+                              .requestFocus(controller.cityFocusNode),
+                          focusNode: controller.streetFocusNode,
+                        )),
+                    SizedBox(
+                      height: 24.h,
+                    ),
+                    _buildTitle(title: TransactionConstants.city.tr),
+                    Obx(() => AppTextField(
+                          controller: controller.cityController,
+                          keyboardType: TextInputType.name,
+                          onChangedText: (value) {
+                            controller.checkButtonEnable();
+                            controller.cityValidate.value = '';
+                          },
+                          errorText: controller.cityValidate.value,
                           textInputAction: TextInputAction.done,
-                          onEditingComplete:
-                              controller.onEditingCompleteAddress,
-                          focusNode: controller.addressFocusNode,
+                          onEditingComplete: controller.onEditingCompleteCity,
+                          focusNode: controller.cityFocusNode,
                         )),
                     SizedBox(
                       height: 24.h,
@@ -122,58 +128,32 @@ class CreateNewAddressScreen extends GetView<CreateNewAddressController> {
                         isSelected: controller.defaultShippingAddress.value,
                         onSelect:
                             controller.onChangeSetDefaultShippingAddress)),
-                    // AppButton(
-                    //   margin: EdgeInsets.all(0),
-                    //   title: TransactionConstants.,
-                    //   onPressed: () {
-                    //     if (controller.buttonEnable.value) {
-                    //       controller.saveInfo();
-                    //     }
-                    //   },
-                    //   buttonState: controller.buttonState.value,
-                    // ),
                     SizedBox(
                       height: 24.h,
                     ),
-                    // Obx(() => AppButton(
-                    //       //   margin: EdgeInsets.all(0),
-                    //       title: TransactionConstants.save.tr,
-                    //       onPressed: controller.onPressedSave,
-                    //       loaded: controller.rxLoadedButton.value,
-                    //     )),
-                    // SizedBox(
-                    //   height: AppDimens.height_50,
-                    // ),
                   ],
                 ),
               ),
             ),
           ),
-        ],),
+        ],
+      ),
       bottomNavigationBar: Padding(
         padding: EdgeInsets.all(16.sp),
         child: Obx(() => AppButton(
-          title: TransactionConstants.save.tr,
-          onPressed: controller.onPressedSave,
-          loaded: controller.rxLoadedButton.value,
-        )),
+              title: TransactionConstants.save.tr,
+              onPressed: controller.onPressedSave,
+              loaded: controller.rxLoadedButton.value,
+            )),
       ),
     );
   }
 
-  // Widget _itemInfoSkeletonWidget() {
-  //   return ContainerSkeletonWidget(
-  //     height: 48.h,
-  //     width: double.infinity,
-  //     borderRadius: AppDimens.radius_5,
-  //   );
-  // }
-
-  Widget _buildTitle({required String title, bool isRequired = false}) {
+  Widget _buildTitle({required String title}) {
     return Padding(
       padding: EdgeInsets.only(bottom: 12.sp),
       child: Text(
-        isRequired ? '$title *' : title,
+        title,
         style: ThemeText.bodySemibold,
       ),
     );
@@ -206,53 +186,4 @@ class CreateNewAddressScreen extends GetView<CreateNewAddressController> {
       ),
     );
   }
-
-// Widget _buildStateDropDownButton(BuildContext context,
-//     {bool? hasFocus = false,
-//       required var selected,
-//       required Function(Object?) onChanged,
-//       required List items,
-//       required Function() onTap}) {
-//   return Container(
-//       height: 48.h,
-//       width: double.infinity,
-//       decoration: BoxDecoration(
-//         color: AppColors.white,
-//         borderRadius: BorderRadius.circular(AppDimens.radius_5),
-//         border: Border.all(
-//             color:
-//             //hasFocus ? AppColors.primary :
-//             AppColors.greyF0FF,
-//             width: 1.0),
-//       ),
-//       child: Padding(
-//         padding: EdgeInsets.symmetric(
-//           horizontal: AppDimens.width_16,
-//         ),
-//         child: DropdownButtonHideUnderline(
-//           child: DropdownButton(
-//             isExpanded: true,
-//             alignment: Alignment.center,
-//             elevation: 0,
-//             value: selected,
-//             onChanged: onChanged,
-//             icon: Icon(Icons.arrow_drop_down),
-//             items: items
-//                 .map((e) => DropdownMenuItem(
-//               value: e,
-//               child: e.toString().isEmpty
-//                   ? SizedBox(
-//                 height: 0,
-//               )
-//                   : Text(
-//                 e.toString(),
-//                 style: ThemeText.body5.copyWith(
-//                     color: AppColors.grey, height: 1.8),
-//               ),
-//             ))
-//                 .toList(),
-//           ),
-//         ),
-//       ));
-// }
 }

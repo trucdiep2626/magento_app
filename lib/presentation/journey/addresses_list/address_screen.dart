@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:magento_app/common/common_export.dart';
 import 'package:magento_app/domain/models/customer_model.dart';
-import 'package:magento_app/gen/assets.gen.dart';
 import 'package:magento_app/presentation/journey/addresses_list/address_controller.dart';
 import 'package:magento_app/presentation/journey/main/main_controller.dart';
 import 'package:magento_app/presentation/theme/export.dart';
@@ -93,6 +92,10 @@ class AddressScreen extends GetView<AddressController> {
                 ),
                 Text(
                   addresses.telephone ?? '',
+                  style: ThemeText.bodyRegular,
+                ),
+                Text(
+                  addresses.street?.first ?? '',
                   style: ThemeText.bodyRegular,
                 ),
                 Text(

@@ -164,6 +164,10 @@ class CheckoutScreen extends GetView<CheckoutController> {
                   style: ThemeText.bodyRegular,
                 ),
                 Text(
+                  addresses.street?.first ?? '',
+                  style: ThemeText.bodyRegular,
+                ),
+                Text(
                   addresses.city ?? '',
                   style: ThemeText.bodyRegular,
                 ),

@@ -4,17 +4,11 @@ import 'package:get/get.dart';
 import 'package:magento_app/common/common_export.dart';
 import 'package:magento_app/domain/models/category_tree_model.dart';
 import 'package:magento_app/domain/models/product_model.dart';
-import 'package:magento_app/domain/models/search_criteria_model.dart';
-import 'package:magento_app/domain/usecases/account_usecase.dart';
 import 'package:magento_app/domain/usecases/cart_usecase.dart';
-import 'package:magento_app/domain/usecases/category_usecase.dart';
-import 'package:magento_app/domain/usecases/home_usecase.dart';
 import 'package:magento_app/domain/usecases/product_usecase.dart';
 import 'package:magento_app/presentation/controllers/mixin/export.dart';
 import 'package:magento_app/presentation/journey/cart/cart_controller.dart';
-import 'package:magento_app/presentation/journey/main/main_controller.dart';
 import 'package:magento_app/presentation/widgets/snack_bar/app_snack_bar.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class ProductDetailController extends GetxController with MixinController {
   Rx<ProductModel> product = ProductModel().obs;
@@ -42,7 +36,7 @@ class ProductDetailController extends GetxController with MixinController {
   }
 
   void decreaseQuantity() {
-    if (quantity.value > 0) {
+    if (quantity.value > 1) {
       quantity.value = quantity.value - 1;
     }
   }
