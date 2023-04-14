@@ -192,4 +192,6 @@ const enString = {
   'billingAddress': 'Billing Address',
   "general": "General Information",
   "customerName": "Customer Name",
+  "search": "Search",
+  "support": "Support",
 };

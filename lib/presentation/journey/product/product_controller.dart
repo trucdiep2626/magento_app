@@ -40,6 +40,8 @@ class ProductController extends GetxController with MixinController {
   Rx<SortType> sortByName = SortType.none.obs;
   Rx<SortType> sortByPrice = SortType.none.obs;
 
+  bool searching = false;
+
   ProductController({
     required this.productUseCase,
     required this.categoryUseCase,
@@ -209,9 +211,8 @@ class ProductController extends GetxController with MixinController {
   @override
   void onInit() async {
     super.onInit();
-    // Map? args = Get.arguments;
-    // categoryId.value = args?['category_id'];
-    // debugPrint('============${categoryId.value}');
+    searching = Get.arguments;
+    debugPrint('=============$searching');
   }
 
   @override
@@ -219,10 +220,8 @@ class ProductController extends GetxController with MixinController {
     super.onReady();
     await onRefresh();
     await getCategoriesTree();
-    // searchController.addListener(() {
-    //   if (AppUtils.isNullEmpty(searchController.text.trim())) {
-    //     displayPurchaseOrderList.value = purchaseOrderList;
-    //   }
-    // });
+    if (searching) {
+      FocusScope.of(context).requestFocus(searchFocusNode);
+    }
   }
 }

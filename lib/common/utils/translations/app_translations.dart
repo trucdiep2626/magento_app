@@ -158,4 +158,6 @@ class TransactionConstants {
   static const customerName = "customerName";
   static const street = "street";
   static const city = "city";
+  static const search = "search";
+  static const support = "support";
 }

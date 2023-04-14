@@ -25,7 +25,7 @@ class ProductScreen extends GetView<ProductController> {
       child: Scaffold(
         key: controller.scaffoldKey,
         backgroundColor: Colors.white,
-        endDrawer: DrawerWidget(),
+        endDrawer: const DrawerWidget(),
         body: Padding(
           padding: EdgeInsets.symmetric(horizontal: 16.sp),
           child: Column(
@@ -94,18 +94,16 @@ class ProductScreen extends GetView<ProductController> {
       width: Get.width,
       child: Row(
         children: [
-          // if (controller.categoryId.value != null)
-          //   AppTouchable(
-          //     onPressed: () => Get.back(),
-          //     child: AppImageWidget(
-          //       asset: Assets.images.icArrowLeft,
-          //       size: 18.sp,
-          //     ),
-          //   ),
-          // if (controller.categoryId.value != null)
-          //   SizedBox(
-          //     width: 8.sp,
-          //   ),
+          AppTouchable(
+            onPressed: () => Get.back(),
+            child: AppImageWidget(
+              asset: Assets.images.icArrowLeft,
+              size: 18.sp,
+            ),
+          ),
+          SizedBox(
+            width: 8.sp,
+          ),
           Expanded(
             child: AppTextField(
               prefixIcon: Padding(
@@ -204,19 +202,6 @@ class ProductScreen extends GetView<ProductController> {
                   '${currencySymbols[mainController.storeConfig.value.baseCurrencyCode ?? 'USD']}${productModel.price ?? 0}',
                   style: ThemeText.bodySemibold.s16),
             ),
-            const Spacer(),
-            // productModel.extensionAttributes?.stockItem?.isInStock ??
-            //     false
-            //     ?_buildAddToCartButton() : AppButton(
-            //   backgroundColor: AppColors.white,
-            //   title: TransactionConstants.outOfStock.tr,
-            //   titleStyle: ThemeText.bodyMedium.orange,
-            //   titleColor: AppColors.black,
-            //   onPressed: () {
-            //     // debugPrint('fvdvdv');
-            //   },
-            // ),
-            // ,
           ],
         ),
       ),

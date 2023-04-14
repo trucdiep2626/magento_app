@@ -95,28 +95,9 @@ class CartScreen extends GetView<CartController> {
                                   .toList(),
                             )
                     ]),
-                    //     delegate: SliverChildBuilderDelegate(
-                    //   (context, index) => _buildItem(
-                    //       index: index,
-                    //       isSelected: controller
-                    //           .selectedItems.value
-                    //           .contains(controller
-                    //               .items.value[index]),
-                    //       productEntity:
-                    //           controller.items.value[index]),
-                    //   childCount:
-                    //       controller.items.value.length,
-                    // )
                   ),
                 ),
               ],
-
-              // SizedBox(
-              //   height: AppDimens.height_24,
-              // ),
-              // ])
-              //   ],
-              // ),
             ),
           ),
         ),
@@ -188,7 +169,10 @@ class CartScreen extends GetView<CartController> {
                       ? null
                       : controller.onPressCreateOrder,
                   loaded: controller.buttonState.value,
-                )
+                ),
+                SizedBox(
+                  height: Get.mediaQuery.viewPadding.bottom + Get.width / 10,
+                ),
               ],
             ),
           );

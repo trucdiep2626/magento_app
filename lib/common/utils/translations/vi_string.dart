@@ -192,4 +192,6 @@ const viString = {
   "createAt": "Create at",
   "general": "General Information",
   "customerName": "Customer Name",
+  "search": "Search",
+  "support": "Support",
 };
