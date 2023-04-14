@@ -10,6 +10,7 @@ import 'package:magento_app/common/injector/bindings/create_address_binding.dart
 import 'package:magento_app/common/injector/bindings/estimate_shipping_binding.dart';
 import 'package:magento_app/common/injector/bindings/home_binding.dart';
 import 'package:magento_app/common/injector/bindings/login_binding.dart';
+import 'package:magento_app/common/injector/bindings/message_binding.dart';
 import 'package:magento_app/common/injector/bindings/my_orders_binding.dart';
 import 'package:magento_app/common/injector/bindings/order_detail_binding.dart';
 import 'package:magento_app/common/injector/bindings/payment_binding.dart';
@@ -24,6 +25,7 @@ import 'package:magento_app/presentation/journey/checkout/checkout_screen.dart';
 import 'package:magento_app/presentation/journey/create_address/create_address_screen.dart';
 import 'package:magento_app/presentation/journey/estimate_shipping/estimate_shipping_screen.dart';
 import 'package:magento_app/presentation/journey/login/login_screen.dart';
+import 'package:magento_app/presentation/journey/message/message_screen.dart';
 import 'package:magento_app/presentation/journey/my_order_detail/my_order_detail_screen.dart';
 import 'package:magento_app/presentation/journey/my_orders/my_orders_screen.dart';
 import 'package:magento_app/presentation/journey/payment/payment_screen.dart';
@@ -45,7 +47,7 @@ List<GetPage> myPages = [
     HomeBinding(),
     CategoryBinding(),
     CartBinding(),
-    ProductBinding(),
+    MessageBinding(),
     AccountBinding(),
   ]),
   GetPage(
@@ -55,32 +57,32 @@ List<GetPage> myPages = [
   ),
   GetPage(
     name: AppRoutes.register,
-    page: () => RegisterScreen(),
+    page: () => const RegisterScreen(),
     binding: RegisterBinding(),
   ),
   GetPage(
     name: AppRoutes.product,
-    page: () => ProductScreen(),
+    page: () => const ProductScreen(),
     binding: ProductBinding(),
   ),
   GetPage(
     name: AppRoutes.profile,
-    page: () => ProfileScreen(),
+    page: () => const ProfileScreen(),
     binding: ProfileBinding(),
   ),
   GetPage(
     name: AppRoutes.address,
-    page: () => AddressScreen(),
+    page: () => const AddressScreen(),
     binding: AddressBinding(),
   ),
   GetPage(
     name: AppRoutes.createAddress,
-    page: () => CreateNewAddressScreen(),
+    page: () => const CreateNewAddressScreen(),
     binding: CreateAddressBinding(),
   ),
   GetPage(
     name: AppRoutes.changePassword,
-    page: () => ChangePasswordScreen(),
+    page: () => const ChangePasswordScreen(),
     binding: ChangePasswordBinding(),
   ),
   GetPage(
@@ -90,32 +92,37 @@ List<GetPage> myPages = [
   ),
   GetPage(
     name: AppRoutes.cart,
-    page: () => CartScreen(),
+    page: () => const CartScreen(),
     binding: CartBinding(),
   ),
   GetPage(
     name: AppRoutes.myOrders,
-    page: () => MyOrdersScreen(),
+    page: () => const MyOrdersScreen(),
     binding: MyOrdersBinding(),
   ),
   GetPage(
     name: AppRoutes.estimateShipping,
-    page: () => EstimateShippingScreen(),
+    page: () => const EstimateShippingScreen(),
     binding: EstimateShippingBinding(),
   ),
   GetPage(
     name: AppRoutes.payment,
-    page: () => PaymentScreen(),
+    page: () => const PaymentScreen(),
     binding: PaymentBinding(),
   ),
   GetPage(
     name: AppRoutes.checkout,
-    page: () => CheckoutScreen(),
+    page: () => const CheckoutScreen(),
     binding: CheckoutBinding(),
   ),
   GetPage(
     name: AppRoutes.myOrderDetail,
-    page: () => OrderDetailScreen(),
+    page: () => const OrderDetailScreen(),
     binding: OrderDetailBinding(),
+  ),
+  GetPage(
+    name: AppRoutes.message,
+    page: () => const MessageScreen(),
+    binding: MessageBinding(),
   ),
 ];

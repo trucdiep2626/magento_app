@@ -15,4 +15,5 @@ class AppRoutes {
   static const String estimateShipping = '/estimate_shipping';
   static const String checkout = '/checkout';
   static const String payment = '/payment';
+  static const String message = '/message';
 }
