@@ -10,11 +10,13 @@ import 'package:magento_app/presentation/widgets/export.dart';
 class RegisterController extends GetxController with MixinController {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  final confirmPasswordController = TextEditingController();
   final firstNameController = TextEditingController();
   final lastNameController = TextEditingController();
 
   final emailFocusNode = FocusNode();
   final passwordFocusNode = FocusNode();
+  final confirmPasswordFocusNode = FocusNode();
   final firstNameFocusNode = FocusNode();
   final lastNameFocusNode = FocusNode();
 
@@ -22,11 +24,13 @@ class RegisterController extends GetxController with MixinController {
 
   RxString emailValidate = ''.obs;
   RxString passwordValidate = ''.obs;
+  RxString confirmPasswordValidate = ''.obs;
   RxString firstNameValidate = ''.obs;
   RxString lastNameValidate = ''.obs;
 
   RxBool emailHasFocus = false.obs;
   RxBool pwdHasFocus = false.obs;
+  RxBool confirmPwdHasFocus = false.obs;
   RxBool firstNameHasFocus = false.obs;
   RxBool lastNameHasFocus = false.obs;
 
@@ -41,7 +45,8 @@ class RegisterController extends GetxController with MixinController {
 
   void checkButtonEnable() {
     if (emailController.text.trim().isNotEmpty &&
-        passwordController.text.trim().isNotEmpty &&
+        passwordController.text.isNotEmpty &&
+        confirmPasswordController.text.isNotEmpty &&
         lastNameController.text.trim().isNotEmpty &&
         firstNameController.text.trim().isNotEmpty) {
       buttonEnable.value = true;
@@ -56,6 +61,11 @@ class RegisterController extends GetxController with MixinController {
     // errorText.value = '';
     emailValidate.value = AppValidator.validateEmail(emailController);
     passwordValidate.value = AppValidator.validatePassword(passwordController);
+    if (confirmPasswordController.text != passwordController.text) {
+      confirmPasswordValidate.value = 'Your confirm password is incorrect';
+    } else {
+      confirmPasswordValidate.value = '';
+    }
     firstNameValidate.value = AppValidator.validateName(
       TransactionConstants.firstName.tr,
       firstNameController,
@@ -75,6 +85,7 @@ class RegisterController extends GetxController with MixinController {
     if (emailValidate.value.isEmpty &&
         passwordValidate.value.isEmpty &&
         firstNameValidate.value.isEmpty &&
+        confirmPasswordValidate.value.isNotEmpty &&
         lastNameValidate.value.isEmpty) {
       final result = await accountUsecase.register(
         username: emailController.text.trim(),
@@ -112,6 +123,7 @@ class RegisterController extends GetxController with MixinController {
     lastNameHasFocus.value = false;
     firstNameHasFocus.value = false;
     emailHasFocus.value = true;
+    confirmPwdHasFocus.value = false;
   }
 
   void onEditingCompleteEmail() {
@@ -122,10 +134,11 @@ class RegisterController extends GetxController with MixinController {
 
   void onChangedPwd() {
     checkButtonEnable();
-    passwordValidate.value = '';
+    confirmPasswordValidate.value = '';
   }
 
   void onTapPwdTextField() {
+    confirmPwdHasFocus.value = false;
     pwdHasFocus.value = true;
     lastNameHasFocus.value = false;
     firstNameHasFocus.value = false;
@@ -133,7 +146,26 @@ class RegisterController extends GetxController with MixinController {
   }
 
   void onEditingCompletePwd() {
+    confirmPwdHasFocus.value = true;
     pwdHasFocus.value = false;
+    FocusScope.of(context).requestFocus(confirmPasswordFocusNode);
+  }
+
+  void onChangedConfirmPwd() {
+    checkButtonEnable();
+    passwordValidate.value = '';
+  }
+
+  void onTapConfirmPwdTextField() {
+    pwdHasFocus.value = false;
+    lastNameHasFocus.value = false;
+    firstNameHasFocus.value = false;
+    emailHasFocus.value = false;
+    confirmPwdHasFocus.value = true;
+  }
+
+  void onEditingCompleteConfirmPwd() {
+    confirmPwdHasFocus.value = false;
     firstNameHasFocus.value = true;
     FocusScope.of(context).requestFocus(firstNameFocusNode);
   }
@@ -148,6 +180,7 @@ class RegisterController extends GetxController with MixinController {
     lastNameHasFocus.value = false;
     firstNameHasFocus.value = true;
     emailHasFocus.value = false;
+    confirmPwdHasFocus.value = false;
   }
 
   void onEditingCompleteFirstName() {
@@ -166,6 +199,7 @@ class RegisterController extends GetxController with MixinController {
     lastNameHasFocus.value = true;
     firstNameHasFocus.value = false;
     emailHasFocus.value = false;
+    confirmPwdHasFocus.value = false;
   }
 
   void onEditingCompleteLastName() {

@@ -121,6 +121,43 @@ class RegisterScreen extends GetView<RegisterController> {
                       height: 20.sp,
                       child: AppImageWidget(
                         fit: BoxFit.scaleDown,
+                        asset: Assets.images.icPassword,
+                        color: controller.confirmPwdHasFocus.value
+                            ? AppColors.primary
+                            : AppColors.grey,
+                      ),
+                    ),
+                  ),
+                  hintText: 'Confirm password',
+                  controller: controller.confirmPasswordController,
+                  errorText: controller.confirmPasswordValidate.value,
+                  obscureText: true,
+                  onChangedText: (value) => controller.onChangedConfirmPwd(),
+                  onTap: () => controller.onTapConfirmPwdTextField(),
+                  textInputAction: TextInputAction.next,
+                  onEditingComplete: () =>
+                      controller.onEditingCompleteConfirmPwd(),
+                  focusNode: controller.confirmPasswordFocusNode,
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 10.sp,
+            ),
+            Obx(
+              () => Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16.sp),
+                child: AppTextField(
+                  prefixIcon: Padding(
+                    padding: EdgeInsets.only(
+                      left: 18.sp,
+                      right: 12.sp,
+                    ),
+                    child: SizedBox(
+                      width: 20.sp,
+                      height: 20.sp,
+                      child: AppImageWidget(
+                        fit: BoxFit.scaleDown,
                         asset: Assets.images.icUser,
                         color: controller.firstNameHasFocus.value
                             ? AppColors.primary
@@ -220,6 +257,9 @@ class RegisterScreen extends GetView<RegisterController> {
                   style: ThemeText.bodySemibold,
                 ),
               ),
+            ),
+            SizedBox(
+              height: 48.sp,
             ),
           ],
         ),

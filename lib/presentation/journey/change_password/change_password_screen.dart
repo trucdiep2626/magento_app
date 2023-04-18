@@ -31,7 +31,7 @@ class ChangePasswordScreen extends GetView<ChangePasswordController> {
               Obx(() => AppTextField(
                     controller: controller.oldPwdController,
                     keyboardType: TextInputType.text,
-                    obscureText: controller.hideOldPwd.value,
+                    obscureText: true,
                     onChangedText: (value) {
                       controller.checkButtonEnable();
                       controller.oldPwdValidate.value = '';
@@ -50,17 +50,38 @@ class ChangePasswordScreen extends GetView<ChangePasswordController> {
                 height: 12.h,
               ),
               Obx(() => AppTextField(
-                    errorText: controller.newPwdValidate.value,
                     controller: controller.newPwdController,
                     keyboardType: TextInputType.text,
-                    obscureText: controller.hideNewPwd.value,
+                    obscureText: true,
                     onChangedText: (value) {
                       controller.checkButtonEnable();
                       controller.newPwdValidate.value = '';
                     },
+                    errorText: controller.newPwdValidate.value,
+                    textInputAction: TextInputAction.next,
+                    onEditingComplete: () => FocusScope.of(context)
+                        .requestFocus(controller.confirmPwdFocusNode),
+                    focusNode: controller.newPwdFocusNode,
+                  )),
+              SizedBox(
+                height: 24.h,
+              ),
+              _buildTitle('Confirm password'),
+              SizedBox(
+                height: 12.h,
+              ),
+              Obx(() => AppTextField(
+                    errorText: controller.confirmPwdValidate.value,
+                    controller: controller.confirmPwdController,
+                    keyboardType: TextInputType.text,
+                    obscureText: true,
+                    onChangedText: (value) {
+                      controller.checkButtonEnable();
+                      controller.confirmPwdValidate.value = '';
+                    },
                     textInputAction: TextInputAction.done,
                     onEditingComplete: controller.saveInfo,
-                    focusNode: controller.newPwdFocusNode,
+                    focusNode: controller.confirmPwdFocusNode,
                   )),
               SizedBox(
                 height: 24.h,
