@@ -14,6 +14,7 @@ import 'package:magento_app/common/injector/bindings/message_binding.dart';
 import 'package:magento_app/common/injector/bindings/my_orders_binding.dart';
 import 'package:magento_app/common/injector/bindings/order_detail_binding.dart';
 import 'package:magento_app/common/injector/bindings/payment_binding.dart';
+import 'package:magento_app/common/injector/bindings/paypal_binding.dart';
 import 'package:magento_app/common/injector/bindings/product_binding.dart';
 import 'package:magento_app/common/injector/bindings/product_detail_binding.dart';
 import 'package:magento_app/common/injector/bindings/profile_binding.dart';
@@ -29,6 +30,7 @@ import 'package:magento_app/presentation/journey/message/message_screen.dart';
 import 'package:magento_app/presentation/journey/my_order_detail/my_order_detail_screen.dart';
 import 'package:magento_app/presentation/journey/my_orders/my_orders_screen.dart';
 import 'package:magento_app/presentation/journey/payment/payment_screen.dart';
+import 'package:magento_app/presentation/journey/paypal_payment/paypal_screen.dart';
 import 'package:magento_app/presentation/journey/product/product_screen.dart';
 import 'package:magento_app/presentation/journey/product_detail/product_detail_screen.dart';
 import 'package:magento_app/presentation/journey/profile/profile_screen.dart';
@@ -87,7 +89,7 @@ List<GetPage> myPages = [
   ),
   GetPage(
     name: AppRoutes.productDetail,
-    page: () => ProductDetailScreen(),
+    page: () => const ProductDetailScreen(),
     binding: ProductDetailBinding(),
   ),
   GetPage(
@@ -122,7 +124,12 @@ List<GetPage> myPages = [
   ),
   GetPage(
     name: AppRoutes.message,
-    page: () => const MessageScreen(),
+    page: () => MessageScreen(),
     binding: MessageBinding(),
+  ),
+  GetPage(
+    name: AppRoutes.paypal,
+    page: () => PaypalScreen(),
+    binding: PaypalBinding(),
   ),
 ];

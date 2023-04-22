@@ -5,6 +5,7 @@ import 'package:magento_app/common/config/network/network_config.dart';
 import 'package:magento_app/common/utils/app_utils.dart';
 import 'package:magento_app/domain/models/customer_model.dart';
 import 'package:magento_app/domain/models/get_all_orders_response_model.dart';
+import 'package:magento_app/domain/models/get_messages_response_model.dart';
 
 class AccountRepository {
   final Dio _dio;
@@ -106,9 +107,7 @@ class AccountRepository {
           data: params,
           options: Options(
             method: 'PUT',
-            headers: <String, dynamic>{
-              r'Authorization': NetworkConfig.token
-            },
+            headers: <String, dynamic>{r'Authorization': NetworkConfig.token},
           ));
       if (result.statusCode == 200) {
         return CustomerModel.fromJson(result.data);
@@ -184,6 +183,59 @@ class AccountRepository {
     } catch (e) {
       debugPrint(e.toString());
       return null;
+    }
+  }
+
+  Future<GetMessagesResponse?> getAllMessage({
+    required String customerId,
+  }) async {
+    try {
+      final result = await _dio.request(
+          '${NetworkConfig.baseUrl}${ApiEndpoints.getAllMessage}',
+          queryParameters: {'customer_id': customerId},
+          options: Options(
+            method: 'GET',
+            headers: <String, dynamic>{r'Authorization': NetworkConfig.token},
+          ));
+      if (result.statusCode == 200) {
+        final GetMessagesResponse response =
+            GetMessagesResponse.fromJson(result.data);
+        return response;
+      }
+      return null;
+    } catch (e) {
+      debugPrint(e.toString());
+      return null;
+    }
+  }
+
+  Future<bool> sendMessage({
+    required String customerId,
+    required String message,
+  }) async {
+    try {
+      final result = await _dio.request(
+          '${NetworkConfig.baseUrl}${ApiEndpoints.sendMessage}',
+          queryParameters: {'customer_id': customerId},
+          data: {
+            "message": {
+              "customer_id": customerId,
+              "body_msg": message,
+              "ip": "42.114.234.144",
+              "current_url": "gửi từ diện thoại"
+            }
+          },
+          options: Options(
+            method: 'POST',
+            headers: <String, dynamic>{r'Authorization': NetworkConfig.token},
+          ));
+      if (result.statusCode == 200) {
+        return true;
+      }
+      return false;
+    } catch (e) {
+      debugPrint(e.toString());
+      return false;
     }
   }
 }

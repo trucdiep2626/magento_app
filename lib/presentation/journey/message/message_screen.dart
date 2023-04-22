@@ -7,7 +7,7 @@ import 'package:magento_app/presentation/journey/message/message_controller.dart
 import 'package:magento_app/presentation/widgets/app_bar_widget.dart';
 
 class MessageScreen extends GetView<MessageController> {
-  const MessageScreen({Key? key}) : super(key: key);
+   MessageScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,18 +22,30 @@ class MessageScreen extends GetView<MessageController> {
       ),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 16.sp),
-        child: SingleChildScrollView(
-          reverse: true,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              ...List.generate(
-                20,
-                (index) => index % 2 == 0
-                    ? const AdminMessageCell()
-                    : const CustomerMessageCell(),
-              ),
-            ],
+        child: Align(
+          alignment: Alignment.bottomCenter,
+          child: SingleChildScrollView(
+            reverse: true,
+            child: Obx(() => Column(
+                  // mainAxisAlignment: MainAxisAlignment.end,
+                  // crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    ...List.generate(
+                      controller.messages.value.length,
+                      (index) {
+                        if (controller.messages[index].userName ==
+                            'Admin Mageplaza') {
+                          return AdminMessageCell(
+                            mess: controller.messages[index].bodyMsg ?? '',
+                          );
+                        } else {
+                          return CustomerMessageCell(
+                              mess: controller.messages[index].bodyMsg ?? '');
+                        }
+                      },
+                    ),
+                  ],
+                )),
           ),
         ),
       ),
@@ -42,7 +54,7 @@ class MessageScreen extends GetView<MessageController> {
           bottom: Get.mediaQuery.viewPadding.bottom +
               (Get.mediaQuery.viewInsets.bottom == 0 ? Get.width / 10 : 0),
         ),
-        child: InputMessageWidget(sendTap: (value) {}),
+        child: const InputMessageWidget(),
       ),
     );
   }

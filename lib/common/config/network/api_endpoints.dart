@@ -14,4 +14,6 @@ class ApiEndpoints {
   static String cart = '/rest/default/V1/carts/mine';
   static String cartItem = '/rest/V1/carts/mine/items';
   static String orders = '/rest/default/V1/orders';
+  static String getAllMessage = '/rest/V1/lof-chatsystem/mine/myChat';
+  static String sendMessage = '/rest/V1/lof-chatsystem/mine/sendChatMessage';
 }

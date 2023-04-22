@@ -27,18 +27,18 @@ class HomePage extends GetView<HomeController> {
     TransactionConstants.shirt.tr,
     TransactionConstants.pants.tr,
     TransactionConstants.coats.tr,
-    TransactionConstants.shoes.tr,
+    //  TransactionConstants.shoes.tr,
     TransactionConstants.bags.tr,
-    TransactionConstants.accessories.tr,
+    // TransactionConstants.accessories.tr,
   ];
 
   final productTypeImages = [
     Assets.images.icPolo,
     Assets.images.icPants,
     Assets.images.icCoat,
-    Assets.images.icShoes,
+    // Assets.images.icShoes,
     Assets.images.icBag,
-    Assets.images.icNecklace,
+    //  Assets.images.icNecklace,
   ];
 
   final bannerImages = [
@@ -117,115 +117,72 @@ class HomePage extends GetView<HomeController> {
 
   Widget _buildBody() {
     return Obx(() => RefreshWidget(
-              enableLoadMore: controller.canLoadMore.value,
-              onLoadMore: () async {
-                double oldPosition =
-                    controller.scrollController.position.pixels;
-                await controller.getProductList();
-                controller.scrollController.position.jumpTo(oldPosition);
-              },
-              controller: controller.productRefreshController,
-              onRefresh: controller.onRefresh,
-              child: controller.rxLoadedList.value == LoadedType.start
-                  ? const AppLoadingWidget()
-                  : Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 16.sp),
-                      child: CustomScrollView(
-                        controller: controller.scrollController,
-                        shrinkWrap: true,
-                        slivers: [
-                          SliverToBoxAdapter(
-                            child: Padding(
-                              padding: EdgeInsets.only(bottom: 40.sp),
-                              child: _buildBannerWidget(),
-                            ),
-                          ),
-                          SliverToBoxAdapter(
-                            child: Center(
-                              child: Text(
-                                TransactionConstants.homeLookingfor.tr,
-                                style: ThemeText.bodySemibold.s20,
-                              ),
-                            ),
-                          ),
-                          SliverToBoxAdapter(
-                            child: Padding(
-                              padding:
-                                  EdgeInsets.only(top: 20.sp, bottom: 40.sp),
-                              child: _buildTypeOfProductList(),
-                            ),
-                          ),
-                          SliverToBoxAdapter(
-                            child: Padding(
-                              padding: EdgeInsets.only(bottom: 20.sp),
-                              child: Center(
-                                child: Text(
-                                  TransactionConstants.hotItems.tr,
-                                  style: ThemeText.bodySemibold.s20,
-                                ),
-                              ),
-                            ),
-                          ),
-                          // SliverToBoxAdapter(
-                          //   child: ,
-                          // ),
-
-                          SliverGrid(
-                            gridDelegate:
-                                SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 2,
-                              // mainAxisSpacing: 10,
-                              // crossAxisSpacing: 10,
-                              childAspectRatio:
-                                  (Get.width / 4) / (Get.width / 3),
-                            ),
-                            delegate: SliverChildBuilderDelegate(
-                              (context, index) {
-                                return Card(
-                                  // generate blues with random shades
-                                  //    color: Colors.amber[Random().nextInt(9) * 100],
-                                  child: _buildProductItem(
-                                      controller.products[index]),
-                                );
-                              },
-                              childCount: controller.products.length,
-                            ),
-                          ),
-                        ],
+          enableLoadMore: controller.canLoadMore.value,
+          onLoadMore: () async {
+            double oldPosition = controller.scrollController.position.pixels;
+            await controller.getProductList();
+            controller.scrollController.position.jumpTo(oldPosition);
+          },
+          controller: controller.productRefreshController,
+          onRefresh: controller.onRefresh,
+          child: controller.rxLoadedList.value == LoadedType.start
+              ? const AppLoadingWidget()
+              : Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 16.sp),
+                  child: CustomScrollView(
+                    controller: controller.scrollController,
+                    shrinkWrap: true,
+                    slivers: [
+                      SliverToBoxAdapter(
+                        child: Padding(
+                          padding: EdgeInsets.only(bottom: 40.sp),
+                          child: _buildBannerWidget(),
+                        ),
                       ),
-                    ),
-            )
-
-        // SingleChildScrollView(
-        //         child: Column(
-        //           mainAxisSize: MainAxisSize.min,
-        //           children: [
-        //             //    SizedBox(height: Get.mediaQuery.padding.top),
-        //
-        //             Padding(
-        //               padding: EdgeInsets.symmetric(horizontal: 16.sp),
-        //               child: _buildBannerWidget(),
-        //             ),
-        //             const SizedBox(height: 40),
-        //             Text(
-        //               TransactionConstants.homeLookingfor.tr,
-        //               style: ThemeText.bodySemibold.s20,
-        //             ),
-        //             const SizedBox(height: 20),
-        //             _buildTypeOfProductList(),
-        //             const SizedBox(height: 40),
-        //             Text(
-        //               TransactionConstants.hotItems.tr,
-        //               style: ThemeText.bodySemibold.s20,
-        //             ),
-        //             const SizedBox(height: 20),
-        //             _buildHotItemsList(),
-        //             const SizedBox(height: 40),
-        //             _buildBannersList()
-        //           ],
-        //         ),
-        //       ),
-        );
+                      SliverToBoxAdapter(
+                        child: Center(
+                          child: Text(
+                            TransactionConstants.homeLookingfor.tr,
+                            style: ThemeText.bodySemibold.s20,
+                          ),
+                        ),
+                      ),
+                      SliverToBoxAdapter(
+                        child: Padding(
+                          padding: EdgeInsets.only(top: 20.sp, bottom: 40.sp),
+                          child: _buildTypeOfProductList(),
+                        ),
+                      ),
+                      SliverToBoxAdapter(
+                        child: Padding(
+                          padding: EdgeInsets.only(bottom: 20.sp),
+                          child: Center(
+                            child: Text(
+                              TransactionConstants.hotItems.tr,
+                              style: ThemeText.bodySemibold.s20,
+                            ),
+                          ),
+                        ),
+                      ),
+                      SliverGrid(
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          childAspectRatio: (Get.width / 4) / (Get.width / 3),
+                        ),
+                        delegate: SliverChildBuilderDelegate(
+                          (context, index) {
+                            return Card(
+                              child:
+                                  _buildProductItem(controller.products[index]),
+                            );
+                          },
+                          childCount: controller.products.length,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+        ));
   }
 
   Widget _buildBannerWidget() {
@@ -297,27 +254,44 @@ class HomePage extends GetView<HomeController> {
           ProductTypeItem(
             icon: productTypeImages[0],
             title: productTypeTiles[0],
+            onTap: () {
+              Get.toNamed(AppRoutes.product, arguments: 'tee');
+            },
           ),
           ProductTypeItem(
-            icon: productTypeImages[1],
-            title: productTypeTiles[1],
-          ),
+              icon: productTypeImages[1],
+              title: productTypeTiles[1],
+              onTap: () {
+                Get.toNamed(AppRoutes.product, arguments: 'pant');
+              }),
           ProductTypeItem(
-            icon: productTypeImages[2],
-            title: productTypeTiles[2],
-          ),
+              icon: productTypeImages[2],
+              title: productTypeTiles[2],
+              onTap: () {
+                Get.toNamed(AppRoutes.product, arguments: 'jacket');
+              }),
           ProductTypeItem(
-            icon: productTypeImages[3],
-            title: productTypeTiles[3],
-          ),
-          ProductTypeItem(
-            icon: productTypeImages[4],
-            title: productTypeTiles[4],
-          ),
-          ProductTypeItem(
-            icon: productTypeImages[5],
-            title: productTypeTiles[5],
-          ),
+              icon: productTypeImages[3],
+              title: productTypeTiles[3],
+              onTap: () {
+                Get.toNamed(AppRoutes.product, arguments: 'bag');
+              }),
+          // ProductTypeItem(
+          //   icon: productTypeImages[4],
+          //   title: productTypeTiles[4],
+          //     onTap: ()
+          //     {
+          //       Get.toNamed(AppRoutes.product, arguments: 'tee');
+          //     }
+          // ),
+          // ProductTypeItem(
+          //   icon: productTypeImages[5],
+          //   title: productTypeTiles[5],
+          //     onTap: ()
+          //     {
+          //       Get.toNamed(AppRoutes.product, arguments: 'tee');
+          //     }
+          // ),
         ],
       ),
     );

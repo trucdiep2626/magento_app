@@ -28,6 +28,7 @@ import 'package:magento_app/presentation/journey/message/message_controller.dart
 import 'package:magento_app/presentation/journey/my_order_detail/my_order_detail_controller.dart';
 import 'package:magento_app/presentation/journey/my_orders/my_orders_controller.dart';
 import 'package:magento_app/presentation/journey/payment/payment_controller.dart';
+import 'package:magento_app/presentation/journey/paypal_payment/paypal_controller.dart';
 import 'package:magento_app/presentation/journey/product/product_controller.dart';
 import 'package:magento_app/presentation/journey/product_detail/product_detail_controller.dart';
 import 'package:magento_app/presentation/journey/profile/profile_controller.dart';
@@ -88,7 +89,10 @@ void configLocator() {
   getIt.registerFactory<CheckoutController>(
       () => CheckoutController(cartUseCase: getIt<CartUseCase>()));
   getIt.registerFactory<OrderDetailController>(() => OrderDetailController());
-  getIt.registerFactory<MessageController>(() => MessageController());
+  getIt.registerFactory<MessageController>(
+      () => MessageController(accountUseCase: getIt<AccountUseCase>()));
+  getIt.registerFactory<PaypalController>(
+      () => PaypalController(cartUseCase: getIt<CartUseCase>()));
 
   /// UseCases
   getIt.registerFactory<HomeUseCase>(

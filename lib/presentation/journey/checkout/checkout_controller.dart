@@ -25,7 +25,7 @@ class CheckoutController extends GetxController with MixinController {
 
   Future<void> saveInfo() async {
     rxLoadedButton.value = LoadedType.start;
-
+    var paypalId;
     var connectivityResult = await Connectivity().checkConnectivity();
     if (connectivityResult == ConnectivityResult.none) {
       showTopSnackBarError(context, TransactionConstants.noConnectionError.tr);
@@ -33,10 +33,23 @@ class CheckoutController extends GetxController with MixinController {
       return;
     }
 
+    if ((paymentController.selectedMethod.value.code ?? '')
+        .contains('paypal')) {
+      await Get.toNamed(AppRoutes.paypal)?.then((value) => paypalId = value);
+      debugPrint('------------$paypalId');
+
+      if (paypalId == null) {
+        rxLoadedButton.value = LoadedType.finish;
+        return;
+      }
+    }
+
     final result = await cartUseCase.createOrder(
-        payment: paymentController.selectedMethod.value,
-        customer: mainController.rxCustomer.value!,
-        address: shippingController.address!);
+      payment: paymentController.selectedMethod.value,
+      customer: mainController.rxCustomer.value!,
+      address: shippingController.address!,
+      paypalId: paypalId,
+    );
 
     if (result != null) {
       debugPrint('cập nhật thành công');

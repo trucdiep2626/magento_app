@@ -1,7 +1,5 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import 'package:magento_app/common/common_export.dart';
 import 'package:magento_app/domain/models/customer_model.dart';
 import 'package:magento_app/domain/models/store_config_response_model.dart';
@@ -9,6 +7,7 @@ import 'package:magento_app/domain/usecases/account_usecase.dart';
 import 'package:magento_app/presentation/controllers/app_controller.dart';
 import 'package:magento_app/presentation/controllers/mixin/export.dart';
 import 'package:magento_app/presentation/journey/cart/cart_controller.dart';
+import 'package:magento_app/presentation/journey/message/message_controller.dart';
 import 'package:magento_app/presentation/widgets/export.dart';
 
 class MainController extends GetxController with MixinController {
@@ -80,9 +79,6 @@ class MainController extends GetxController with MixinController {
     if (customerInfo != null) {
       await accountUseCase.saveCustomerInformation(customerInfo);
       rxCustomer.value = customerInfo;
-      // mainController.updateLogin();
-      // //go to main screen
-      // Get.back();
     } else {
       showTopSnackBarError(context, TransactionConstants.unknownError.tr);
     }
@@ -103,5 +99,9 @@ class MainController extends GetxController with MixinController {
     await getUserProfile();
     updateLogin();
     updateTotalOrder();
+    final messageController = Get.find<MessageController>();
+    messageController.rxLoadedList.value = LoadedType.start;
+    await messageController.getAllMessages();
+    messageController.rxLoadedList.value = LoadedType.finish;
   }
 }

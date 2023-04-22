@@ -94,6 +94,7 @@ class CartUseCase {
     required PaymentMethods payment,
     required CustomerModel customer,
     required Addresses address,
+    String? paypalId,
   }) async {
     String? token = getToken();
 
@@ -104,6 +105,22 @@ class CartUseCase {
             address: address,
             customer: customer,
             payment: payment,
+            paypalId: paypalId,
           );
+  }
+
+  Future<String?> getAccessToken() async {
+    return await cartRepo.getAccessToken();
+  }
+
+  // for creating the payment request with Paypal
+  Future<Map<String, String>?> createPaypalPayment(
+      transactions, accessToken) async {
+    return await cartRepo.createPaypalPayment(transactions, accessToken);
+  }
+
+  /// for executing the payment transaction
+  Future<String?> executePayment(url, payerId, accessToken) async {
+    return await cartRepo.executePayment(url, payerId, accessToken);
   }
 }

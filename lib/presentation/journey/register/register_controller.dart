@@ -85,7 +85,7 @@ class RegisterController extends GetxController with MixinController {
     if (emailValidate.value.isEmpty &&
         passwordValidate.value.isEmpty &&
         firstNameValidate.value.isEmpty &&
-        confirmPasswordValidate.value.isNotEmpty &&
+        confirmPasswordValidate.value.isEmpty &&
         lastNameValidate.value.isEmpty) {
       final result = await accountUsecase.register(
         username: emailController.text.trim(),

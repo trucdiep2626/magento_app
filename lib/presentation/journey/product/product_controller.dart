@@ -105,8 +105,6 @@ class ProductController extends GetxController with MixinController {
   }
 
   Future<void> getProductList() async {
-    // rxLoadedList.value = LoadedType.start;
-
     var connectivityResult = await Connectivity().checkConnectivity();
     if (connectivityResult == ConnectivityResult.none) {
       showTopSnackBarError(context, TransactionConstants.noConnectionError.tr);
@@ -121,29 +119,10 @@ class ProductController extends GetxController with MixinController {
     );
     if (result != null) {
       products.addAll(result.items ?? []);
-      // totalPurchaseOrder.value = (result).items?.total ?? 0;
       currentPage.value = currentPage.value + 1;
       canLoadMore.value = products.value.length < (result.totalCount ?? 0);
-    } else {
-      // showTopSnackBarError(context, TransactionConstants.unknownError.tr);
     }
-    //  displayPurchaseOrderList.value = purchaseOrderList;
-    // rxLoadedList.value = LoadedType.finish;
     productRefreshController.loadComplete();
-  }
-
-  goToDetail(ProductModel productModel) async {
-    // final result = await Get.toNamed(AppRoute.purchaseOrderDetail, arguments: {
-    //   'id': purchaseOrderEntity.id,
-    //   'order_number': purchaseOrderEntity.orderNumber,
-    //   'status_id': purchaseOrderEntity.status
-    // });
-    // if (result['is_canceled'] || result['is_deposited']) {
-    //   if (result['is_deposited']) {
-    //     shouldRefresh.value = true;
-    //   }
-    //   await getPurchaseOrderList();
-    // }
   }
 
   Map<String, dynamic> _getSortOrders() {
@@ -211,8 +190,17 @@ class ProductController extends GetxController with MixinController {
   @override
   void onInit() async {
     super.onInit();
-    searching = Get.arguments;
+    var arg = Get.arguments;
     debugPrint('=============$searching');
+    if (arg is bool) {
+      searching = arg;
+    }
+    if (arg is CategoryTreeModel) {
+      category.value = arg;
+    }
+    if (arg is String) {
+      searchController.text = arg;
+    }
   }
 
   @override

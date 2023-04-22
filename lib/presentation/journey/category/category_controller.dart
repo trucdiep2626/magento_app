@@ -8,7 +8,6 @@ import 'package:magento_app/domain/models/search_criteria_model.dart';
 import 'package:magento_app/domain/usecases/category_usecase.dart';
 import 'package:magento_app/domain/usecases/product_usecase.dart';
 import 'package:magento_app/presentation/controllers/mixin/export.dart';
-import 'package:magento_app/presentation/journey/main/main_controller.dart';
 import 'package:magento_app/presentation/journey/product/product_controller.dart';
 import 'package:magento_app/presentation/widgets/snack_bar/app_snack_bar.dart';
 
@@ -64,12 +63,7 @@ class CategoryController extends GetxController with MixinController {
   }
 
   Future<void> onViewProductList(CategoryTreeModel categoryTreeModel) async {
-    // debugPrint('============$categoryId');
-    // Get.toNamed(AppRoutes.product, arguments: {
-    //   'category_id': categoryId,
-    // });
-    Get.find<MainController>().onChangedNav(3);
-    Get.find<ProductController>().category.value = categoryTreeModel;
+    Get.toNamed(AppRoutes.product, arguments: categoryTreeModel);
     await Get.find<ProductController>().onRefresh();
   }
 

@@ -115,9 +115,13 @@ class OrderDetailScreen extends GetView<OrderDetailController> {
               children: [
                 _buildInvoiceItem(
                   title: TransactionConstants.paymentMethod.tr,
-                  value: controller
-                          .orderDetail?.payment?.additionalInformation?.first ??
-                      '',
+                  value: (controller.orderDetail?.payment?.additionalInformation
+                                  ?.toString() ??
+                              '')
+                          .toUpperCase()
+                          .contains('PAY')
+                      ? "Paypal"
+                      : "Check / Money order",
                 ),
                 _buildInvoiceItem(
                   title: TransactionConstants.subTotal.tr,
@@ -147,7 +151,7 @@ class OrderDetailScreen extends GetView<OrderDetailController> {
                       style: ThemeText.bodySemibold.s18,
                     )),
                     Text(
-                      '$currencySymbol${(controller.orderDetail?.grandTotal ?? 0) + (controller.orderDetail?.taxAmount ?? 0)}',
+                      '$currencySymbol${((controller.orderDetail?.grandTotal ?? 0) + (controller.orderDetail?.taxAmount ?? 0))}',
                       style: ThemeText.bodySemibold.s18,
                     )
                   ],
@@ -289,54 +293,52 @@ class OrderDetailScreen extends GetView<OrderDetailController> {
   Widget _buildItem({
     required Items productEntity,
   }) {
-    return Container(
-      child: Padding(
-        padding: EdgeInsets.all(16.sp),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Container(
+    return Padding(
+      padding: EdgeInsets.all(16.sp),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Container(
+            height: 72.sp,
+            width: 72.sp,
+            decoration: BoxDecoration(
+              color: AppColors.grey,
+              borderRadius: BorderRadius.circular(5),
+            ),
+            child: AppImageWidget(
+              url:
+                  '${NetworkConfig.baseProductMediaUrl}${productEntity.productOption?.extensionAttributes?.customOptions?.first.optionValue ?? ''}',
               height: 72.sp,
               width: 72.sp,
-              decoration: BoxDecoration(
-                color: AppColors.grey,
-                borderRadius: BorderRadius.circular(5),
-              ),
-              child: AppImageWidget(
-                url:
-                    '${NetworkConfig.baseProductMediaUrl}${productEntity.productOption?.extensionAttributes?.customOptions?.first.optionValue ?? ''}',
-                height: 72.sp,
-                width: 72.sp,
-              ),
             ),
-            SizedBox(
-              width: 12.sp,
+          ),
+          SizedBox(
+            width: 12.sp,
+          ),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  productEntity.name ?? '',
+                  style: ThemeText.bodySemibold,
+                ),
+                SizedBox(
+                  height: 2.sp,
+                ),
+                Text(
+                  '${currencySymbols[(controller.orderDetail?.baseCurrencyCode) ?? 'USD']}${(productEntity.price ?? 0) * (productEntity.qtyShipped ?? 1)}',
+                  style: ThemeText.bodyRegular.s12,
+                ),
+                Text(
+                  '${TransactionConstants.quantity.tr}: ${productEntity.qtyShipped ?? 1}',
+                  style: ThemeText.bodyRegular.s12,
+                ),
+              ],
             ),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    productEntity.name ?? '',
-                    style: ThemeText.bodySemibold,
-                  ),
-                  SizedBox(
-                    height: 2.sp,
-                  ),
-                  Text(
-                    '${currencySymbols[(controller.orderDetail?.baseCurrencyCode) ?? 'USD']}${(productEntity.price ?? 0) * (productEntity.qtyShipped ?? 1)}',
-                    style: ThemeText.bodyRegular.s12,
-                  ),
-                  Text(
-                    '${TransactionConstants.quantity.tr}: ${productEntity.qtyShipped ?? 1}',
-                    style: ThemeText.bodyRegular.s12,
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

@@ -16,4 +16,5 @@ class AppRoutes {
   static const String checkout = '/checkout';
   static const String payment = '/payment';
   static const String message = '/message';
+  static const String paypal = '/paypal';
 }

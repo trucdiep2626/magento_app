@@ -9,7 +9,6 @@ import 'package:magento_app/presentation/journey/home/home_page.dart';
 import 'package:magento_app/presentation/journey/message/message_screen.dart';
 import 'package:magento_app/presentation/theme/export.dart';
 import 'package:magento_app/presentation/widgets/export.dart';
-
 import 'main_controller.dart';
 
 class MainScreen extends GetView<MainController> {
@@ -80,7 +79,6 @@ class MainScreen extends GetView<MainController> {
       () {
         return Row(
           mainAxisSize: MainAxisSize.max,
-          // mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             _buildBottomNavigationItemWidget(context,
                 title: titles[0],
@@ -95,44 +93,6 @@ class MainScreen extends GetView<MainController> {
             SizedBox(
               width: Get.width / 5,
             ),
-            // Expanded(
-            //   child: Stack(
-            //     children: [
-            //       _buildBottomNavigationItemWidget(context,
-            //           title: titles[2],
-            //           asset: icons[2],
-            //           isSelected: controller.rxCurrentNavIndex.value == 2,
-            //           onPressed: () => controller.onChangedNav(2)),
-            //       Positioned(
-            //         top: 4.sp,
-            //         right: 12.sp,
-            //         child: Obx(
-            //           () => Visibility(
-            //             visible: controller.totalItem.value != 0,
-            //             child: Container(
-            //               width: 22.sp,
-            //               height: 22.sp,
-            //               padding: EdgeInsets.all(2.sp),
-            //               decoration: BoxDecoration(
-            //                   shape: BoxShape.circle,
-            //                   color: AppColors.red,
-            //                   border: Border.all(
-            //                       color: AppColors.white, width: 1.5.sp)),
-            //               child: Center(
-            //                   child: FittedBox(
-            //                 fit: BoxFit.cover,
-            //                 child: Text(
-            //                   '${controller.totalItem.value}',
-            //                   style: ThemeText.bodySemibold.colorWhite,
-            //                 ),
-            //               )),
-            //             ),
-            //           ),
-            //         ),
-            //       ),
-            //     ],
-            //   ),
-            // ),
             _buildBottomNavigationItemWidget(context,
                 title: titles[3],
                 asset: icons[3],
@@ -155,7 +115,7 @@ class MainScreen extends GetView<MainController> {
       HomePage(),
       CategoryScreen(),
       const CartScreen(),
-      const MessageScreen(),
+      MessageScreen(),
       const AccountScreen()
     ];
 
@@ -215,13 +175,14 @@ class MainScreen extends GetView<MainController> {
                         color: AppColors.red,
                       ),
                       child: Center(
-                          child: FittedBox(
-                        fit: BoxFit.cover,
-                        child: Text(
-                          '${controller.totalItem.value}',
-                          style: ThemeText.bodySemibold.colorWhite,
+                        child: FittedBox(
+                          fit: BoxFit.cover,
+                          child: Text(
+                            '${controller.totalItem.value > 99 ? '99+' : controller.totalItem.value}',
+                            style: ThemeText.bodySemibold.colorWhite,
+                          ),
                         ),
-                      )),
+                      ),
                     ),
                   ),
                 ),

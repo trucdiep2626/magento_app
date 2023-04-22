@@ -5,8 +5,9 @@ import 'package:magento_app/presentation/theme/export.dart';
 import 'package:magento_app/presentation/widgets/export.dart';
 
 class AdminMessageCell extends StatelessWidget {
-  const AdminMessageCell({Key? key}) : super(key: key);
+  const AdminMessageCell({Key? key, required this.mess}) : super(key: key);
 
+  final String mess;
   // final MessageSmsModel smsModel;
   // final PeopleChat? peopleChat;
   // const SmsCell({Key? key, required this.smsModel, required this.peopleChat})
@@ -45,7 +46,7 @@ class AdminMessageCell extends StatelessWidget {
                     border: Border.all(color: AppColors.primary),
                     borderRadius: BorderRadius.circular(20.sp)),
                 child: Text(
-                  'Xin chào mọi người, tôi vừa làm cà phê xong',
+                  mess,
                   style: ThemeText.bodyRegular,
                   softWrap: true,
                 )),
@@ -60,8 +61,9 @@ class AdminMessageCell extends StatelessWidget {
 }
 
 class CustomerMessageCell extends StatelessWidget {
-  const CustomerMessageCell({Key? key}) : super(key: key);
+  const CustomerMessageCell({Key? key, required this.mess}) : super(key: key);
 
+  final String mess;
   // final MessageSmsModel smsModel;
   // final PeopleChat? peopleChat;
   // const SmsCell({Key? key, required this.smsModel, required this.peopleChat})
@@ -72,8 +74,8 @@ class CustomerMessageCell extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 8.sp),
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.end,
+        mainAxisAlignment: MainAxisAlignment.end,
         children: [
           SizedBox(
             width: 33.sp,
@@ -87,7 +89,7 @@ class CustomerMessageCell extends StatelessWidget {
                     border: Border.all(color: AppColors.primary),
                     borderRadius: BorderRadius.circular(20.sp)),
                 child: Text(
-                  'Xin chào mọi người, tôi vừa làm cà phê xong',
+                  mess,
                   style: ThemeText.bodyRegular,
                   softWrap: true,
                 )),

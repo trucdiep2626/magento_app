@@ -2,6 +2,7 @@ import 'package:magento_app/data/local_repository.dart';
 import 'package:magento_app/data/remote/account_repository.dart';
 import 'package:magento_app/domain/models/customer_model.dart';
 import 'package:magento_app/domain/models/get_all_orders_response_model.dart';
+import 'package:magento_app/domain/models/get_messages_response_model.dart';
 
 class AccountUseCase {
   final AccountRepository accountRepo;
@@ -96,6 +97,22 @@ class AccountUseCase {
       email: email,
       currentPage: currentPage,
       pageSize: pageSize,
+    );
+  }
+
+  Future<GetMessagesResponse?> getAllMessage({
+    required String customerId,
+  }) async {
+    return await accountRepo.getAllMessage(customerId: customerId);
+  }
+
+  Future<bool> sendMessage({
+    required String customerId,
+    required String message,
+  }) async {
+    return await accountRepo.sendMessage(
+      customerId: customerId,
+      message: message,
     );
   }
 }
