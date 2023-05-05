@@ -37,6 +37,45 @@ class CartController extends GetxController with MixinController {
   RxBool isSelectedAll = false.obs;
   RxInt totalPrice = 0.obs;
 
+  final couponController = TextEditingController();
+
+  final couponFocusNode = FocusNode();
+
+  RxString couponValidate = ''.obs;
+
+  RxBool couponHasFocus = false.obs;
+
+  void addCoupon() async {
+    rxLoadedList.value = LoadedType.start;
+    hideKeyboard();
+    // errorText.value = '';
+
+    var connectivityResult = await Connectivity().checkConnectivity();
+    if (connectivityResult == ConnectivityResult.none) {
+      showTopSnackBarError(context, TransactionConstants.noConnectionError.tr);
+      rxLoadedList.value = LoadedType.finish;
+      return;
+    }
+
+    if (couponController.text.trim().isNotEmpty) {
+      final result =
+          await cartUseCase.addCoupon(code: couponController.text.trim());
+
+      if (result) {
+        debugPrint('đăng ký thành công');
+        showTopSnackBar(context,
+            message: TransactionConstants.successfully.tr,
+            type: SnackBarType.done);
+        //  Get.back();
+      } else {
+        showTopSnackBarError(context,
+            'The coupon code isn\'t valid. Verify the code and try again.');
+      }
+    }
+
+    rxLoadedList.value = LoadedType.finish;
+  }
+
   onPressCreateOrder() async {
     Get.toNamed(AppRoutes.address, arguments: true);
     //buttonState.value = LoadedType.start;

@@ -1,9 +1,9 @@
 import 'package:magento_app/data/local_repository.dart';
-import 'package:magento_app/data/remote/account_repository.dart';
 import 'package:magento_app/data/remote/cart_repository.dart';
 import 'package:magento_app/domain/models/cart_information_model.dart';
 import 'package:magento_app/domain/models/customer_model.dart';
 import 'package:magento_app/domain/models/estimate_shipping_methods_model.dart';
+import 'package:magento_app/domain/models/review_model.dart';
 import 'package:magento_app/domain/models/save_shipping_method_response_model.dart';
 
 class CartUseCase {
@@ -26,6 +26,14 @@ class CartUseCase {
     String? token = getToken();
 
     return token == null ? null : (await cartRepo.createCart(token));
+  }
+
+  Future<bool> addCoupon({required String code}) async {
+    String? token = getToken();
+
+    return token == null
+        ? false
+        : (await cartRepo.addCoupon(token: token, code: code));
   }
 
   Future<bool> addToCart({
@@ -122,5 +130,25 @@ class CartUseCase {
   /// for executing the payment transaction
   Future<String?> executePayment(url, payerId, accessToken) async {
     return await cartRepo.executePayment(url, payerId, accessToken);
+  }
+
+  Future<List<ReviewModel>?> getReview({required String sku}) async {
+    return await cartRepo.getReview(sku: sku);
+  }
+
+  Future<bool> createReview({
+    required String title,
+    required String detail,
+    required String customerName,
+    required int rating,
+    required int productId,
+  }) async {
+    return await cartRepo.createReview(
+      title: title,
+      detail: detail,
+      customerName: customerName,
+      rating: rating,
+      productId: productId,
+    );
   }
 }

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:get/get.dart';
 import 'package:magento_app/common/common_export.dart';
 import 'package:magento_app/common/config/network/network_config.dart';
+import 'package:magento_app/domain/models/review_model.dart';
 import 'package:magento_app/gen/assets.gen.dart';
 import 'package:magento_app/presentation/journey/main/main_controller.dart';
 import 'package:magento_app/presentation/journey/product_detail/product_detail_controller.dart';
@@ -255,27 +257,12 @@ class ProductDetailScreen extends GetView<ProductDetailController> {
                                     },
                                   ),
                             SizedBox(height: 16.sp),
-                            Container(
-                              padding: EdgeInsets.all(8.sp),
-                              width: Get.width,
-                              color: AppColors.grey200,
-                              child: Text(
-                                TransactionConstants.description.tr,
-                                style: ThemeText.bodySemibold,
-                              ),
-                            ),
+                            _buildDescription(description?.value ?? ''),
                             SizedBox(height: 16.sp),
-                            Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 8.sp),
-                              child: HtmlWidget(
-                                description?.value ?? '',
-                                onLoadingBuilder:
-                                    (context, element, loadingProgress) =>
-                                        const AppLoadingWidget(),
-                                onErrorBuilder: (context, element, error) =>
-                                    const SizedBox.shrink(),
-                              ),
-                            )
+                            _buildAddReviewWidget(),
+                            SizedBox(height: 16.sp),
+                            _buildReviewWidget(),
+                            SizedBox(height: 16.sp),
                           ],
                         ),
                       ),
@@ -283,6 +270,180 @@ class ProductDetailScreen extends GetView<ProductDetailController> {
             ],
           );
         },
+      ),
+    );
+  }
+
+  Widget _buildDescription(String description) {
+    return Column(
+      children: [
+        Container(
+          padding: EdgeInsets.all(8.sp),
+          width: Get.width,
+          color: AppColors.grey200,
+          child: Text(
+            TransactionConstants.description.tr,
+            style: ThemeText.bodySemibold,
+          ),
+        ),
+        SizedBox(height: 16.sp),
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 8.sp),
+          child: HtmlWidget(
+            description,
+            onLoadingBuilder: (context, element, loadingProgress) =>
+                const AppLoadingWidget(),
+            onErrorBuilder: (context, element, error) =>
+                const SizedBox.shrink(),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildRatingWidget() {
+    return RatingBar.builder(
+      initialRating: controller.rating.value.toDouble(),
+      minRating: 1,
+      direction: Axis.horizontal,
+      allowHalfRating: false,
+      itemCount: 5,
+      itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
+      itemBuilder: (context, _) => const Icon(
+        Icons.star,
+        color: Colors.amber,
+      ),
+      itemSize: 30.sp,
+      onRatingUpdate: (rating) {
+        controller.rating.value = rating.round();
+      },
+    );
+  }
+
+  Widget _buildAddReviewWidget() {
+    return Column(
+      children: [
+        Container(
+          padding: EdgeInsets.all(8.sp),
+          width: Get.width,
+          color: AppColors.grey200,
+          child: Text(
+            'Add Review',
+            style: ThemeText.bodySemibold,
+          ),
+        ),
+        SizedBox(height: 16.sp),
+        Obx(() => _buildRatingWidget()),
+        SizedBox(height: 16.sp),
+        Obx(
+          () => AppTextField(
+            hintText: 'Title',
+            controller: controller.titleController,
+            keyboardType: TextInputType.text,
+            errorText: controller.titleValidate.value,
+            onChangedText: (value) => controller.onChangedTitle(),
+            onTap: () => controller.onTapTitleTextField(),
+            textInputAction: TextInputAction.next,
+            onEditingComplete: () => controller.onEditingCompleteTitle(),
+            focusNode: controller.titleFocusNode,
+          ),
+        ),
+        SizedBox(
+          height: 16.sp,
+        ),
+        Obx(
+          () => AppTextField(
+            hintText: 'Detail',
+            controller: controller.detailController,
+            errorText: controller.detailValidate.value,
+            maxLines: 5,
+            onChangedText: (value) => controller.onChangedDetail(),
+            onTap: () => controller.onTapDetailTextField(),
+            textInputAction: TextInputAction.done,
+            onEditingComplete: () => controller.onEditingCompleteDetail(),
+            focusNode: controller.detailFocusNode,
+          ),
+        ),
+        SizedBox(
+          height: 20.sp,
+        ),
+        Obx(
+          () => AppButton(
+            backgroundColor: AppColors.black,
+            title: 'Review',
+            onPressed: () => controller.addReview(),
+            loaded: controller.rxLoadedButton.value,
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildReviewWidget() {
+    return Column(
+      children: [
+        Container(
+          padding: EdgeInsets.all(8.sp),
+          width: Get.width,
+          color: AppColors.grey200,
+          child: Text(
+            'Review',
+            style: ThemeText.bodySemibold,
+          ),
+        ),
+        SizedBox(height: 16.sp),
+        ...List.generate(controller.reviews.value.length,
+            (index) => _buildReviewItem(controller.reviews[index])),
+        SizedBox(height: 16.sp),
+      ],
+    );
+  }
+
+  Widget _buildReviewItem(ReviewModel reviewModel) {
+    return Card(
+      margin: EdgeInsets.only(bottom: 16.sp),
+      child: Padding(
+        padding: EdgeInsets.all(16.sp),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // SizedBox(height: 4.sp,),
+            Row(
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                Expanded(
+                  child: Text(
+                    reviewModel.nickname ?? '',
+                    style: ThemeText.bodyMedium.s12,
+                  ),
+                ),
+                Text(
+                  '${reviewModel.ratings?.first.value ?? 0}',
+                  style: ThemeText.bodySemibold,
+                ),
+                Icon(
+                  Icons.star,
+                  color: Colors.amber,
+                  size: 16.sp,
+                )
+              ],
+            ),
+            SizedBox(
+              height: 4.sp,
+            ),
+            Text(
+              reviewModel.title ?? '',
+              style: ThemeText.bodyMedium,
+            ),
+            SizedBox(
+              height: 4.sp,
+            ),
+            Text(
+              reviewModel.detail ?? '',
+              style: ThemeText.bodyRegular.s12,
+            ),
+          ],
+        ),
       ),
     );
   }

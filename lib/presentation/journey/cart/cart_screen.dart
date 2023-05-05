@@ -115,19 +115,50 @@ class CartScreen extends GetView<CartController> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
+                AppTextField(
+                  prefixIcon: Padding(
+                    padding: EdgeInsets.only(
+                      left: 18.sp,
+                      right: 12.sp,
+                    ),
+                    child: SizedBox(
+                      width: 20.sp,
+                      height: 20.sp,
+                      child: AppImageWidget(
+                        fit: BoxFit.scaleDown,
+                        asset: Assets.images.icCoupon,
+                        color:  AppColors.grey,
+                      ),
+                    ),
+                  ),
+                  hintText: TransactionConstants.coupon.tr,
+                  controller: controller.couponController,
+                  keyboardType: TextInputType.text,
+                  borderColor: AppColors.grey300,
+                  onTap: () {
+                    controller.couponHasFocus.value = true;
+                  },
+                  textInputAction: TextInputAction.done,
+                  onEditingComplete: () {
+                    controller.couponHasFocus.value = false;
+                    controller.addCoupon();
+                  },
+                  focusNode: controller.couponFocusNode,
+                ),
                 // Row(
                 //   children: [
                 //     Text(
                 //       '${TransactionConstants.coupon.tr}: ',
                 //       style: ThemeText.bodySemibold,
                 //     ),
-                //     Expanded(
-                //       child: Text(
-                //         TransactionConstants.select.tr,
-                //         textAlign: TextAlign.end,
-                //         style: ThemeText.bodySemibold.grey400Color,
-                //       ),
-                //     ),
+                //
+                //     // Expanded(
+                //     //   child: Text(
+                //     //     TransactionConstants.select.tr,
+                //     //     textAlign: TextAlign.end,
+                //     //     style: ThemeText.bodySemibold.grey400Color,
+                //     //   ),
+                //     // ),
                 //     // Text(
                 //     //   TransactionConstants.select.tr,
                 //     //   textAlign: TextAlign.end,
@@ -138,30 +169,30 @@ class CartScreen extends GetView<CartController> {
                 //         child: AppImageWidget(
                 //           asset: Assets.images.icArrowRight,
                 //           size: 16.sp,
-                //         ))
+                //         ),)
+                //   ],
+                // ),
+                SizedBox(
+                  height: 8.sp,
+                ),
+                // Row(
+                //   children: [
+                //     Text(
+                //       '${TransactionConstants.orderTotal.tr}: ',
+                //       style: ThemeText.bodySemibold.s18,
+                //     ),
+                //     Expanded(
+                //       child: Text(
+                //         '${currencySymbols[controller.mainController.storeConfig.value.baseCurrencyCode ?? 'USD']}${controller.totalPrice.value}',
+                //         textAlign: TextAlign.end,
+                //         style: ThemeText.bodySemibold.s18,
+                //       ),
+                //     )
                 //   ],
                 // ),
                 // SizedBox(
                 //   height: 8.sp,
                 // ),
-                Row(
-                  children: [
-                    Text(
-                      '${TransactionConstants.orderTotal.tr}: ',
-                      style: ThemeText.bodySemibold.s18,
-                    ),
-                    Expanded(
-                      child: Text(
-                        '${currencySymbols[controller.mainController.storeConfig.value.baseCurrencyCode ?? 'USD']}${controller.totalPrice.value}',
-                        textAlign: TextAlign.end,
-                        style: ThemeText.bodySemibold.s18,
-                      ),
-                    )
-                  ],
-                ),
-                SizedBox(
-                  height: 8.sp,
-                ),
                 AppButton(
                   title:
                       '${TransactionConstants.checkoutButton.tr} (${totalItem})',

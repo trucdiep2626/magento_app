@@ -16,4 +16,9 @@ class ApiEndpoints {
   static String orders = '/rest/default/V1/orders';
   static String getAllMessage = '/rest/V1/lof-chatsystem/mine/myChat';
   static String sendMessage = '/rest/V1/lof-chatsystem/mine/sendChatMessage';
+  static String coupons({required String code}) =>
+      '/rest/default/V1/carts/mine/coupons/$code';
+  static String producReview({required String sku}) =>
+      '/rest/V1/products/$sku/reviews';
+  static String addReview = '/rest/V1/reviews';
 }

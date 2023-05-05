@@ -10,6 +10,7 @@ import 'package:magento_app/common/utils/translations/app_translations.dart';
 import 'package:magento_app/domain/models/cart_information_model.dart';
 import 'package:magento_app/domain/models/customer_model.dart';
 import 'package:magento_app/domain/models/estimate_shipping_methods_model.dart';
+import 'package:magento_app/domain/models/review_model.dart';
 import 'package:magento_app/domain/models/save_shipping_method_response_model.dart';
 import 'package:magento_app/presentation/widgets/export.dart';
 
@@ -144,6 +145,86 @@ class CartRepository {
       return false;
     } catch (e) {
       return false;
+    }
+  }
+
+  Future<bool> addCoupon({required String token, required String code}) async {
+    try {
+      final result = await _dio.request(
+          '${NetworkConfig.baseUrl}${ApiEndpoints.coupons(code: code)}',
+          options: Options(
+            method: 'PUT',
+            headers: <String, dynamic>{r'Authorization': 'Bearer $token'},
+          ));
+
+      if (result.statusCode == 200 && result.data is bool) {
+        return result.data;
+      }
+      return false;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  Future<bool> createReview({
+    required String title,
+    required String detail,
+    required String customerName,
+    required int rating,
+    required int productId,
+  }) async {
+    try {
+      final param = {
+        "review": {
+          "title": title,
+          "detail": detail,
+          "nickname": customerName,
+          "ratings": [
+            {"rating_name": "Rating", "value": rating},
+          ],
+          "review_entity": "product",
+          "review_status": 2,
+          "entity_pk_value": productId
+        }
+      };
+
+      final result = await _dio.request(
+          '${NetworkConfig.baseUrl}${ApiEndpoints.addReview}',
+          data: param,
+          options: Options(
+            method: 'POST',
+            headers: <String, dynamic>{r'Authorization': NetworkConfig.token},
+          ));
+
+      if (result.statusCode == 200) {
+        return true;
+      }
+      return false;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  Future<List<ReviewModel>?> getReview({required String sku}) async {
+    try {
+      final reviews = <ReviewModel>[];
+
+      final result = await _dio.request(
+          '${NetworkConfig.baseUrl}${ApiEndpoints.producReview(sku: sku)}',
+          options: Options(
+            method: 'GET',
+            headers: <String, dynamic>{r'Authorization': NetworkConfig.token},
+          ));
+
+      if (result.statusCode == 200 && result.data is List) {
+        for (var element in (result.data as List)) {
+          final review = ReviewModel.fromJson(element);
+          reviews.add(review);
+        }
+      }
+      return reviews;
+    } catch (e) {
+      return null;
     }
   }
 

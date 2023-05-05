@@ -26,16 +26,16 @@ class ProductScreen extends GetView<ProductController> {
         key: controller.scaffoldKey,
         backgroundColor: Colors.white,
         endDrawer: const DrawerWidget(),
-        body: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16.sp),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              _searchField(),
-              SizedBox(height: 8.sp),
-              _buildSortWidget(),
-              SizedBox(height: 16.sp),
-              Expanded(
+        body: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _searchField(),
+            SizedBox(height: 8.sp),
+            _buildSortWidget(),
+            SizedBox(height: 16.sp),
+            Expanded(
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16.sp),
                 child: Obx(
                   () => RefreshWidget(
                     enableLoadMore: controller.canLoadMore.value,
@@ -81,8 +81,8 @@ class ProductScreen extends GetView<ProductController> {
                   ),
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
@@ -96,13 +96,11 @@ class ProductScreen extends GetView<ProductController> {
         children: [
           AppTouchable(
             onPressed: () => Get.back(),
+            padding: EdgeInsets.all(16.sp),
             child: AppImageWidget(
               asset: Assets.images.icArrowLeft,
-              size: 18.sp,
+              size: 20.sp,
             ),
-          ),
-          SizedBox(
-            width: 8.sp,
           ),
           Expanded(
             child: AppTextField(
@@ -122,7 +120,10 @@ class ProductScreen extends GetView<ProductController> {
               onEditingComplete: () => controller.onRefresh(),
               focusNode: controller.searchFocusNode,
             ),
-          )
+          ),
+          SizedBox(
+            width: 16.sp,
+          ),
         ],
       ),
     );

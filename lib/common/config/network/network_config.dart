@@ -9,7 +9,7 @@ class NetworkConfig {
       "http://117.6.131.199:580/linhnv/ce244/pub/media";
   static String baseProductMediaUrl =
       "http://117.6.131.199:580/linhnv/ce244/pub/media/catalog/product";
-  static String token = 'Bearer y5ew0bb2430ohx3tjo6ovf72q8lc1cvo';
+  static String token = 'Bearer tbpgr3iai4894sr1ti0pfk8lkfglcbox';
 
   static String domain = "https://api.sandbox.paypal.com";
   static String clientId =
