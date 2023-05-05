@@ -8,6 +8,7 @@ import 'package:magento_app/domain/usecases/account_usecase.dart';
 import 'package:magento_app/presentation/controllers/mixin/export.dart';
 import 'package:magento_app/presentation/journey/main/main_controller.dart';
 import 'package:magento_app/presentation/widgets/export.dart';
+import 'package:magento_app/services/local_notification_service.dart';
 
 class MessageController extends GetxController with MixinController {
   Rx<LoadedType> rxLoadedList = LoadedType.start.obs;
@@ -31,10 +32,32 @@ class MessageController extends GetxController with MixinController {
       showTopSnackBarError(context, TransactionConstants.noConnectionError.tr);
       return;
     }
-
+    debugPrint('0==$messages');
     final result = await accountUseCase.getAllMessage(
         customerId: (mainController.rxCustomer.value?.id ?? 0).toString());
     if (result != null) {
+      if (result.items != null &&
+          result.items!.isNotEmpty &&
+          messages.isNotEmpty &&
+          mainController.rxCurrentNavIndex.value != 3) {
+
+        final newMessages = [...result.items!];
+        messages.forEach((oldMess) {
+          newMessages.removeWhere((element) =>
+              element.messageId?.compareTo(oldMess.messageId ?? '') == 0);
+        });
+
+        int id = 0;
+        newMessages.forEach((element) {
+
+          LocalNotificationService.setupNotification(
+              title: 'Support Chat',
+              content: element.bodyMsg ?? '',
+              notiId: id);
+          id++;
+        });
+      }
+      messages.clear();
       messages.addAll(result.items ?? []);
     }
   }

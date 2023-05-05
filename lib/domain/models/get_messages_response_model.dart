@@ -96,4 +96,9 @@ class Message {
     data['user_id'] = userId;
     return data;
   }
+
+  @override
+  String toString() {
+    return 'Message{messageId: $messageId}';
+  }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:magento_app/services/local_notification_service.dart';
 //import 'package:flutter_config/flutter_config.dart';
 
 import 'common/common_export.dart';
@@ -9,6 +10,7 @@ Future<void> main() async {
  // await FlutterConfig.loadEnvVariables();
   configLocator();
   await SharePreferencesConstants().init();
+  LocalNotificationService.initNotificationLocal();
 
   runApp(const App());
 }
