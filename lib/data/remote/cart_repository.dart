@@ -426,7 +426,7 @@ class CartRepository {
       }
       return null;
     } catch (e) {
-      rethrow;
+      return null;
     }
   }
 }

@@ -32,7 +32,6 @@ class MessageController extends GetxController with MixinController {
       showTopSnackBarError(context, TransactionConstants.noConnectionError.tr);
       return;
     }
-    debugPrint('0==$messages');
     final result = await accountUseCase.getAllMessage(
         customerId: (mainController.rxCustomer.value?.id ?? 0).toString());
     if (result != null) {
@@ -40,7 +39,6 @@ class MessageController extends GetxController with MixinController {
           result.items!.isNotEmpty &&
           messages.isNotEmpty &&
           mainController.rxCurrentNavIndex.value != 3) {
-
         final newMessages = [...result.items!];
         messages.forEach((oldMess) {
           newMessages.removeWhere((element) =>
@@ -49,7 +47,6 @@ class MessageController extends GetxController with MixinController {
 
         int id = 0;
         newMessages.forEach((element) {
-
           LocalNotificationService.setupNotification(
               title: 'Support Chat',
               content: element.bodyMsg ?? '',
