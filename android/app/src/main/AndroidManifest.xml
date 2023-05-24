@@ -2,8 +2,7 @@
     package="com.example.magento_app">
     <uses-permission android:name="android.permission.INTERNET"/>
    <application
-        android:label="magento_app"
-        android:name="${applicationName}"
+        android:label="magento_hvktmm"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

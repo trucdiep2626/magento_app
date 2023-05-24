@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:magento_app/common/common_export.dart';
+import 'package:magento_app/gen/assets.gen.dart';
 import 'package:magento_app/presentation/theme/export.dart';
+import 'package:magento_app/presentation/widgets/export.dart';
 
 import 'splash_controller.dart';
 
@@ -14,9 +17,9 @@ class SplashScreen extends GetView<SplashController> {
       child: Stack(
         children: [
           Center(
-              child: Text(
-            'SimiCart',
-            style: ThemeText.bodyStrong.s24.orange,
+              child: AppImageWidget(
+            asset: Assets.images.logo,
+            margin: EdgeInsets.all(50.sp),
           )),
         ],
       ),
