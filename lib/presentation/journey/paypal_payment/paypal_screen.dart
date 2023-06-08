@@ -43,17 +43,13 @@ class PaypalScreen extends GetView<PaypalController> {
                 } else {
                   Get.back();
                 }
-                //  Get.back();
               }
-              // if (request.url.contains(controller.cancelURL)) {
-              //  Get.back();
-              // }
               return NavigationDecision.navigate;
             },
           ),
-          // sb-napaw15891962@personal.example.com
-          // 6*g)qF<S
         );
+        // sb-napaw15891962@personal.example.com
+        // 6*g)qF<S
       } else {
         return Scaffold(
           key: _scaffoldKey,

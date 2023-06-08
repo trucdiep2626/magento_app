@@ -30,26 +30,7 @@ class LocalNotificationService {
         .resolvePlatformSpecificImplementation<
             AndroidFlutterLocalNotificationsPlugin>()!
         .requestPermission();
-    // final curentTimeZone = tz.getLocation('Asia/Ho_Chi_Minh');
-    //
-    // final scheduleTime = tz.TZDateTime(
-    //     curentTimeZone,
-    //     scheduleDateTime.year,
-    //     scheduleDateTime.month,
-    //     scheduleDateTime.day,
-    //     scheduleDateTime.hour,
-    //     scheduleDateTime.minute,
-    //     scheduleDateTime.second);
-    //
-    // final tzTimeSchedule = tz.TZDateTime.from(
-    //   scheduleTime,
-    //   curentTimeZone,
-    // );
-
-    flutterLocalNotificationsPlugin.show(
-      notiId,
-      title,
-      content,
+    flutterLocalNotificationsPlugin.show(notiId, title, content,
       NotificationDetails(
           android: AndroidNotificationDetails(
             'high_importance_channel',
@@ -69,7 +50,6 @@ class LocalNotificationService {
           )),
       payload: payload,
     );
-    debugPrint('-------Notification Added with ID: $notiId--------');
   }
 
   static onDidReceiveLocalNotification(i1, s1, s2, s3) {}

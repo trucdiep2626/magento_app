@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:magento_app/common/config/network/api_endpoints.dart';
 import 'package:magento_app/common/config/network/network_config.dart';
 import 'package:magento_app/common/utils/app_utils.dart';
+import 'package:magento_app/domain/models/country_model.dart';
 import 'package:magento_app/domain/models/customer_model.dart';
 import 'package:magento_app/domain/models/get_all_orders_response_model.dart';
 import 'package:magento_app/domain/models/get_messages_response_model.dart';
@@ -157,19 +158,19 @@ class AccountRepository {
     int currentPage = 1,
     required String email,
   }) async {
-    Map<String, dynamic> _params = {
+    Map<String, dynamic> params = {
       searchKeyPageSize: pageSize,
       searchKeyCurrentPage: currentPage,
       'searchCriteria[filterGroups][0][filters][0][field]': 'customer_email',
       'searchCriteria[filterGroups][0][filters][0][value]': email,
     };
 
-    debugPrint('=====$_params');
+    debugPrint('=====$params');
 
     try {
       final result = await _dio.request(
           '${NetworkConfig.baseUrl}${ApiEndpoints.orders}',
-          queryParameters: _params,
+          queryParameters: params,
           options: Options(
             method: 'GET',
             headers: <String, dynamic>{r'Authorization': NetworkConfig.token},
@@ -236,6 +237,29 @@ class AccountRepository {
     } catch (e) {
       debugPrint(e.toString());
       return false;
+    }
+  }
+
+  Future<List<Country>?> getCountries() async {
+    try {
+      final countries = <Country>[];
+
+      final result = await _dio.request(
+          '${NetworkConfig.baseUrl}${ApiEndpoints.getCountries}',
+          options: Options(
+            method: 'GET',
+            headers: <String, dynamic>{r'Authorization': NetworkConfig.token},
+          ));
+
+      if (result.data is List) {
+        for (var element in (result.data as List)) {
+          final country = Country.fromJson(element);
+          countries.add(country);
+        }
+      }
+      return countries;
+    } catch (e) {
+      return null;
     }
   }
 }

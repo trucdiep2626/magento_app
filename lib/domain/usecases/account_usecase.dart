@@ -1,5 +1,6 @@
 import 'package:magento_app/data/local_repository.dart';
 import 'package:magento_app/data/remote/account_repository.dart';
+import 'package:magento_app/domain/models/country_model.dart';
 import 'package:magento_app/domain/models/customer_model.dart';
 import 'package:magento_app/domain/models/get_all_orders_response_model.dart';
 import 'package:magento_app/domain/models/get_messages_response_model.dart';
@@ -114,5 +115,9 @@ class AccountUseCase {
       customerId: customerId,
       message: message,
     );
+  }
+
+  Future<List<Country>?> getCountries() async {
+    return await accountRepo.getCountries();
   }
 }

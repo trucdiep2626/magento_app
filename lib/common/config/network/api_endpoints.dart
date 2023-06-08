@@ -21,4 +21,5 @@ class ApiEndpoints {
   static String producReview({required String sku}) =>
       '/rest/V1/products/$sku/reviews';
   static String addReview = '/rest/V1/reviews';
+  static String getCountries = '/rest/default/V1/directory/countries';
 }

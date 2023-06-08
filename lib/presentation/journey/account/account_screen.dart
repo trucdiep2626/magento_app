@@ -77,8 +77,9 @@ class AccountScreen extends GetView<AccountController> {
     required String title,
     required onTap,
   }) {
-    return GestureDetector(
-      onTap: onTap,
+    return AppTouchable(
+
+      onPressed: onTap,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
